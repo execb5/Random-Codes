@@ -64,13 +64,37 @@ void Desenha(void)
 
 	desenhaEixos();
 
-	glPopMatrix();
+	// Aplica transformações geométricas e exibe as instâncias da casinha
 
-	glLoadIdentity();
+  
 
-	glTranslatef(translacaoX,translacaoY,0);
+	for(int i =0; i <casas.size();i++)
+	{
+		glPushMatrix();
 
-	desenhaCasinha();
+		glTranslatef(casas[i].getTx(), casas[i].getTy(), 0.0f);
+
+		glScalef(casas[i].getEx(), casas[i].getEy(), 1.0f);
+
+		glRotatef(casas[i].getAngulo(), 0.0f, 0.0f, 1.0f);
+
+		if (instanciaSelecionada==i)
+			glColor3f(1,1,1);
+		else
+			glColor3f(0,0,1);
+
+		desenhaCasinha();
+
+		glPopMatrix();
+	}
+
+	//glPopMatrix();
+
+	//glLoadIdentity();
+
+	//glTranslatef(translacaoX,translacaoY,0);
+
+	//desenhaCasinha();
 
 	// Define a cor de desenho: azul
 	//glColor3f(1,0,1);
@@ -151,12 +175,21 @@ void TeclasEspecias(int key, int x, int y)
 
 	if(key == GLUT_KEY_F3)
 		casas[instanciaSelecionada].decrementaAngulo();
+
 	if(key == GLUT_KEY_F4)
 		casas[instanciaSelecionada].incrementaAngulo();
+
 	if(key == GLUT_KEY_F5)
+	{
 		casas[instanciaSelecionada].incrementaEx();
+		casas[instanciaSelecionada].incrementaEy();
+	}
+
 	if(key == GLUT_KEY_F6)
-		casas[instanciaSelecionada].incrementaAngulo();
+	{
+		casas[instanciaSelecionada].decrementaEx();
+		casas[instanciaSelecionada].decrementaEy();
+	}	
 
 	glutPostRedisplay();
 }

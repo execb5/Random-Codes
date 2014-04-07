@@ -1,0 +1,1374 @@
+\documentclass[12pt]{article}
+\usepackage[brazilian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{xlop}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{morefloats}
+\usepackage{amsmath}
+\usepackage{float}
+
+\restylefloat{table}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true
+  tabsize=3
+}
+
+\sloppy
+
+\title{Algoritmos e Programação III\\ Trabalho I}
+
+\author{Matthias Oliveira de Nunes}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+\begin{abstract}
+
+Este artigo descreve alternativas de solução para o primeiro trabalho proposto pela disciplina de Algoritmos e Programação III, que consiste em descobrir o número mínimo de amoras possível para nove tripulantes. Esse número, para ser válido, precisa sofrer algumas operações e no final sua divisão pelos tripulantes deve ter resto zero. Serão apresentadas alternativas de solução, como foram implementadas e seus desempenhos na hora de execução.
+
+\end{abstract}
+
+\section{Introdução}
+
+Dentro do escopo da disciplina de Algoritmos e Programação III, o primeiro problema pode ser resumido como o seguinte: nove tripulantes pousaram em um planeta coberto por amoreiras, passaram o dia colhendo amoras, jantaram e foram dormir. No meio da noite, um dos tripulantes acorda, divide as amoras igualmente, rouba sua parte, se livra do resto da divisão e volta a dormir. Cada um dos outros tripulantes acorda e faz a mesma coisa, dividindo as amoras restantes igualmente e escondendo sua parte. Curiosamente, sempre sobra o mesmo número de amoras em todas as divisões. Pela manhã, os tripulantes dividem o que restou, mas dessa vez não teve resto na divisão.
+
+Ao final desse enunciado, foram levantadas 3 perguntas:
+
+\begin{enumerate}
+
+\item Qual o menor número possível de amoras na pilha sabendo que são nove tripulantes e a sobra de amoras é sempre igual?
+
+\item Qual a quantidade de amoras na manhã seguinte?
+
+\item Quantas amoras cada um dos tripulantes receberá?
+
+\end{enumerate}
+
+Junto a isso, foi pedido que fosse fornecido resultado para seis casos diferentes, com as sobras variando de 1 a 6. Se possível, também obter resultados para 6, 7, 8, 10, 11 ou mais tripulantes.
+
+\vspace{0.5cm}
+
+Para que fique mais claro o processo que o número deve sofrer para ser válido, será demonstrado que 25, tendo 1 como resto das divisões, para uma tripulação de 3 integrantes, é um número de amoras possível.
+
+\vspace{0.5cm}
+
+\hspace{3.0cm}\opidiv{25}{3}\qquad\opsub{25}{1}\qquad\opsub{24}{8}
+
+\vspace{0.5cm}
+
+\hspace{3.0cm}\opidiv{16}{3}\qquad\opsub{16}{1}\qquad\opsub{15}{5}
+
+\vspace{0.5cm}
+
+\hspace{3.0cm}\opidiv{10}{3}\qquad\opsub{10}{1}\qquad\opsub{9}{3}
+
+\vspace{0.5cm}
+
+\hspace{5.3cm}\opidiv{6}{3}
+
+\vspace{0.5cm}
+
+Como o resto sempre se manteve 1 e na quarta divisão foi para 0, logo esse número é válido.
+
+\vspace{0.5cm}
+
+Para resolver o problema proposto, analisaremos duas possíveis alternativas de solução, bem como suas características, optando pela segunda já que a primeira não se aplica a todos os casos. Em seguida os resultados obtidos serão apresentados, bem como as conclusões obtidas no decorrer do trabalho.
+
+\section{Primeira Solução}
+
+Depois de considerar o problema, podemos perceber que a solução mais óbvia seria utilizar um algoritmo "força bruta", isso é, ir testando de um em um até encontrar o número desejado. Para cada novo número de amoras, ele tenta fazer as divisões, sempre retirando a nona parte junto com o resto. Se o resto não se mantiver igual ele pula para tentar outro número, e se na última divisão o resto não for zero, ele também pula para tentar outro número.
+
+Tendo isso como base, um algoritmo implementando esta idéia seria parecido com este:
+
+\begin{lstlisting}
+
+pronto = FALSO
+tripulantes = 9;
+
+para amoras de tripulantes ate pronto = VERDADEIRO
+{
+  amorasPelaManha = amoras;
+  restoConstante = amoras % tripulantes;
+
+  se (restoConstante != 0)
+    para i = 1 ate tripulantes
+    {
+      restoASerDesperdicado = amorasPelaManha % tripulantes;
+
+      se (restoASerDesperdicado != restoConstante)
+        break;
+
+      porcaoIndividual = amorasPelaManha / tripulantes;
+      amorasPelaManha = amorasPelaManha - restoASerDesperdicado - porcaoIndividual;
+
+      se ((i == tripulantes) && (amorasPelaManha % tripulantes == 0))
+        pronto = VERDADEIRO;
+    }
+}
+
+\end{lstlisting}
+
+Implementando esse algoritmo foi observado os seguintes problemas:
+
+\begin{enumerate}
+
+\item Extremamente lento, já que vai de um em um até encontrar o número.
+
+\item Ele vai sempre achar o número mínimo de amoras, não podendo assim variar o resto de 1 a 6 como havia sido solicitado.
+
+\end{enumerate}
+
+Com base nessas observações, essa solução não é o suficiente para coletar todos os dados desejados, mas com ela já foi possível constar esses valores:
+
+\vspace{0.5cm}
+
+\begin{table}[H]
+
+\centering
+
+\begin{tabular}{|c|c|c|c|c|}
+
+\hline
+Tripulantes & Resto & Mínimo de Amoras & Amoras pela manhã & Tempo \\
+\hline
+6 & 5 & 46.631 & 15.600 & 0ms \\
+\hline
+7 & 1 & 823.537 & 279.930 & 16ms \\
+\hline
+8 & 7 & 16.777.167 & 5.764.752 & 277ms \\
+\hline
+9 & 1 & 387.420.481 & 134.217.720 & 6379ms \\
+\hline
+
+\end{tabular}
+\label{Tabela1}
+\caption{Força Bruta}
+
+\end{table}
+
+**O algoritmo foi implementado em C++ e rodou em cima de um Intel(R) Core(TM) i5-3210M CPU @ 2.50GHz 2.50GHz
+
+\vspace{0.5cm}
+
+Já podemos identificar um padrão apenas olhando essa tabela:
+
+\begin{enumerate}
+
+\item Números ímpares de tripulantes possuem a menor quantidade de amoras com resto um.
+
+\item Números pares de tripulantes possuem a menor quantidade de amoras com o resto sendo igual a quantidade de tripulantes menos um.
+
+\end{enumerate}
+
+Como esse algoritmo não é capaz de nos dar todas as informações necessárias, foi necessário pensar de uma maneira diferente para chegar a uma solução eficiente.
+
+\section{Segunda Solução}
+
+Uma vez que a alternativa mais simples não consegue ser flexível o suficiente para produzir todos os dados, optamos por desenvolver uma abordagem mais cuidadosa, experimentando fazer o caminho inverso ao problema. Com aqueles resultados também se tornou possível conferir se o novo algoritmo deu certo ou não.
+
+\subsection{Definição}
+
+O número de amoras pela manhã, obrigatoriamente deve ser um multiplo do número de tripulantes, já que o resto da divisão final deve ter resto zero. Com isso podemos definir esse número como \[A = i.T\] onde $A$ é o número de amoras pela manhã, $i$ seria um contador que começaria em 1 e serve para multiplicar $T$ que é a quantidade de tripulantes.
+
+Com esse número inicial, já é o suficiente para achar o próximo valor, que seria simplesmente adicionar a parcela roubada pelo último tripulante junto com o resto descartado. Essa parcela roubada pode ser definida por \[P = \frac{A}{(T-1)}\] onde $P$ é a parcela, e ela \emph{precisa} ser um número inteiro. Vamos definir o resto como $R$, e somado com a parcela ao número de amoras, se encontra o número antes do ultimo furto. \[A = A + \frac{A}{(T-1)} + R\] Se esse expressão for repetida pelo número de tripulantes, considerando que a multiplicação inicial pelo contador já obteve o valor correto, resultaria no número mínimo de amoras possível para um determinado resto $R$.
+
+É exatamente isso que o nosso algoritmo irá fazer, para cada incremento no contador, ele vai iterar a definição do próximo número enquanto as parcelas resultarem em números inteiros, e repetirá pelo número de tripulantes.
+
+\subsection{Algoritmo}
+
+\begin{lstlisting}
+
+tripulacao = 9;
+resto = 1;
+
+para i ate infinito
+{
+  amoras = i * tripulacao;
+  amorasManha = amoras;
+  pronto = VERDADEIRO;
+
+  para t ate tripulacao
+  {
+    se ((amoras % (tripulacao - 1)) != 0)
+    {
+      pronto = FALSO;
+      break;
+    }
+
+    parcela = amoras / (tripulacao - 1);
+    amoras = amoras + parcela + resto;
+  }
+
+  se (pronto = VERDADEIRO)
+  {
+    break;
+  }
+}
+
+\end{lstlisting}
+
+Pode ser observado a existência de uma variável \textbf{amorasManha}, que guarda o ultimo valor de \textbf{amoras} antes da iteração.  Com isso, no final da execução, se obtém ambos os valores, amoras pela manhã e o número mínimo de amoras possível.
+
+Foi pedido na especificação a quantidade que cada tripulante recebe. Com o número já encontrado, é muito simples de obter essas informações. Um laço apenas fazendo o processo inverso do algoritmo e mandando sair na tela, garante os dados.
+
+\begin{lstlisting}
+
+para j ate tripulacao
+{
+  print("T" + j + ": " + (amoras/tripulacao + amorasManha/tripulacao));
+  amoras = amoras - amoras/tripulacao - resto;
+}
+
+\end{lstlisting}
+
+Um exemplo de saída, com 9 tripulantes e resto se mantendo em 1:
+
+\begin{lstlisting}
+
+T1: 57959800
+T2: 53176831
+T3: 48925303
+T4: 45146167
+T5: 41786935
+T6: 38800951
+T7: 36146743
+T8: 33787447
+T9: 31690295
+
+\end{lstlisting}
+
+\section{Resultados}
+
+O algoritmo foi implementado em Java e rodou em cima de um Intel(R) Core(TM) i5-3210M CPU @ 2.50GHz 2.50GHz, foram obtidos os seguintes resultados:
+
+\begin{table}[H]
+
+\centering
+
+\begin{tabular}{|c|c|c|c|c|}
+
+\hline
+Tripulantes & Resto & Mínimo de Amoras & Amoras pela manhã & Tempo \\
+\hline
+6 & 1 & 233.275 & 78.120 & 0ms \\
+\cline{2-5}
+& 2 & 186.614 & 62.490 & 1ms\\
+\cline{2-5}
+& 3 & 139.953 & 46.860 & 1ms \\
+\cline{2-5}
+& 4 & 93.292 & 31.230 & 0ms \\
+\cline{2-5}
+& 5 & 46.631 & 15.600 & 2ms \\
+\hline
+7 & 1 & 823.537 & 279.930 & 4ms \\
+\cline{2-5}
+& 2 & 1.647.074 & 559.860 & 6ms \\
+\cline{2-5}
+& 3 & 2.470.611 & 839.790 & 3ms \\
+\cline{2-5}
+& 4 & 3.294.148 & 1.119.720 & 0ms \\
+\cline{2-5}
+& 5 & 4.117.685 & 1.399.650 & 1ms \\
+\cline{2-5}
+& 6 & 4.941.222 & 1.679.580 & 1ms \\
+\hline
+8 & 1 & 117.440.505 & 40.353.600 & 22ms \\
+\cline{2-5}
+& 2 & 100.663.282 & 34.588.792 & 28ms \\
+\cline{2-5}
+& 3 & 83.886.059 & 28.823.984 & 14ms \\
+\cline{2-5}
+& 4 & 67.108.836 & 23.059.176 & 11ms \\
+\cline{2-5}
+& 5 & 50.331.613 & 17.294.368 & 9ms \\
+\cline{2-5}
+& 6 & 33.554.390 & 11.529.560 & 6ms \\
+\hline
+9 & 1 & 387.420.481 & 134.217.720 & 34ms \\
+\cline{2-5}
+& 2 & 774.840.962 & 268.435.440 & 77ms \\
+\cline{2-5}
+& 3 & 1.162.261.443 & 402.653.160 & 100ms \\
+\cline{2-5}
+& 4 & 1.549.681.924 & 536.870.880 & 135ms \\
+\cline{2-5}
+& 5 & 1.937.102.405 & 671.088.600 & 163ms \\
+\cline{2-5}
+& 6 & 2.324.522.886 & 805.306.320 & 198ms \\
+\hline
+10 & 1 & 89.999.999.991 & 31.381.059.600 & 8222ms \\
+\cline{2-5}
+& 2 & 79.999.999.982 & 27.894.275.190 & 8203ms \\
+\cline{2-5}
+& 3 & 69.999.999.973 & 24.407.490.780 & 7158ms \\
+\cline{2-5}
+& 4 & 59.999.999.964 & 20.920.706.370 & 6143ms \\
+\cline{2-5}
+& 5 & 49.999.999.955 & 17.433.921.960 & 5121ms \\
+\cline{2-5}
+& 6 & 39.999.999.946 & 13.947.137.550 & 4108ms \\
+\hline
+11 & 1 & 285.311.670.601 & 99.999.999.990 & 22316ms \\
+\cline{2-5}
+& 2 & 570.623.341.202 & 199.999.999.980 & 55752ms \\
+\cline{2-5}
+& 3 & 855.935.011.803 & 299.999.999.970 & 83783ms \\
+\cline{2-5}
+& 4 & 1.141.246.682.404 & 399.999.999.960 & 113216ms \\
+\cline{2-5}
+& 5 & 1.426.558.353.005 & 499.999.999.950 & 140287ms \\
+\cline{2-5}
+& 6 & 1.711.870.023.606 & 599.999.999.940 & 169716ms \\
+\hline
+
+\end{tabular}
+\label{Tabela2}
+\caption{Mínimo de amoras}
+
+\end{table}
+
+\begin{table}[H]
+
+\centering
+
+\begin{tabular}{|c|c|c|}
+
+\hline
+Resto & Tripulante & Quantidade de amoras por tripulante \\
+\hline
+1 & T1 & 51.899 \\
+\cline{2-3}
+& T2 & 45.419 \\
+\cline{2-3}
+& T3 & 40.019 \\
+\cline{2-3}
+& T4 & 35.519 \\
+\cline{2-3}
+& T5 & 31.769 \\
+\cline{2-3}
+& T6 & 28.644 \\
+\hline
+2 & T1 & 41.517 \\
+\cline{2-3}
+& T2 & 36.333 \\
+\cline{2-3}
+& T3 & 32.013 \\
+\cline{2-3}
+& T4 & 28.413 \\
+\cline{2-3}
+& T5 & 25.413 \\
+\cline{2-3}
+& T6 & 22.913 \\
+\hline
+3 & T1 & 31.135 \\
+\cline{2-3}
+& T2 & 27.247 \\
+\cline{2-3}
+& T3 & 24.007 \\
+\cline{2-3}
+& T4 & 21.307 \\
+\cline{2-3}
+& T5 & 19.057 \\
+\cline{2-3}
+& T6 & 17.182 \\
+\hline 
+4 & T1 & 20.753 \\
+\cline{2-3}
+& T2 & 18.161 \\
+\cline{2-3}
+& T3 & 16.001 \\
+\cline{2-3}
+& T4 & 14.201 \\
+\cline{2-3}
+& T5 & 12.701 \\
+\cline{2-3}
+& T6 & 11.451 \\
+\hline
+5 & T1 & 10.371 \\
+\cline{2-3}
+& T2 & 9.075 \\
+\cline{2-3}
+& T3 & 7.995 \\
+\cline{2-3}
+& T4 & 7.095 \\
+\cline{2-3}
+& T5 & 6.345 \\
+\cline{2-3}
+& T6 & 5.720 \\
+\hline
+
+\end{tabular}
+\label{Tabela3}
+\caption{Amoras para 6 tripulantes}
+
+\end{table}
+
+\begin{table}[H]
+
+\centering
+
+\begin{tabular}{|c|c|c|}
+
+\hline
+Resto & Tripulante & Quantidade de amoras por tripulante \\
+\hline
+1 & T1 & 157.638 \\
+\cline{2-3}
+& T2 & 140.831 \\
+\cline{2-3}
+& T3 & 126.425 \\
+\cline{2-3}
+& T4 & 114.077 \\
+\cline{2-3}
+& T5 & 103.493 \\
+\cline{2-3}
+& T6 & 94.421 \\
+\cline{2-3}
+& T7 & 86.645 \\
+\hline
+2 & T1 & 315.276 \\
+\cline{2-3}
+& T2 & 281.662 \\
+\cline{2-3}
+& T3 & 252.850 \\
+\cline{2-3}
+& T4 & 228.154 \\
+\cline{2-3}
+& T5 & 206.986 \\
+\cline{2-3}
+& T6 & 188.842 \\
+\cline{2-3}
+& T7 & 173.290 \\
+\hline 
+3 & T1 & 472.914 \\
+\cline{2-3}
+& T2 & 422.493 \\
+\cline{2-3}
+& T3 & 379.275 \\
+\cline{2-3}
+& T4 & 342.231 \\
+\cline{2-3}
+& T5 & 310.479 \\
+\cline{2-3}
+& T6 & 283.263 \\
+\cline{2-3}
+& T7 & 259.935 \\
+\hline
+4 & T1 & 630.552 \\
+\cline{2-3}
+& T2 & 563.324 \\
+\cline{2-3}
+& T3 & 505.700 \\
+\cline{2-3}
+& T4 & 456.308 \\
+\cline{2-3}
+& T5 & 413.972 \\
+\cline{2-3}
+& T6 & 377.684 \\
+\cline{2-3}
+& T7 & 346.580 \\
+\hline 
+5 & T1 & 788.190 \\
+\cline{2-3}
+& T2 & 704.155 \\
+\cline{2-3}
+& T3 & 632.125 \\
+\cline{2-3}
+& T4 & 570.385 \\
+\cline{2-3}
+& T5 & 517.465 \\
+\cline{2-3}
+& T6 & 472.105 \\
+\cline{2-3}
+& T7 & 433.225 \\
+\hline
+6 & T1 & 945.828 \\
+\cline{2-3}
+& T2 & 844.986 \\
+\cline{2-3}
+& T3 & 758.550 \\
+\cline{2-3}
+& T4 & 684.462 \\
+\cline{2-3}
+& T5 & 620.958 \\
+\cline{2-3}
+& T6 & 566.526 \\
+\cline{2-3}
+& T7 & 519.870 \\
+\hline
+
+\end{tabular}
+\label{Tabela4}
+\caption{Amoras para 7 tripulantes}
+
+\end{table}
+
+\begin{table}[H]
+
+\centering
+
+\begin{tabular}{|c|c|}
+
+\hline
+Tripulante & Quantidade de amoras por tripulante \\
+\hline
+T1 & 19.724.263 \\
+\hline
+T2 & 17.889.255 \\
+\hline
+T3 & 16.283.623 \\
+\hline
+T4 & 14.878.695 \\
+\hline
+T5 & 13.649.383 \\
+\hline
+T6 & 12.573.735 \\
+\hline
+T7 & 11.632.543 \\
+\hline
+T8 & 10.809.000 \\
+\hline
+
+\end{tabular}
+\label{Tabela5}
+\caption{Amoras para 8 tripulantes com resto 1}
+
+\end{table}
+
+\begin{table}[H]
+
+\centering
+
+\begin{tabular}{|c|c|}
+
+\hline
+Tripulante & Quantidade de amoras por tripulante \\
+\hline
+T1 & 16.906.509 \\
+\hline
+T2 & 15.333.645 \\
+\hline
+T3 & 13.957.389 \\
+\hline
+T4 & 12.753.165 \\
+\hline
+T5 & 11.699.469 \\
+\hline
+T6 & 10.777.485 \\
+\hline
+T7 & 9.970.749 \\
+\hline
+T8 & 9.264.855 \\
+\hline
+
+\end{tabular}
+\label{Tabela6}
+\caption{Amoras para 8 tripulantes com resto 2}
+
+\end{table}
+
+\begin{table}[H]
+
+\centering
+
+\begin{tabular}{|c|c|}
+
+\hline
+Tripulante & Quantidade de amoras por tripulante \\
+\hline
+T1 & 140.887.55 \\
+\hline
+T2 & 127.780.35 \\
+\hline
+T3 & 116.311.55 \\
+\hline
+T4 & 10.627.635 \\
+\hline
+T5 & 9.749.555 \\
+\hline
+T6 & 8.981.235 \\
+\hline
+T7 & 8.308.955 \\
+\hline
+T8 & 7.720.710 \\
+\hline
+
+\end{tabular}
+\label{Tabela7}
+\caption{Amoras para 8 tripulantes com resto 3}
+
+\end{table}
+
+\begin{table}[H]
+
+\centering
+
+\begin{tabular}{|c|c|}
+
+\hline
+Tripulante & Quantidade de amoras por tripulante \\
+\hline
+T1 & 11.271.001 \\
+\hline
+T2 & 10.222.425 \\
+\hline
+T3 & 9.304.921 \\
+\hline
+T4 & 8.502.105 \\
+\hline
+T5 & 7.799.641 \\
+\hline
+T6 & 7.184.985 \\
+\hline
+T7 & 6.647.161 \\
+\hline
+T8 & 6.176.565 \\
+\hline
+
+\end{tabular}
+\label{Tabela8}
+\caption{Amoras para 8 tripulantes com resto 4}
+
+\end{table}
+
+\begin{table}[H]
+
+\centering
+
+\begin{tabular}{|c|c|}
+
+\hline
+Tripulante & Quantidade de amoras por tripulante \\
+\hline
+T1 & 8.453.247 \\
+\hline
+T2 & 7.666.815 \\
+\hline
+T3 & 6.978.687 \\
+\hline
+T4 & 6.376.575 \\
+\hline
+T5 & 5.849.727 \\
+\hline
+T6 & 5.388.735 \\
+\hline
+T7 & 4.985.367 \\
+\hline
+T8 & 4.632.420 \\
+\hline
+
+\end{tabular}
+\label{Tabela9}
+\caption{Amoras para 8 tripulantes com resto 5}
+
+\end{table}
+
+\begin{table}[H]
+
+\centering
+
+\begin{tabular}{|c|c|}
+
+\hline
+Tripulante & Quantidade de amoras por tripulante \\
+\hline
+T1 & 5.635.493 \\
+\hline
+T2 & 5.111.205 \\
+\hline
+T3 & 4.652.453 \\
+\hline
+T4 & 4.251.045 \\
+\hline
+T5 & 3.899.813 \\
+\hline
+T6 & 3.592.485 \\
+\hline
+T7 & 3.323.573 \\
+\hline
+T8 & 3.088.275 \\
+\hline
+
+\end{tabular}
+\label{Tabela10}
+\caption{Amoras para 8 tripulantes com resto 6}
+
+\end{table}
+
+\begin{table}[H]
+
+\centering
+
+\begin{tabular}{|c|c|}
+
+\hline
+Tripulante & Quantidade de amoras por tripulante \\
+\hline
+T1 & 57.959.800 \\
+\hline
+T2 & 53.176.831 \\
+\hline
+T3 & 48.925.303 \\
+\hline
+T4 & 45.146.167 \\
+\hline
+T5 & 41.786.935 \\
+\hline
+T6 & 38.800.951 \\
+\hline
+T7 & 36.146.743 \\
+\hline
+T8 & 33.787.447 \\
+\hline
+T9 & 31.690.295 \\
+\hline
+
+\end{tabular}
+\label{Tabela11}
+\caption{Amoras para 9 tripulantes com resto 1}
+
+\end{table}
+\begin{table}[H]
+
+\centering
+
+\begin{tabular}{|c|c|}
+
+\hline
+Tripulante & Quantidade de amoras por tripulante \\
+\hline
+T1 & 115.919.600 \\
+\hline
+T2 & 106.353.662 \\
+\hline
+T3 & 97.850.606 \\
+\hline
+T4 & 90.292.334 \\
+\hline
+T5 & 83.573.870 \\
+\hline
+T6 & 77.601.902 \\
+\hline
+T7 & 72.293.486 \\
+\hline
+T8 & 67.574.894 \\
+\hline
+T9 & 63.380.590 \\
+\hline
+
+\end{tabular}
+\label{Tabela12}
+\caption{Amoras para 9 tripulantes com resto 2}
+
+\end{table}
+
+\begin{table}[H]
+
+\centering
+
+\begin{tabular}{|c|c|}
+
+\hline
+Tripulante & Quantidade de amoras por tripulante \\
+\hline
+T1 & 173.879.400 \\
+\hline
+T2 & 159.530.493 \\
+\hline
+T3 & 146.775.909 \\
+\hline
+T4 & 135.438.501 \\
+\hline
+T5 & 125.360.805 \\
+\hline
+T6 & 116.402.853 \\
+\hline
+T7 & 108.440.229 \\
+\hline
+T8 & 101.362.341 \\
+\hline
+T9 & 95.070.885 \\
+\hline
+
+\end{tabular}
+\label{Tabela13}
+\caption{Amoras para 9 tripulantes com resto 3}
+
+\end{table}
+
+\begin{table}[H]
+
+\centering
+
+\begin{tabular}{|c|c|}
+
+\hline
+Tripulante & Quantidade de amoras por tripulante \\
+\hline
+T1 & 231.839.200 \\
+\hline
+T2 & 212.707.324 \\
+\hline
+T3 & 195.701.212 \\
+\hline
+T4 & 180.584.668 \\
+\hline
+T5 & 167.147.740 \\
+\hline
+T6 & 155.203.804 \\
+\hline
+T7 & 144.586.972 \\
+\hline
+T8 & 135.149.788 \\
+\hline
+T9 & 126.761.180 \\
+\hline
+
+\end{tabular}
+\label{Tabela14}
+\caption{Amoras para 9 tripulantes com resto 4}
+
+\end{table}
+
+\begin{table}[H]
+
+\centering
+
+\begin{tabular}{|c|c|}
+
+\hline
+Tripulante & Quantidade de amoras por tripulante \\
+\hline
+T1 & 289.799.000 \\
+\hline
+T2 & 265.884.155 \\
+\hline
+T3 & 244.626.515 \\
+\hline
+T4 & 225.730.835 \\
+\hline
+T5 & 208.934.675 \\
+\hline
+T6 & 194.004.755 \\
+\hline
+T7 & 180.733.715 \\
+\hline
+T8 & 168.937.235 \\
+\hline
+T9 & 158.451.475 \\
+\hline
+
+\end{tabular}
+\label{Tabela15}
+\caption{Amoras para 9 tripulantes com resto 5}
+
+\end{table}
+
+\begin{table}[H]
+
+\centering
+
+\begin{tabular}{|c|c|}
+
+\hline
+Tripulante & Quantidade de amoras por tripulante \\
+\hline
+T1 & 347.758.800 \\
+\hline
+T2 & 319.060.986 \\
+\hline
+T3 & 293.551.818 \\
+\hline
+T4 & 270.877.002 \\
+\hline
+T5 & 250.721.610 \\
+\hline
+T6 & 232.805.706 \\
+\hline
+T7 & 216.880.458 \\
+\hline
+T8 & 202.724.682 \\
+\hline
+T9 & 190.141.770 \\
+\hline
+
+\end{tabular}
+\label{Tabela16}
+\caption{Amoras para 9 tripulantes com resto 6}
+
+\end{table}
+
+\begin{table}[H]
+
+\centering
+
+\begin{tabular}{|c|c|}
+
+\hline
+Tripulante & Quantidade de amoras por tripulante \\
+\hline
+T1 & 12.138.105.959 \\
+\hline
+T2 & 11.238.105.959 \\
+\hline
+T3 & 10.428.105.959 \\
+\hline
+T4 & 9.699.105.959 \\
+\hline
+T5 & 9.043.005.959 \\
+\hline
+T6 & 8.452.515.959 \\
+\hline
+T7 & 7.921.074.959 \\
+\hline
+T8 & 7.442.778.059 \\
+\hline
+T9 & 7.012.310.849 \\
+\hline
+T10 & 6.624.890.360 \\
+\hline
+
+\end{tabular}
+\label{Tabela17}
+\caption{Amoras para 10 tripulantes com resto 1}
+
+\end{table}
+
+\begin{table}[H]
+
+\centering
+
+\begin{tabular}{|c|c|}
+
+\hline
+Tripulante & Quantidade de amoras por tripulante \\
+\hline
+T1 & 10.789.427.517 \\
+\hline
+T2 & 9.989.427.517 \\
+\hline
+T3 & 9.269.427.517 \\
+\hline
+T4 & 8.621.427.517 \\
+\hline
+T5 & 8.038.227.517 \\
+\hline
+T6 & 7.513.347.517 \\
+\hline
+T7 & 7.040.955.517 \\
+\hline
+T8 & 6.615.802.717 \\
+\hline
+T9 & 6.233.165.197 \\
+\hline
+T10 & 5.888.791.429 \\
+\hline
+
+\end{tabular}
+\label{Tabela18}
+\caption{Amoras para 10 tripulantes com resto 2}
+
+\end{table}
+
+\begin{table}[H]
+
+\centering
+
+\begin{tabular}{|c|c|}
+
+\hline
+Tripulante & Quantidade de amoras por tripulante \\
+\hline
+T1 & 9.440.749.075 \\
+\hline
+T2 & 8.740.749.075 \\
+\hline
+T3 & 8.110.749.075 \\
+\hline
+T4 & 7.543.749.075 \\
+\hline
+T5 & 7.033.449.075 \\
+\hline
+T6 & 6.574.179.075 \\
+\hline
+T7 & 6.160.836.075 \\
+\hline
+T8 & 5.788.827.375 \\
+\hline
+T9 & 5.454.019.545 \\
+\hline
+T10 & 5.152.692.498 \\
+\hline
+
+\end{tabular}
+\label{Tabela19}
+\caption{Amoras para 10 tripulantes com resto 3}
+
+\end{table}
+
+\begin{table}[H]
+
+\centering
+
+\begin{tabular}{|c|c|}
+
+\hline
+Tripulante & Quantidade de amoras por tripulante \\
+\hline
+T1 & 8.092.070.633 \\
+\hline
+T2 & 7.492.070.633 \\
+\hline
+T3 & 6.952.070.633 \\
+\hline
+T4 & 6.466.070.633 \\
+\hline
+T5 & 6.028.670.633 \\
+\hline
+T6 & 5.635.010.633 \\
+\hline
+T7 & 5.280.716.633 \\
+\hline
+T8 & 4.961.852.033 \\
+\hline
+T9 & 4.674.873.893 \\
+\hline
+T10 & 4.416.593.567 \\
+\hline
+
+\end{tabular}
+\label{Tabela20}
+\caption{Amoras para 10 tripulantes com resto 4}
+
+\end{table}
+
+\begin{table}[H]
+
+\centering
+
+\begin{tabular}{|c|c|}
+
+\hline
+Tripulante & Quantidade de amoras por tripulante \\
+\hline
+T1 & 6.743.392.191 \\
+\hline
+T2 & 6.243.392.191 \\
+\hline
+T3 & 5.793.392.191 \\
+\hline
+T4 & 5.388.392.191 \\
+\hline
+T5 & 5.023.892.191 \\
+\hline
+T6 & 4.695.842.191 \\
+\hline
+T7 & 4.400.597.191 \\
+\hline
+T8 & 4.134.876.691 \\
+\hline
+T9 & 3.895.728.241 \\
+\hline
+T10 & 3.680.494.636 \\
+\hline
+
+\end{tabular}
+\label{Tabela21}
+\caption{Amoras para 10 tripulantes com resto 5}
+
+\end{table}
+
+\begin{table}[H]
+
+\centering
+
+\begin{tabular}{|c|c|}
+
+\hline
+Tripulante & Quantidade de amoras por tripulante \\
+\hline
+T1 & 5.394.713.749 \\
+\hline
+T2 & 4.994.713.749 \\
+\hline
+T3 & 4.634.713.749 \\
+\hline
+T4 & 4.310.713.749 \\
+\hline
+T5 & 4.019.113.749 \\
+\hline
+T6 & 3.756.673.749 \\
+\hline
+T7 & 3.520.477.749 \\
+\hline
+T8 & 3.307.901.349 \\
+\hline
+T9 & 3.116.582.589 \\
+\hline
+T10 & 2.944.395.705 \\
+\hline
+
+\end{tabular}
+\label{Tabela22}
+\caption{Amoras para 10 tripulantes com resto 6}
+
+\end{table}
+
+\begin{table}[H]
+
+\centering
+
+\begin{tabular}{|c|c|}
+
+\hline
+Tripulante & Quantidade de amoras por tripulante \\
+\hline
+T1 & 35.028.333.690 \\
+\hline
+T2 & 32.670.385.999 \\
+\hline
+T3 & 30.526.797.189 \\
+\hline
+T4 & 28.578.080.089 \\
+\hline
+T5 & 26.806.519.089 \\
+\hline
+T6 & 25.196.009.089 \\
+\hline
+T7 & 23.731.909.089 \\
+\hline
+T8 & 22.400.909.089 \\
+\hline
+T9 & 21.190.909.089 \\
+\hline
+T10 & 20.090.909.089 \\
+\hline
+T11 & 19.090.909.089 \\
+\hline
+
+\end{tabular}
+\label{Tabela23}
+\caption{Amoras para 11 tripulantes com resto 1}
+
+\end{table}
+
+\begin{table}[H]
+
+\centering
+
+\begin{tabular}{|c|c|}
+
+\hline
+Tripulante & Quantidade de amoras por tripulante \\
+\hline
+T1 & 70.056.667.380 \\
+\hline
+T2 & 65.340.771.998 \\
+\hline
+T3 & 61.053.594.378 \\
+\hline
+T4 & 57.156.160.178 \\
+\hline
+T5 & 53.613.038.178 \\
+\hline
+T6 & 50.392.018.178 \\
+\hline
+T7 & 47.463.818.178 \\
+\hline
+T8 & 44.801.818.178 \\
+\hline
+T9 & 42.381.818.178 \\
+\hline
+T10 & 40.181.818.178 \\
+\hline
+T11 & 38.181.818.178 \\
+\hline
+
+\end{tabular}
+\label{Tabela24}
+\caption{Amoras para 11 tripulantes com resto 2}
+
+\end{table}
+
+\begin{table}[H]
+
+\centering
+
+\begin{tabular}{|c|c|}
+
+\hline
+Tripulante & Quantidade de amoras por tripulante \\
+\hline
+T1 & 105.085.001.070 \\
+\hline
+T2 & 98.011.157.997 \\
+\hline
+T3 & 91.580.391.567 \\
+\hline
+T4 & 85.734.240.267 \\
+\hline
+T5 & 80.419.557.267 \\
+\hline
+T6 & 75.588.027.267 \\
+\hline
+T7 & 71.195.727.267 \\
+\hline
+T8 & 67.202.727.267 \\
+\hline
+T9 & 63.572.727.267 \\
+\hline
+T10 & 60.272.727.267 \\
+\hline
+T11 & 57.272.727.267 \\
+\hline
+
+\end{tabular}
+\label{Tabela25}
+\caption{Amoras para 11 tripulantes com resto 3}
+
+\end{table}
+
+\begin{table}[H]
+
+\centering
+
+\begin{tabular}{|c|c|}
+
+\hline
+Tripulante & Quantidade de amoras por tripulante \\
+\hline
+T1 & 140.113.334.760 \\
+\hline
+T2 & 130.681.543.996 \\
+\hline
+T3 & 122.107.188.756 \\
+\hline
+T4 & 114.312.320.356 \\
+\hline
+T5 & 107.226.076.356 \\
+\hline
+T6 & 100.784.036.356 \\
+\hline
+T7 & 94.927.636.356 \\
+\hline
+T8 & 89.603.636.356 \\
+\hline
+T9 & 84.763.636.356 \\
+\hline
+T10 & 80.363.636.356 \\
+\hline
+T11 & 76.363.636.356 \\
+\hline
+
+\end{tabular}
+\label{Tabela26}
+\caption{Amoras para 11 tripulantes com resto 4}
+
+\end{table}
+
+\begin{table}[H]
+
+\centering
+
+\begin{tabular}{|c|c|}
+
+\hline
+Tripulante & Quantidade de amoras por tripulante \\
+\hline
+T1 & 175.141.668.450 \\
+\hline
+T2 & 163.351.929.995 \\
+\hline
+T3 & 152.633.985.945 \\
+\hline
+T4 & 142.890.400.445 \\
+\hline
+T5 & 134.032.595.445 \\
+\hline
+T6 & 125.980.045.445 \\
+\hline
+T7 & 118.659.545.445 \\
+\hline
+T8 & 112.004.545.445 \\
+\hline
+T9 & 105.954.545.445 \\
+\hline
+T10 & 100.454.545.445 \\
+\hline
+T11 & 95.454.545.445 \\
+\hline
+
+\end{tabular}
+\label{Tabela27}
+\caption{Amoras para 11 tripulantes com resto 5}
+
+\end{table}
+
+\begin{table}[H]
+
+\centering
+
+\begin{tabular}{|c|c|}
+
+\hline
+Tripulante & Quantidade de amoras por tripulante \\
+\hline
+T1 & 210.170.002.140 \\
+\hline
+T2 & 196.022.315.994 \\
+\hline
+T3 & 183.160.783.134 \\
+\hline
+T4 & 171.468.480.534 \\
+\hline
+T5 & 160.839.114.534 \\
+\hline
+T6 & 151.176.054.534 \\
+\hline
+T7 & 142.391.454.534 \\
+\hline
+T8 & 134.405.454.534 \\
+\hline
+T9 & 127.145.454.534 \\
+\hline
+T10 & 120.545.454.534 \\
+\hline
+T11 & 114.545.454.534 \\
+\hline
+
+\end{tabular}
+\label{Tabela28}
+\caption{Amoras para 11 tripulantes com resto 6}
+
+\end{table}
+
+\section{Conclusões}
+
+A solução inicial, foi o primeiro passo para que pudéssemos entender o problema em mãos, e serviu para abrir caminho até a solução definitiva. Essa se mostrou muito mais eficiente, embora tenha exigido uma abordagem menos intuitiva já que resolve o problema de trás para frente. O esperto dele, é que a cada incrementada no contador, da um salto enorme no número mínimo de amoras possível, que no primeiro algoritmo, ia de um a um.
+
+Embora não tenha sido mostrado nesse artigo, foi feito testes para 11 e 12 tripulantes, o algoritmo não respondeu bem, levando algumas horas para achar a solução.
+
+Acreditamos ter desenvolvido uma solução interessante e simples de ser implementada, porém, não eficiente para grandes quantidades de tripulantes. Gostaríamos de ter tentado achar uma fórmula que representasse o problema. Caso tivesse sido encontrada, o resultado seria imediato para qualquer número de tripulantes.
+
+\end{document}

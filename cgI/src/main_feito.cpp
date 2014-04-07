@@ -2,6 +2,7 @@
 #include <GL/glut.h>
 #include "Instancia.h"
 #include <vector>
+#include <iostream>
 
 using namespace std;
 
@@ -9,7 +10,13 @@ vector<Instancia> casas;
 int instanciaSelecionada = 0;
 
 float translacaoX=0, translacaoY=0;
-float left, right, top, bottom, panX, panY;
+float lleft, rright, top, bottom, panX, panY;
+
+void desenhaTexto(void *font, char *string)
+{
+	while(*string)
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, *string++);
+}
 
 void desenhaEixos()
 {
@@ -17,10 +24,10 @@ void desenhaEixos()
 	glLineWidth(1);
 
 	glBegin(GL_LINES);
-		glVertex2f(left,0.0);
-		glVertex2f(right, 0.0);
-		glVertex2f(0.0,bottom);
-		glVertex2f(0.0,top);
+		glVertex2f(lleft + panX,0.0 + panY);
+		glVertex2f(rright + panX, 0.0 + panY);
+		glVertex2f(0.0 + panX,bottom + panY);
+		glVertex2f(0.0 + panX,top + panY);
 	glEnd();
 }
 
@@ -51,12 +58,14 @@ void Desenha(void)
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluOrtho2D (left+panX, right+panX, bottom+panY, top+panY);
+	gluOrtho2D (lleft+panX, rright+panX, bottom+panY, top+panY);
 	glMatrixMode(GL_MODELVIEW);
 
 	// Limpa a janela de visualização com a cor branca
-	glClearColor(0,0,0,1);
+	glClearColor(0,0,0,0);
 	glClear(GL_COLOR_BUFFER_BIT);
+
+	glColor3f(0,0,1);
 
 	glPushMatrix();
 
@@ -64,9 +73,7 @@ void Desenha(void)
 
 	desenhaEixos();
 
-	// Aplica transformações geométricas e exibe as instâncias da casinha
-
-  
+	glPopMatrix();
 
 	for(int i =0; i <casas.size();i++)
 	{
@@ -88,25 +95,21 @@ void Desenha(void)
 		glPopMatrix();
 	}
 
-	//glPopMatrix();
+	glColor3f(1,1,1);
 
-	//glLoadIdentity();
+	glPushMatrix();
 
-	//glTranslatef(translacaoX,translacaoY,0);
+	glTranslatef(0,0,0);
+	glScalef(0.2,0.2,0.2);
+	glLineWidth(100);
+	glRasterPos2f(0,0);
 
-	//desenhaCasinha();
+	desenhaTexto(GLUT_BITMAP_TIMES_ROMAN_24, "Casinha");
 
-	// Define a cor de desenho: azul
-	//glColor3f(1,0,1);
+	glPopMatrix();
 
-	// Desenha um triângulo no centro da janela
-	//	glBegin(GL_TRIANGLES);
-	//		glVertex3f(-0.5,-0.5,0);
-	//		glVertex3f( 0.0, 0.5,0);
-	//		glVertex3f( 0.5,-0.5,0);
-	//	glEnd();
+	glutSwapBuffers();
 
-	//Executa os comandos OpenGL
 	glFlush();
 }
 
@@ -114,7 +117,7 @@ void Desenha(void)
 void Teclado (unsigned char key, int x, int y)
 {
 	if (key == 27)
-	exit(0);
+		exit(0);
 }
 
 void TeclasEspecias(int key, int x, int y)
@@ -132,15 +135,15 @@ void TeclasEspecias(int key, int x, int y)
 		casas[instanciaSelecionada].decrementaTy();
 
 	if(key == GLUT_KEY_END){
-		left-=0.1;
-		right+=0.1;
+		lleft-=0.1;
+		rright+=0.1;
 		top+=0.1;
 		bottom-=0.1;
 	 }
 
 	if(key == GLUT_KEY_HOME){
-		left+=0.1;
-		right-=0.1;
+		lleft+=0.1;
+		rright-=0.1;
 		top-=0.1;
 		bottom+=0.1;
 	}
@@ -163,14 +166,14 @@ void TeclasEspecias(int key, int x, int y)
 	if(key == GLUT_KEY_PAGE_UP)
 	{
 		instanciaSelecionada++;
-		if(instanciaSelecionada < casas.size())
+		if(instanciaSelecionada > casas.size() - 1)
 			instanciaSelecionada = 0;
 	}
 	if(key == GLUT_KEY_F1)
 	{
 		Instancia casinha;
 		casas.push_back(casinha);
-		instanciaSelecionada++;
+		instanciaSelecionada = casas.size() - 1;
 	}
 
 	if(key == GLUT_KEY_F3)
@@ -200,17 +203,33 @@ void Inicializa(void)
 {
 	// Define a janela de visualização 2D
 	glMatrixMode(GL_PROJECTION);
-	left=-1.0;
-	right=1.0;
+	lleft=-1.0;
+	rright=1.0;
 	top=1.0;
 	bottom=-1.0;
-	gluOrtho2D(left+panX,right+panX,bottom+panY,top+panY);
+	gluOrtho2D(lleft+panX,rright+panX,bottom+panY,top+panY);
 	glMatrixMode(GL_MODELVIEW);
 }
 
 // Programa Principal
 int main(void)
 {
+	cout << "Page Up - muda para a proxima casinha" << endl;
+	cout << "Page Down - muda para a casinha anterior" << endl;
+	cout << "Setas - Translada a casinha selecionada" << endl;
+	cout << "Home - Faz ZOOM IN na janela de seleção" << endl;
+	cout << "End - Faz ZOOM OUT na janela de seleção" << endl;
+	cout << "F1 - Adiciona uma nova casinha" << endl;
+	cout << "F2 - Rotaciona a casinha para a esquerda" << endl;
+	cout << "F3 - Rotaciona a casinha para a direita" << endl;
+	cout << "F5 - Reduz escala da casinha selecionada" << endl;
+	cout << "F6 - Aumenta a escala da casinha selecionada" << endl;
+	cout << "F9/F10 - PAN para direita/esquerda" << endl;
+	cout << "F11/F12 - PAN para cima/baixo" << endl;
+
+	Instancia casa;
+	casas.push_back(casa);
+
 	int argc = 0;
 	char *argv[] = { (char *)"gl", 0 };
 
@@ -238,10 +257,6 @@ int main(void)
 
 	// Inicia o processamento e aguarda interações do usuário
 	glutMainLoop();
-
-
-	Instancia casa;
-	casas.push_back(casa);
 
 	return 0;
 }

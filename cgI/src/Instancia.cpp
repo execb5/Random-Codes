@@ -2,9 +2,9 @@
 
 Instancia::Instancia()
 {
-	float tx, ty = 0;
-	float ex, ey = 1;
-	float angulo = 0;
+	tx = ty = 0;
+	ex = ey = 1;
+	angulo = 0;
 }
 
 Instancia::~Instancia()

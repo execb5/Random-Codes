@@ -63,50 +63,50 @@ void Enemy::drawSkin1()
 
 	//Body
 	glBegin(GL_LINE_LOOP);
-		glVertex2f(-2.5f,-2.5f);
-		glVertex2f(-2.5f, 2.5f);
-		glVertex2f(-1.5f, 3.5f);
-		glVertex2f(-0.5f, 2.5f);
-		glVertex2f( 0.5f, 2.5f);
-		glVertex2f( 1.5f, 3.5f);
-		glVertex2f( 2.5f, 2.5f);
-		glVertex2f( 2.5f,-2.5f);
+		glVertex2f(-25,-25);
+		glVertex2f(-25, 25);
+		glVertex2f(-15, 35);
+		glVertex2f(-05, 25);
+		glVertex2f( 05, 25);
+		glVertex2f( 15, 35);
+		glVertex2f( 25, 25);
+		glVertex2f( 25,-25);
 	glEnd();
 
 	//Mouth
 	glBegin(GL_LINE_LOOP);
-		glVertex2f(-0.5f,-1.5f);
-		glVertex2f(-1.0f,-0.5f);
-		glVertex2f( 1.0f,-0.5f);
-		glVertex2f( 0.5f,-1.5f);
-		glVertex2f( 0.5f,-0.5f);
-		glVertex2f(-0.5f,-0.5f);
+		glVertex2f(-05,-15);
+		glVertex2f(-10,-05);
+		glVertex2f( 10,-05);
+		glVertex2f( 05,-15);
+		glVertex2f( 05,-05);
+		glVertex2f(-05,-05);
 	glEnd();
 
 	//Left eye
 	glBegin(GL_LINE_LOOP);
-		glVertex2f(-0.5f, 0.5f);
-		glVertex2f(-0.5f, 1.5f);
-		glVertex2f(-1.5f, 1.5f);
+		glVertex2f(-05, 05);
+		glVertex2f(-05, 15);
+		glVertex2f(-15, 15);
 	glEnd();
 	glBegin(GL_LINES);
-		glVertex2f(-1.0f, 1.0f);
-		glVertex2f(-1.0f, 1.5f);
-		glVertex2f(-1.5f, 2.5f);
-		glVertex2f(-0.5f, 1.5f);
+		glVertex2f(-10, 10);
+		glVertex2f(-10, 15);
+		glVertex2f(-15, 25);
+		glVertex2f(-05, 15);
 	glEnd();
 
 	//Right eye
 	glBegin(GL_LINE_LOOP);
-		glVertex2f( 0.5f, 0.5f);
-		glVertex2f( 0.5f, 1.5f);
-		glVertex2f( 1.5f, 1.5f);
+		glVertex2f( 05, 05);
+		glVertex2f( 05, 15);
+		glVertex2f( 15, 15);
 	glEnd();
 	glBegin(GL_LINES);
-		glVertex2f( 1.0f, 1.0f);
-		glVertex2f( 1.0f, 1.5f);
-		glVertex2f( 1.5f, 2.5f);
-		glVertex2f( 0.5f, 1.5f);
+		glVertex2f( 10, 10);
+		glVertex2f( 10, 15);
+		glVertex2f( 15, 25);
+		glVertex2f( 05, 15);
 	glEnd();
 }
 

@@ -49,12 +49,12 @@ void GameObject::decrementAngle()
 
 void GameObject::incrementTx()
 {
-	tx += 0.1;
+	tx += 10;
 }
 
 void GameObject::incrementTy()
 {
-	ty += 0.1;
+	ty += 10;
 }
 
 void GameObject::incrementEx()
@@ -69,12 +69,12 @@ void GameObject::incrementEy()
 
 void GameObject::decrementTx()
 {
-	tx -= 0.1;
+	tx -= 10;
 }
 
 void GameObject::decrementTy()
 {
-	ty -= 0.1;
+	ty -= 10;
 }
 
 void GameObject::decrementEx()

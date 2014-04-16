@@ -32,114 +32,12 @@ void desenhaEixos()
 	glEnd();
 }
 
-void desenhaCasinha()
-{
-	glLineWidth(3);
-	/*
-	glBegin(GL_LINE_LOOP);
-		glColor3f(0.0f, 0.0f, 1.0f);
-		glVertex2f(-0.2f,  0.1f);
-		glColor3f(1.0f, 0.0f, 0.0f);
-		glVertex2f(-0.2f, -0.2f);
-		glColor3f(0.0f, 0.0f, 1.0f);
-		glVertex2f( 0.2f, -0.2f);
-		glVertex2f( 0.2f,  0.1f);
-	glEnd();
-
-	glBegin(GL_TRIANGLES);
-		glColor3f(0.0f, 0.0f, 1.0f);
-		glVertex2f(-0.2f, 0.1f);
-		glColor3f(1.0f, 0.0f, 0.0f);
-		glVertex2f(0.0f, 0.22f);
-		glColor3f(0.0f, 0.0f, 1.0f);
-		glVertex2f( 0.2f, 0.1f);
-	glEnd();
-
-	glBegin(GL_LINES);
-		glVertex2f(-0.1f, -0.2f);
-		glVertex2f( 0.0f, -0.1f);
-		glVertex2f( 0.0f, -0.1f);
-		glColor3f(1.0f, 0.0f, 0.0f);
-		glVertex2f( 0.0f,  0.1f);
-		glVertex2f( 0.0f,  0.1f);
-		glVertex2f(-0.1f,  0.0f);
-		glVertex2f( 0.0f,  0.1f);
-		glVertex2f( 0.1f,  0.0f);
-		glVertex2f( 0.0f, -0.1f);
-		glVertex2f( 0.1f, -0.2f);
-	glEnd();
-
-	glBegin(GL_LINE_LOOP);
-		glColor3f(0.0f, 0.0f, 1.0f);
-		glVertex2f( 0.0f,  0.1f);
-		glColor3f(0.0f, 0.0f, 1.0f);
-		glVertex2f(-0.05f, 0.1f);
-		glVertex2f(-0.05f,  0.15f);
-		glVertex2f( 0.05f,  0.15f);
-		glVertex2f( 0.05f,  0.1f);
-		glVertex2f( 0.0f,  0.1f);
-	glEnd();
-
-        glBegin(GL_POLYGON);
-        for(float a = 0; a < 2*M_PI; a+=0.2)
-		//radius * cos + x, radius * sin + y
-                glVertex2f(0.1*cos(a) + 0, 0.1*sin(a) + 0.15);
-        glEnd();*/
-
-	//Body
-	glBegin(GL_LINE_LOOP);
-		glVertex2f( 1.0f, 1.0f);
-		glVertex2f( 6.0f, 1.0f);
-		glVertex2f( 6.0f, 6.0f);
-		glVertex2f( 5.0f, 7.0f);
-		glVertex2f( 4.0f, 6.0f);
-		glVertex2f( 3.0f, 6.0f);
-		glVertex2f( 2.0f, 7.0f);
-		glVertex2f( 1.0f, 6.0f);
-	glEnd();
-
-	//Mouth
-	glBegin(GL_LINE_LOOP);
-		glVertex2f( 3.0f, 2.0f);
-		glVertex2f( 2.5f, 3.0f);
-		glVertex2f( 4.5f, 3.0f);
-		glVertex2f( 4.0f, 2.0f);
-		glVertex2f( 4.0f, 3.0f);
-		glVertex2f( 3.0f, 3.0f);
-	glEnd();
-
-	//Left eye
-	glBegin(GL_LINE_LOOP);
-		glVertex2f( 3.0f, 5.0f);
-		glVertex2f( 2.0f, 5.0f);
-		glVertex2f( 3.0f, 4.0f);
-	glEnd();
-	glBegin(GL_LINES);
-		glVertex2f( 2.5f, 4.5f);
-		glVertex2f( 2.5f, 5.0f);
-		glVertex2f( 2.0f, 6.0f);
-		glVertex2f( 3.0f, 5.0f);
-	glEnd();
-
-	//Right eye
-	glBegin(GL_LINE_LOOP);
-		glVertex2f( 4.0f, 5.0f);
-		glVertex2f( 5.0f, 5.0f);
-		glVertex2f( 4.0f, 4.0f);
-	glEnd();
-	glBegin(GL_LINES);
-		glVertex2f( 4.5f, 4.5f);
-		glVertex2f( 4.5f, 5.0f);
-		glVertex2f( 5.0f, 6.0f);
-		glVertex2f( 4.0f, 5.0f);
-	glEnd();
-}
-
 void desenha(void)
 {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluOrtho2D(lleft + panX, rright + panX, bbottom + panY, ttop + panY);
+	//gluOrtho2D(lleft + panX, rright + panX, bbottom + panY, ttop + panY);
+	gluOrtho2D(-250, 250, -250, 250);
 	glMatrixMode(GL_MODELVIEW);
 
 	glClearColor(0, 0, 0, 0);
@@ -150,11 +48,13 @@ void desenha(void)
 
 	glPushMatrix();
 
-	glLoadIdentity();
+	//glLoadIdentity();
 
-	desenhaEixos();
+	//desenhaEixos();
 
-	glPopMatrix();
+	//glPopMatrix();
+	
+	glLineWidth(1);
 
 	for (int i = 0; i < casas.size(); i++)
 	{
@@ -206,7 +106,8 @@ void inicializa(void)
 	rright = 1.0;
 	ttop = 1.0;
 	bbottom = -1.0;
-	gluOrtho2D(lleft + panX, rright + panX, bbottom + panY, ttop + panY);
+	//gluOrtho2D(lleft + panX, rright + panX, bbottom + panY, ttop + panY);
+	gluOrtho2D(-250, 250, -250, 250);
 	glMatrixMode(GL_MODELVIEW);
 }
 
@@ -309,6 +210,9 @@ void teclasEspeciais(int key, int x, int y)
 
 
 //Read later for collision: http://nehe.gamedev.net/tutorial/collision_detection/17005/
+//Read later, interesting: http://higherorderfun.com/blog/2012/05/20/the-guide-to-implementing-2d-platformers/
+//http://www3.ntu.edu.sg/home/ehchua/programming/opengl/CG_Introduction.html
+//
 int main(void)
 {
 	Enemy casa;
@@ -324,7 +228,7 @@ int main(void)
 
 	glutInitWindowSize(500, 500);
 
-	glutCreateWindow("Casinha");
+	glutCreateWindow("T12D");
 
 	glutDisplayFunc(desenha);
 

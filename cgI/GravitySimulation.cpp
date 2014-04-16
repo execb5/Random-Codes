@@ -1,12 +1,3 @@
-/*##############################################
-##                                            ##
-##  Program: Gravity simulation               ##
-##  Author: Curcudel Eugen (GuessGen)         ##
-##  E-mail: CurcudelEugen@gmail.com           ##
-##  WebSite: http://GuessGen.wordpress.com    ##
-##                                            ##
-##############################################*/
- 
 #include <GL/glut.h>
 #include <vector>
 #include <cmath>

@@ -53,12 +53,13 @@ void desenhaCasinha()
 		glVertex2f(0.0f, 0.22f);
 		glColor3f(0.0f, 0.0f, 1.0f);
 		glVertex2f( 0.2f, 0.1f);
-	glEnd();*/
+	glEnd();
 
 	glBegin(GL_LINES);
 		glVertex2f(-0.1f, -0.2f);
 		glVertex2f( 0.0f, -0.1f);
 		glVertex2f( 0.0f, -0.1f);
+		glColor3f(1.0f, 0.0f, 0.0f);
 		glVertex2f( 0.0f,  0.1f);
 		glVertex2f( 0.0f,  0.1f);
 		glVertex2f(-0.1f,  0.0f);
@@ -69,7 +70,9 @@ void desenhaCasinha()
 	glEnd();
 
 	glBegin(GL_LINE_LOOP);
+		glColor3f(0.0f, 0.0f, 1.0f);
 		glVertex2f( 0.0f,  0.1f);
+		glColor3f(0.0f, 0.0f, 1.0f);
 		glVertex2f(-0.05f, 0.1f);
 		glVertex2f(-0.05f,  0.15f);
 		glVertex2f( 0.05f,  0.15f);
@@ -81,7 +84,55 @@ void desenhaCasinha()
         for(float a = 0; a < 2*M_PI; a+=0.2)
 		//radius * cos + x, radius * sin + y
                 glVertex2f(0.1*cos(a) + 0, 0.1*sin(a) + 0.15);
-        glEnd();       
+        glEnd();*/
+
+	//Body
+	glBegin(GL_LINE_LOOP);
+		glVertex2f( 1.0f, 1.0f);
+		glVertex2f( 6.0f, 1.0f);
+		glVertex2f( 6.0f, 6.0f);
+		glVertex2f( 5.0f, 7.0f);
+		glVertex2f( 4.0f, 6.0f);
+		glVertex2f( 3.0f, 6.0f);
+		glVertex2f( 2.0f, 7.0f);
+		glVertex2f( 1.0f, 6.0f);
+	glEnd();
+
+	//Mouth
+	glBegin(GL_LINE_LOOP);
+		glVertex2f( 3.0f, 2.0f);
+		glVertex2f( 2.5f, 3.0f);
+		glVertex2f( 4.5f, 3.0f);
+		glVertex2f( 4.0f, 2.0f);
+		glVertex2f( 4.0f, 3.0f);
+		glVertex2f( 3.0f, 3.0f);
+	glEnd();
+
+	//Left eye
+	glBegin(GL_LINE_LOOP);
+		glVertex2f( 3.0f, 5.0f);
+		glVertex2f( 2.0f, 5.0f);
+		glVertex2f( 3.0f, 4.0f);
+	glEnd();
+	glBegin(GL_LINES);
+		glVertex2f( 2.5f, 4.5f);
+		glVertex2f( 2.5f, 5.0f);
+		glVertex2f( 2.0f, 6.0f);
+		glVertex2f( 3.0f, 5.0f);
+	glEnd();
+
+	//Right eye
+	glBegin(GL_LINE_LOOP);
+		glVertex2f( 4.0f, 5.0f);
+		glVertex2f( 5.0f, 5.0f);
+		glVertex2f( 4.0f, 4.0f);
+	glEnd();
+	glBegin(GL_LINES);
+		glVertex2f( 4.5f, 4.5f);
+		glVertex2f( 4.5f, 5.0f);
+		glVertex2f( 5.0f, 6.0f);
+		glVertex2f( 4.0f, 5.0f);
+	glEnd();
 }
 
 void desenha(void)
@@ -271,7 +322,7 @@ int main(void)
 
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 
-	glutInitWindowSize(640, 480);
+	glutInitWindowSize(500, 500);
 
 	glutCreateWindow("Casinha");
 

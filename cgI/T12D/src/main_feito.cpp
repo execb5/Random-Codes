@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <GL/glut.h>
-#include "GameObject.h"
+#include "Enemy.h"
 #include<vector>
 #include<cmath>
 
@@ -9,7 +9,7 @@ using namespace std;
 float translacaoX = 0, translacaoY = 0;
 float lleft, rright, ttop, bbottom, panX, panY;
 
-vector<GameObject> casas;
+vector<Enemy> casas;
 
 int instanciaSelecionada = 0;
 
@@ -169,7 +169,7 @@ void desenha(void)
 		else
 			glColor3f(0, 0, 1);
 
-		desenhaCasinha();
+		casas[i].drawSkin1();
 
 		glPopMatrix();
 	}
@@ -293,7 +293,7 @@ void teclasEspeciais(int key, int x, int y)
 
 	if (key == GLUT_KEY_F1)
 	{
-		GameObject casa;
+		Enemy casa;
 		casas.push_back(casa);
 		instanciaSelecionada = casas.size() - 1;
 	}
@@ -311,7 +311,7 @@ void teclasEspeciais(int key, int x, int y)
 //Read later for collision: http://nehe.gamedev.net/tutorial/collision_detection/17005/
 int main(void)
 {
-	GameObject casa;
+	Enemy casa;
 
 	casas.push_back(casa);
 

@@ -3,11 +3,17 @@
 #include "Enemy.h"
 #include<vector>
 #include<cmath>
+#include<iostream>
 
 using namespace std;
 
 float translacaoX = 0, translacaoY = 0;
-float lleft, rright, ttop, bbottom, panX, panY;
+float lleft;
+float rright;
+float bbottom;
+float ttop;
+float panX;
+float panY;
 
 vector<Enemy> casas;
 
@@ -32,12 +38,23 @@ void desenhaEixos()
 	glEnd();
 }
 
+void drawStage()
+{
+	glColor3f(1, 1, 1);
+
+	glLineWidth(1);
+	glBegin(GL_LINES);
+		glVertex2f(-250, -100);
+		glVertex2f( 250, -100);
+	glEnd();
+}
+
 void desenha(void)
 {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	//gluOrtho2D(lleft + panX, rright + panX, bbottom + panY, ttop + panY);
-	gluOrtho2D(-250, 250, -250, 250);
+	gluOrtho2D(lleft + panX, rright + panX, bbottom + panY, ttop + panY);
+	//gluOrtho2D(-250, 250, -250, 250);
 	glMatrixMode(GL_MODELVIEW);
 
 	glClearColor(0, 0, 0, 0);
@@ -48,11 +65,11 @@ void desenha(void)
 
 	glPushMatrix();
 
-	//glLoadIdentity();
+	glLoadIdentity();
 
-	//desenhaEixos();
+	drawStage();
 
-	//glPopMatrix();
+	glPopMatrix();
 	
 	glLineWidth(1);
 
@@ -71,6 +88,7 @@ void desenha(void)
 
 		casas[i].drawSkin1();
 
+
 		glPopMatrix();
 	}
 
@@ -83,7 +101,7 @@ void desenha(void)
 	glLineWidth(100);
 	glRasterPos2f(0, 0);
 
-	desenhaTexto(GLUT_BITMAP_TIMES_ROMAN_24, "Casinha");
+	//desenhaTexto(GLUT_BITMAP_TIMES_ROMAN_24, "Casinha");
 
 	glPopMatrix();
 
@@ -96,18 +114,19 @@ void teclado(unsigned char key, int x, int y)
 {
 	if (key == 27)
 		exit(0);
+	if (key == 'w')
+		cout << " (" << casas[0].getTx() << ", " << casas[0].getTy() << ")";
 }
 
 void inicializa(void)
 {
 	//Define a janela de visualização 2D
 	glMatrixMode(GL_PROJECTION);
-	lleft = -1.0;
-	rright = 1.0;
-	ttop = 1.0;
-	bbottom = -1.0;
-	//gluOrtho2D(lleft + panX, rright + panX, bbottom + panY, ttop + panY);
-	gluOrtho2D(-250, 250, -250, 250);
+	lleft = -250;
+	rright = 250;
+	ttop = 250;
+	bbottom = -250;
+	gluOrtho2D(lleft + panX, rright + panX, bbottom + panY, ttop + panY);
 	glMatrixMode(GL_MODELVIEW);
 }
 
@@ -167,16 +186,16 @@ void teclasEspeciais(int key, int x, int y)
 	}
 
 	if (key == GLUT_KEY_F9)
-		panX += 0.1;
+		panX += 10;
 
 	if (key == GLUT_KEY_F10)
-		panX -= 0.1;
+		panX -= 10;
 
 	if (key == GLUT_KEY_F11)
-		panY += 0.1;
+		panY += 10;
 
 	if (key == GLUT_KEY_F12)
-		panY -= 0.1;
+		panY -= 10;
 
 	if (key == GLUT_KEY_PAGE_DOWN)
 	{
@@ -212,7 +231,6 @@ void teclasEspeciais(int key, int x, int y)
 //Read later for collision: http://nehe.gamedev.net/tutorial/collision_detection/17005/
 //Read later, interesting: http://higherorderfun.com/blog/2012/05/20/the-guide-to-implementing-2d-platformers/
 //http://www3.ntu.edu.sg/home/ehchua/programming/opengl/CG_Introduction.html
-//
 int main(void)
 {
 	Enemy casa;

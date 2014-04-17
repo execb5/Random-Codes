@@ -12,6 +12,16 @@ GameObject::~GameObject()
 
 }
 
+void GameObject::setTx(float x)
+{
+	transform.position.x = x;
+}
+
+void GameObject::setTy(float y)
+{
+	transform.position.y = y;
+}
+
 float GameObject::getTx(void)
 {
 	return transform.position.x;

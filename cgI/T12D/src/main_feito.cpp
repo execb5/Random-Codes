@@ -7,12 +7,6 @@
 
 using namespace std;
 
-typedef struct
-{
-	float x;
-	float y;
-} Position;
-
 float translacaoX = 0, translacaoY = 0;
 float lleft;
 float rright;
@@ -20,7 +14,7 @@ float bbottom;
 float ttop;
 float panX;
 float panY;
-Position pos;
+bool jump = false;
 
 vector<Enemy> casas;
 
@@ -80,6 +74,9 @@ void desenha(void)
 	
 	glLineWidth(1);
 
+	if (casas[instanciaSelecionada].getTy() > -170 && jump == false)
+		casas[instanciaSelecionada].decrementTy();
+
 	for (int i = 0; i < casas.size(); i++)
 	{
 		glPushMatrix();
@@ -135,6 +132,7 @@ void inicializa(void)
 	bbottom = -250;
 	gluOrtho2D(lleft + panX, rright + panX, bbottom + panY, ttop + panY);
 	glMatrixMode(GL_MODELVIEW);
+	casas[instanciaSelecionada].setTx(-100);
 }
 
 void alteraTamanhoJanela(GLsizei w, GLsizei h)
@@ -159,10 +157,20 @@ void teclasEspeciais(int key, int x, int y)
 		casas[instanciaSelecionada].incrementTx();
 
 	if (key == GLUT_KEY_UP)
-		casas[instanciaSelecionada].incrementTy();
+	{
+		jump = true;
+		for (int i = 0; i < 15; i++) {
+			casas[instanciaSelecionada].incrementTy();
+			glutPostRedisplay();
+		}
+		jump = false;
+	}
 
 	if (key == GLUT_KEY_DOWN)
-		casas[instanciaSelecionada].decrementTy();
+	{
+		if (casas[instanciaSelecionada].getTy() > -170)
+			casas[instanciaSelecionada].decrementTy();
+	}
 
 	if (key == GLUT_KEY_F5)
 	{
@@ -231,7 +239,7 @@ void teclasEspeciais(int key, int x, int y)
 	if (key == GLUT_KEY_F3)
 		casas[instanciaSelecionada].decrementAngle();
 
-	//glutPostRedisplay();
+	glutPostRedisplay();
 }
 
 
@@ -241,9 +249,6 @@ void teclasEspeciais(int key, int x, int y)
 int main(void)
 {
 	Enemy casa;
-
-	//pos.x = casa.getTx;
-	//pos.y = casa.getTy;
 
 	casas.push_back(casa);
 
@@ -269,7 +274,7 @@ int main(void)
 	inicializa();
 
 	//Always draw
-	glutIdleFunc(desenha);
+	//glutIdleFunc(desenha);
 
 	glutMainLoop();
 

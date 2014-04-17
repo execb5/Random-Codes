@@ -18,6 +18,8 @@ class GameObject
 		GameObject(void);
 		~GameObject(void);
 
+		void setTx(float x);
+		void setTy(float y);
 		float getTx(void);
 		float getTy(void);
 		float getEx(void);

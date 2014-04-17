@@ -7,6 +7,12 @@
 
 using namespace std;
 
+typedef struct
+{
+	float x;
+	float y;
+} Position;
+
 float translacaoX = 0, translacaoY = 0;
 float lleft;
 float rright;
@@ -14,6 +20,7 @@ float bbottom;
 float ttop;
 float panX;
 float panY;
+Position pos;
 
 vector<Enemy> casas;
 
@@ -44,8 +51,8 @@ void drawStage()
 
 	glLineWidth(1);
 	glBegin(GL_LINES);
-		glVertex2f(-250, -100);
-		glVertex2f( 250, -100);
+		glVertex2f(-250, -200);
+		glVertex2f( 750, -200);
 	glEnd();
 }
 
@@ -234,6 +241,9 @@ void teclasEspeciais(int key, int x, int y)
 int main(void)
 {
 	Enemy casa;
+
+	//pos.x = casa.getTx;
+	//pos.y = casa.getTy;
 
 	casas.push_back(casa);
 

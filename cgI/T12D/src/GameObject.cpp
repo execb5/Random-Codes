@@ -2,8 +2,8 @@
 
 GameObject::GameObject()
 {
-	tx = ty = 0;
-	ex = ey = 1;
+	transform.position.x = transform.position.y = 0;
+	transform.scale.x = transform.scale.y = 1;
 	angle = 0;
 }
 
@@ -14,22 +14,22 @@ GameObject::~GameObject()
 
 float GameObject::getTx(void)
 {
-	return tx;
+	return transform.position.x;
 }
 
 float GameObject::getTy(void)
 {
-	return ty;
+	return transform.position.y;
 }
 
 float GameObject::getEx(void)
 {
-	return ex;
+	return transform.scale.x;
 }
 
 float GameObject::getEy(void)
 {
-	return ey;
+	return transform.scale.y;
 }
 
 float GameObject::getAngle(void)
@@ -49,40 +49,40 @@ void GameObject::decrementAngle()
 
 void GameObject::incrementTx()
 {
-	tx += 10;
+	transform.position.x += 10;
 }
 
 void GameObject::incrementTy()
 {
-	ty += 10;
+	transform.position.y += 10;
 }
 
 void GameObject::incrementEx()
 {
-	ex += 0.1;
+	transform.scale.x += 0.1;
 }
 
 void GameObject::incrementEy()
 {
-	ey += 0.1;
+	transform.scale.y += 0.1;
 }
 
 void GameObject::decrementTx()
 {
-	tx -= 10;
+	transform.position.x -= 10;
 }
 
 void GameObject::decrementTy()
 {
-	ty -= 10;
+	transform.position.y -= 10;
 }
 
 void GameObject::decrementEx()
 {
-	ex -= 0.1;
+	transform.scale.x -= 0.1;
 }
 
 void GameObject::decrementEy()
 {
-	ey -= 0.1;
+	transform.scale.y -= 0.1;
 }

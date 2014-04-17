@@ -1,4 +1,17 @@
 #pragma once
+
+typedef struct
+{
+	float x;
+	float y;
+} Coordenates;
+
+typedef struct
+{
+	Coordenates position;
+	Coordenates scale;
+} Transform;
+
 class GameObject
 {
 	public:
@@ -22,7 +35,6 @@ class GameObject
 		void decrementEy();
 
 	private:
-		float tx, ty;
-		float ex, ey;
 		float angle;
+		Transform transform;
 };

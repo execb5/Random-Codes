@@ -11,7 +11,7 @@ Enemy::~Enemy(void)
 
 }
 
-void Enemy::drawSkin1()
+void Enemy::drawSkin()
 {
 	//Body
 	glBegin(GL_LINE_LOOP);
@@ -60,9 +60,4 @@ void Enemy::drawSkin1()
 		glVertex2f( 15, 25);
 		glVertex2f( 05, 15);
 	glEnd();
-}
-
-void Enemy::drawSkin2()
-{
-
 }

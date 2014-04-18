@@ -18,6 +18,8 @@ class GameObject
 		GameObject(void);
 		~GameObject(void);
 
+		virtual void drawSkin(){}
+
 		void setTx(float x);
 		void setTy(float y);
 		float getTx(void);

@@ -16,7 +16,7 @@ float panX;
 float panY;
 bool jump = false;
 
-vector<Enemy> casas;
+vector<GameObject*> casas;
 
 int instanciaSelecionada = 0;
 
@@ -41,13 +41,21 @@ void desenhaEixos()
 
 void drawStage()
 {
-	glColor3f(1, 1, 1);
+	glColor3f(1, 0, 1);
 
 	glLineWidth(1);
 	glBegin(GL_LINES);
-		glVertex2f(-250, -200);
-		glVertex2f( 750, -200);
+		glVertex2f(-250, -100);
+		glVertex2f(-100, -100);
+		glVertex2f(-100, -100);
+		glVertex2f(-100, -250);
+		glVertex2f(-050, -100);
+		glVertex2f(-050, -250);
+		glVertex2f(-050, -100);
+		glVertex2f( 250, -100);
 	glEnd();
+
+	glColor3f(1, 1, 1);
 }
 
 void desenha(void)
@@ -74,23 +82,27 @@ void desenha(void)
 	
 	glLineWidth(1);
 
-	if (casas[instanciaSelecionada].getTy() > -170 && jump == false)
-		casas[instanciaSelecionada].decrementTy();
+	float tx = casas[instanciaSelecionada]->getTx();
+	float ty = casas[instanciaSelecionada]->getTy();
+
+	//((tx < -100 || tx > -50) && ty > -70) || ((tx >= -100 || tx <= -50) && ty > -170)
+	if ((((tx < -100 || tx > -50) && ty > -70) || ((tx >= -100 || tx <= -50) && ty > -170)) && jump == false)
+		casas[instanciaSelecionada]->decrementTy();
 
 	for (int i = 0; i < casas.size(); i++)
 	{
 		glPushMatrix();
 
-		glTranslatef(casas[i].getTx(), casas[i].getTy(), 0.0f);
-		glScalef(casas[i].getEx(), casas[i].getEy(), 1.0f);
-		glRotatef(casas[i].getAngle(), 0.0f, 0.0f, 1.0f);
+		glTranslatef(casas[i]->getTx(), casas[i]->getTy(), 0.0f);
+		glScalef(casas[i]->getEx(), casas[i]->getEy(), 1.0f);
+		glRotatef(casas[i]->getAngle(), 0.0f, 0.0f, 1.0f);
 
 		if (instanciaSelecionada == i)
 			glColor3f(1, 1, 1);
 		else
 			glColor3f(0, 0, 1);
 
-		casas[i].drawSkin1();
+		casas[i]->drawSkin();
 
 
 		glPopMatrix();
@@ -119,7 +131,7 @@ void teclado(unsigned char key, int x, int y)
 	if (key == 27)
 		exit(0);
 	if (key == 'w')
-		cout << " (" << casas[0].getTx() << ", " << casas[0].getTy() << ")";
+		cout << " (" << casas[0]->getTx() << ", " << casas[0]->getTy() << ")";
 }
 
 void inicializa(void)
@@ -132,7 +144,7 @@ void inicializa(void)
 	bbottom = -250;
 	gluOrtho2D(lleft + panX, rright + panX, bbottom + panY, ttop + panY);
 	glMatrixMode(GL_MODELVIEW);
-	casas[instanciaSelecionada].setTx(-100);
+	casas[instanciaSelecionada]->setTx(-100);
 }
 
 void alteraTamanhoJanela(GLsizei w, GLsizei h)
@@ -151,16 +163,16 @@ void alteraTamanhoJanela(GLsizei w, GLsizei h)
 void teclasEspeciais(int key, int x, int y)
 {
 	if (key == GLUT_KEY_LEFT)
-		casas[instanciaSelecionada].decrementTx();
+		casas[instanciaSelecionada]->decrementTx();
 
 	if (key == GLUT_KEY_RIGHT)
-		casas[instanciaSelecionada].incrementTx();
+		casas[instanciaSelecionada]->incrementTx();
 
 	if (key == GLUT_KEY_UP)
 	{
 		jump = true;
 		for (int i = 0; i < 15; i++) {
-			casas[instanciaSelecionada].incrementTy();
+			casas[instanciaSelecionada]->incrementTy();
 			glutPostRedisplay();
 		}
 		jump = false;
@@ -168,20 +180,20 @@ void teclasEspeciais(int key, int x, int y)
 
 	if (key == GLUT_KEY_DOWN)
 	{
-		if (casas[instanciaSelecionada].getTy() > -170)
-			casas[instanciaSelecionada].decrementTy();
+		if (casas[instanciaSelecionada]->getTy() > -170)
+			casas[instanciaSelecionada]->decrementTy();
 	}
 
 	if (key == GLUT_KEY_F5)
 	{
-		casas[instanciaSelecionada].decrementEy();
-		casas[instanciaSelecionada].decrementEx();
+		casas[instanciaSelecionada]->decrementEy();
+		casas[instanciaSelecionada]->decrementEx();
 	}
 
 	if (key == GLUT_KEY_F6)
 	{
-		casas[instanciaSelecionada].incrementEy();
-		casas[instanciaSelecionada].incrementEx();
+		casas[instanciaSelecionada]->incrementEy();
+		casas[instanciaSelecionada]->incrementEx();
 	}
 
 	if (key == GLUT_KEY_END)
@@ -228,16 +240,16 @@ void teclasEspeciais(int key, int x, int y)
 
 	if (key == GLUT_KEY_F1)
 	{
-		Enemy casa;
+		GameObject* casa = new Enemy();
 		casas.push_back(casa);
 		instanciaSelecionada = casas.size() - 1;
 	}
 
 	if (key == GLUT_KEY_F2)
-		casas[instanciaSelecionada].incrementAngle();
+		casas[instanciaSelecionada]->incrementAngle();
 
 	if (key == GLUT_KEY_F3)
-		casas[instanciaSelecionada].decrementAngle();
+		casas[instanciaSelecionada]->decrementAngle();
 
 	glutPostRedisplay();
 }
@@ -248,7 +260,7 @@ void teclasEspeciais(int key, int x, int y)
 //http://www3.ntu.edu.sg/home/ehchua/programming/opengl/CG_Introduction.html
 int main(void)
 {
-	Enemy casa;
+	GameObject* casa = new Enemy();
 
 	casas.push_back(casa);
 

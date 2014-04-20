@@ -55,7 +55,7 @@ void drawStage()
 		glVertex2f(-025, -105);
 		glVertex2f(-025, -250);
 		glVertex2f(-025, -105);
-		glVertex2f( 250, -105);
+		glVertex2f( 500, -105);
 	glEnd();
 
 	glColor3f(1, 1, 1);
@@ -194,6 +194,8 @@ void specialKeys(int key, int x, int y)
 			gameObjects[selectedObject]->decrementTx();
 		if (minY >= -105)
 			gameObjects[selectedObject]->decrementTx();
+		if (gameObjects[selectedObject]->getTx() >= 0)
+			panX -= 10;
 	}
 
 	if (key == GLUT_KEY_RIGHT)
@@ -202,6 +204,8 @@ void specialKeys(int key, int x, int y)
 			gameObjects[selectedObject]->incrementTx();
 		if (minY >= -105)
 			gameObjects[selectedObject]->incrementTx();
+		if (gameObjects[selectedObject]->getTx() > 0)
+			panX += 10;
 	}
 
 	if (key == GLUT_KEY_UP)

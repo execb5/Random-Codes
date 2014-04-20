@@ -1,32 +1,35 @@
 #include <stdlib.h>
 #include <GL/glut.h>
 #include "Enemy.h"
+#include "MrTetragon.h"
 #include<vector>
 #include<cmath>
 #include<iostream>
 
 using namespace std;
 
-float translacaoX = 0, translacaoY = 0;
 float lleft;
 float rright;
 float bbottom;
 float ttop;
 float panX;
 float panY;
-bool jump = false;
+float maxX;
+float maxY;
+float minX;
+float minY;
 
-vector<GameObject*> casas;
+vector<GameObject*> gameObjects;
 
-int instanciaSelecionada = 0;
+int selectedObject = 0;
 
-void desenhaTexto(void *font, char *string)
+void drawText(void *font, char *string)
 {
 	while(*string)
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, *string++);
 }
 
-void desenhaEixos()
+void drawAxis()
 {
 	glColor3f(1, 1, 1);
 
@@ -45,25 +48,24 @@ void drawStage()
 
 	glLineWidth(1);
 	glBegin(GL_LINES);
-		glVertex2f(-250, -100);
-		glVertex2f(-100, -100);
-		glVertex2f(-100, -100);
-		glVertex2f(-100, -250);
-		glVertex2f(-050, -100);
-		glVertex2f(-050, -250);
-		glVertex2f(-050, -100);
-		glVertex2f( 250, -100);
+		glVertex2f(-250, -105);
+		glVertex2f(-105, -105);
+		glVertex2f(-105, -105);
+		glVertex2f(-105, -250);
+		glVertex2f(-025, -105);
+		glVertex2f(-025, -250);
+		glVertex2f(-025, -105);
+		glVertex2f( 250, -105);
 	glEnd();
 
 	glColor3f(1, 1, 1);
 }
 
-void desenha(void)
+void draw(void)
 {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluOrtho2D(lleft + panX, rright + panX, bbottom + panY, ttop + panY);
-	//gluOrtho2D(-250, 250, -250, 250);
 	glMatrixMode(GL_MODELVIEW);
 
 	glClearColor(0, 0, 0, 0);
@@ -82,27 +84,42 @@ void desenha(void)
 	
 	glLineWidth(1);
 
-	float tx = casas[instanciaSelecionada]->getTx();
-	float ty = casas[instanciaSelecionada]->getTy();
+	maxX = gameObjects[selectedObject]->getMaxX();
+	maxY = gameObjects[selectedObject]->getMaxY();
+	minX = gameObjects[selectedObject]->getMinX();
+	minY = gameObjects[selectedObject]->getMinY();
+	
+	//Activate gravity until the player hits the ground.
+	if ((maxX <= -105 || minX >= -25) && minY > -105)
+		gameObjects[selectedObject]->decrementTy();
+	
+	//Activate gravity if the player is in the hole.
+	if ((minX >= -105 && maxX <= -25) && minY > -250)
+		gameObjects[selectedObject]->decrementTy();
+	
+	//Activate gravity if the player is between the ground and the hole.
+	if (((minX < -105 && maxX > -105) && minY > -105) || ((minX < -25 && maxX > -25) && minY > -105))
+		gameObjects[selectedObject]->decrementTy();
 
-	//((tx < -100 || tx > -50) && ty > -70) || ((tx >= -100 || tx <= -50) && ty > -170)
-	if ((((tx < -100 || tx > -50) && ty > -70) || ((tx >= -100 || tx <= -50) && ty > -170)) && jump == false)
-		casas[instanciaSelecionada]->decrementTy();
+	maxX = gameObjects[selectedObject]->getMaxX();
+	maxY = gameObjects[selectedObject]->getMaxY();
+	minX = gameObjects[selectedObject]->getMinX();
+	minY = gameObjects[selectedObject]->getMinY();
 
-	for (int i = 0; i < casas.size(); i++)
+	for (int i = 0; i < gameObjects.size(); i++)
 	{
 		glPushMatrix();
 
-		glTranslatef(casas[i]->getTx(), casas[i]->getTy(), 0.0f);
-		glScalef(casas[i]->getEx(), casas[i]->getEy(), 1.0f);
-		glRotatef(casas[i]->getAngle(), 0.0f, 0.0f, 1.0f);
+		glTranslatef(gameObjects[i]->getTx(), gameObjects[i]->getTy(), 0.0f);
+		glScalef(gameObjects[i]->getEx(), gameObjects[i]->getEy(), 1.0f);
+		glRotatef(gameObjects[i]->getAngle(), 0.0f, 0.0f, 1.0f);
 
-		if (instanciaSelecionada == i)
+		if (selectedObject == i)
 			glColor3f(1, 1, 1);
 		else
 			glColor3f(0, 0, 1);
 
-		casas[i]->drawSkin();
+		gameObjects[i]->drawSkin();
 
 
 		glPopMatrix();
@@ -117,7 +134,7 @@ void desenha(void)
 	glLineWidth(100);
 	glRasterPos2f(0, 0);
 
-	//desenhaTexto(GLUT_BITMAP_TIMES_ROMAN_24, "Casinha");
+	//drawText(GLUT_BITMAP_TIMES_ROMAN_24, "Casinha");
 
 	glPopMatrix();
 
@@ -126,15 +143,15 @@ void desenha(void)
 	glFlush();
 }
 
-void teclado(unsigned char key, int x, int y)
+void keyboard(unsigned char key, int x, int y)
 {
 	if (key == 27)
 		exit(0);
 	if (key == 'w')
-		cout << " (" << casas[0]->getTx() << ", " << casas[0]->getTy() << ")";
+		cout << " (" << gameObjects[0]->getTx() << ", " << gameObjects[0]->getTy() << ")";
 }
 
-void inicializa(void)
+void initialize(void)
 {
 	//Define a janela de visualização 2D
 	glMatrixMode(GL_PROJECTION);
@@ -144,10 +161,10 @@ void inicializa(void)
 	bbottom = -250;
 	gluOrtho2D(lleft + panX, rright + panX, bbottom + panY, ttop + panY);
 	glMatrixMode(GL_MODELVIEW);
-	casas[instanciaSelecionada]->setTx(-100);
+	//gameObjects[selectedObject]->setTx(-130);
 }
 
-void alteraTamanhoJanela(GLsizei w, GLsizei h)
+void alterWindowSize(GLsizei w, GLsizei h)
 {
 	if (h == 0)
 		h = 1;
@@ -157,43 +174,58 @@ void alteraTamanhoJanela(GLsizei w, GLsizei h)
 
 	glViewport(0, 0, largura, altura);
 
-	inicializa();
+	initialize();
 }
 
-void teclasEspeciais(int key, int x, int y)
+void printCollider()
+{
+	cout << "Collider's Coordenates" << endl;
+	cout << "maxX = " << maxX << endl;
+	cout << "maxY = " << maxY << endl;
+	cout << "minX = " << minX << endl;
+	cout << "minY = " << minY << endl;
+}
+
+void specialKeys(int key, int x, int y)
 {
 	if (key == GLUT_KEY_LEFT)
-		casas[instanciaSelecionada]->decrementTx();
+	{
+		if ((minX > -105 && maxX <= -25) && minY < -105)
+			gameObjects[selectedObject]->decrementTx();
+		if (minY >= -105)
+			gameObjects[selectedObject]->decrementTx();
+	}
 
 	if (key == GLUT_KEY_RIGHT)
-		casas[instanciaSelecionada]->incrementTx();
+	{
+		if ((minX >= -105 && maxX < -25) && minY < -105)
+			gameObjects[selectedObject]->incrementTx();
+		if (minY >= -105)
+			gameObjects[selectedObject]->incrementTx();
+	}
 
 	if (key == GLUT_KEY_UP)
 	{
-		jump = true;
 		for (int i = 0; i < 15; i++) {
-			casas[instanciaSelecionada]->incrementTy();
-			glutPostRedisplay();
+			gameObjects[selectedObject]->incrementTy();
 		}
-		jump = false;
 	}
 
 	if (key == GLUT_KEY_DOWN)
 	{
-		if (casas[instanciaSelecionada]->getTy() > -170)
-			casas[instanciaSelecionada]->decrementTy();
+		printCollider();
 	}
 
 	if (key == GLUT_KEY_F5)
 	{
-		casas[instanciaSelecionada]->decrementEy();
-		casas[instanciaSelecionada]->decrementEx();
+		gameObjects[selectedObject]->decrementEy();
+		gameObjects[selectedObject]->decrementEx();
 	}
 
 	if (key == GLUT_KEY_F6)
 	{
-		casas[instanciaSelecionada]->incrementEy();
-		casas[instanciaSelecionada]->incrementEx();
+		gameObjects[selectedObject]->incrementEy();
+		gameObjects[selectedObject]->incrementEx();
 	}
 
 	if (key == GLUT_KEY_END)
@@ -226,30 +258,30 @@ void teclasEspeciais(int key, int x, int y)
 
 	if (key == GLUT_KEY_PAGE_DOWN)
 	{
-		instanciaSelecionada--;
-		if (instanciaSelecionada < 0)
-			instanciaSelecionada = casas.size() - 1;
+		selectedObject--;
+		if (selectedObject < 0)
+			selectedObject = gameObjects.size() - 1;
 	}
 
 	if (key == GLUT_KEY_PAGE_UP)
 	{
-		instanciaSelecionada++;
-		if (instanciaSelecionada > casas.size() - 1)
-			instanciaSelecionada = 0;
+		selectedObject++;
+		if (selectedObject > gameObjects.size() - 1)
+			selectedObject = 0;
 	}
 
 	if (key == GLUT_KEY_F1)
 	{
-		GameObject* casa = new Enemy();
-		casas.push_back(casa);
-		instanciaSelecionada = casas.size() - 1;
+		GameObject* go = new Enemy();
+		gameObjects.push_back(go);
+		selectedObject = gameObjects.size() - 1;
 	}
 
 	if (key == GLUT_KEY_F2)
-		casas[instanciaSelecionada]->incrementAngle();
+		gameObjects[selectedObject]->incrementAngle();
 
 	if (key == GLUT_KEY_F3)
-		casas[instanciaSelecionada]->decrementAngle();
+		gameObjects[selectedObject]->decrementAngle();
 
 	glutPostRedisplay();
 }
@@ -260,9 +292,9 @@ void teclasEspeciais(int key, int x, int y)
 //http://www3.ntu.edu.sg/home/ehchua/programming/opengl/CG_Introduction.html
 int main(void)
 {
-	GameObject* casa = new Enemy();
+	GameObject* go = new MrTetragon();
 
-	casas.push_back(casa);
+	gameObjects.push_back(go);
 
 	int argc = 0;
 	char *argv[] = { (char *)"gl", 0 };
@@ -275,18 +307,18 @@ int main(void)
 
 	glutCreateWindow("T12D");
 
-	glutDisplayFunc(desenha);
+	glutDisplayFunc(draw);
 
-	glutReshapeFunc(alteraTamanhoJanela);
+	glutReshapeFunc(alterWindowSize);
 
-	glutKeyboardFunc(teclado);
+	glutKeyboardFunc(keyboard);
 
-	glutSpecialFunc(teclasEspeciais);
+	glutSpecialFunc(specialKeys);
 
-	inicializa();
+	initialize();
 
 	//Always draw
-	//glutIdleFunc(desenha);
+	//glutIdleFunc(draw);
 
 	glutMainLoop();
 

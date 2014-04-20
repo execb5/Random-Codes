@@ -5,10 +5,10 @@ ODIR = ./obj
 CC = g++
 CFLAGS = -lglut -lGL -lGLU -I$(IDIR)
 
-_DEPS = GameObject.h Enemy.h
+_DEPS = GameObject.h Enemy.h MrTetragon.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-_OBJ = main_feito.o GameObject.o Enemy.o
+_OBJ = main_feito.o GameObject.o Enemy.o MrTetragon.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 $(ODIR)/%.o: $(SDIR)/%.cpp $(DEPS)

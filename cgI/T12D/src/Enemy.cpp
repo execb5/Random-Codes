@@ -3,7 +3,7 @@
 
 Enemy::Enemy(void) : GameObject()
 {
-
+	setCollider(-25, -25, -25, 35, 25, 35, 25, -25);
 }
 
 Enemy::~Enemy(void)

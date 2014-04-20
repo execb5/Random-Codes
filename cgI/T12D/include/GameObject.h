@@ -12,6 +12,14 @@ typedef struct
 	Coordenates scale;
 } Transform;
 
+typedef struct
+{
+	Coordenates v1;
+	Coordenates v2;
+	Coordenates v3;
+	Coordenates v4;
+} BoxCollider;
+
 class GameObject
 {
 	public:
@@ -37,8 +45,14 @@ class GameObject
 		void decrementTy();
 		void decrementEx();
 		void decrementEy();
+		void setCollider(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4);
+		float getMaxX();
+		float getMaxY();
+		float getMinX();
+		float getMinY();
 
 	private:
 		float angle;
 		Transform transform;
+		BoxCollider collider;
 };

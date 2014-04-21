@@ -47,11 +47,19 @@ float GameObject::getMinY()
 void GameObject::setTx(float x)
 {
 	transform.position.x = x;
+	collider.v1.x += x;
+	collider.v2.x += x;
+	collider.v3.x += x;
+	collider.v4.x += x;
 }
 
 void GameObject::setTy(float y)
 {
 	transform.position.y = y;
+	collider.v1.y += y;
+	collider.v2.y += y;
+	collider.v3.y += y;
+	collider.v4.y += y;
 }
 
 float GameObject::getTx(void)

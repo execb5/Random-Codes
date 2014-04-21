@@ -2,6 +2,7 @@
 #include <GL/glut.h>
 #include "Enemy.h"
 #include "MrTetragon.h"
+#include "Plataform.h"
 #include<vector>
 #include<cmath>
 #include<iostream>
@@ -56,6 +57,8 @@ void drawStage()
 		glVertex2f(-025, -250);
 		glVertex2f(-025, -105);
 		glVertex2f( 500, -105);
+		glVertex2f( 500, -105);
+		glVertex2f( 500,  105);
 	glEnd();
 
 	glColor3f(1, 1, 1);
@@ -153,7 +156,7 @@ void keyboard(unsigned char key, int x, int y)
 
 void initialize(void)
 {
-	//Define a janela de visualização 2D
+	//Define the visualization 2D window
 	glMatrixMode(GL_PROJECTION);
 	lleft = -250;
 	rright = 250;
@@ -190,20 +193,30 @@ void specialKeys(int key, int x, int y)
 {
 	if (key == GLUT_KEY_LEFT)
 	{
+		//Limit your movements in the first hole
 		if ((minX > -105 && maxX <= -25) && minY < -105)
 			gameObjects[selectedObject]->decrementTx();
+
+		//Move on the ground
 		if (minY >= -105)
 			gameObjects[selectedObject]->decrementTx();
+
+		//Move the camera
 		if (gameObjects[selectedObject]->getTx() >= 0)
 			panX -= 10;
 	}
 
 	if (key == GLUT_KEY_RIGHT)
 	{
+		//Limit your movements in the first hole
 		if ((minX >= -105 && maxX < -25) && minY < -105)
 			gameObjects[selectedObject]->incrementTx();
+
+		//Move on the ground
 		if (minY >= -105)
 			gameObjects[selectedObject]->incrementTx();
+
+		//Move the camera
 		if (gameObjects[selectedObject]->getTx() > 0)
 			panX += 10;
 	}
@@ -297,6 +310,10 @@ void specialKeys(int key, int x, int y)
 int main(void)
 {
 	GameObject* go = new MrTetragon();
+
+	//Set MrTetragon's initial position
+	go->setTx(-220);
+	go->setTy(-50);
 
 	gameObjects.push_back(go);
 

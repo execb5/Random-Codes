@@ -115,33 +115,41 @@ void draw(void)
 	minX = gameObjects[selectedObject]->getMinX();
 	minY = gameObjects[selectedObject]->getMinY();
 
-	moveObjects(plataform);
-	
-	if (player->getTy() >= plataform->getMaxY() && player->getTy() <= plataform->getMaxY() + 10)
+	//Test if the player is on the plataform.
+	if ((player->getMinY() >= plataform->getMaxY() && player->getMinY() <= plataform->getMaxY() + 10) && ((player->getMaxX() > plataform->getMinX() && player->getMinX() < plataform->getMinX()) || (player->getMaxX() > plataform->getMaxX() && player->getMinX() < plataform->getMaxX()) || (player->getMinX() >= plataform->getMinX() && player->getMaxX() <= plataform->getMaxX())))
 	{
-		player->setTy(plataform->getMaxY());
+		moveObjects(plataform);
+		player->setTy(plataform->getMaxY() + 55);
 	}
 	else
 	{
-		//Activate gravity until the player hits the ground.
-		if ((maxX <= -105 || minX >= -25) && minY > -105)
+		//Activate gravity with higher grounds.
+		if (((minX < 255 && maxX > 255) && minY > 105) || ((minX < 500 && maxX > 500) && minY > 105) || ((minX >= 255 && maxX <= 500) && minY > 105))
+		{
 			gameObjects[selectedObject]->decrementTy();
-		
-		//Activate gravity if the player is in the hole.
-		if ((minX >= -105 && maxX <= -25) && minY > -250)
-			gameObjects[selectedObject]->decrementTy();
-		
-		//Activate gravity if the player is between the ground and the hole.
-		if (((minX < -105 && maxX > -105) && minY > -105) || ((minX < -25 && maxX > -25) && minY > -105))
-			gameObjects[selectedObject]->decrementTy();
-	}
+		}
+		else
+		{
+			//Activate gravity until the player hits the ground.
+			if ((maxX <= -105 || minX >= -25) && minY > -105 && minY < 105)
+				gameObjects[selectedObject]->decrementTy();
+			
+			//Activate gravity if the player is in the hole.
+			if ((minX >= -105 && maxX <= -25) && minY > -250)
+				gameObjects[selectedObject]->decrementTy();
+			
+			//Activate gravity if the player is between the ground and the hole.
+			if (((minX < -105 && maxX > -105) && minY > -105) || ((minX < -25 && maxX > -25) && minY > -105))
+				gameObjects[selectedObject]->decrementTy();
+		}
 
+		moveObjects(plataform);
+	}
 
 	maxX = gameObjects[selectedObject]->getMaxX();
 	maxY = gameObjects[selectedObject]->getMaxY();
 	minX = gameObjects[selectedObject]->getMinX();
 	minY = gameObjects[selectedObject]->getMinY();
-
 
 	for (int i = 0; i < gameObjects.size(); i++)
 	{

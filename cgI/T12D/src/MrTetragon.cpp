@@ -4,6 +4,7 @@
 MrTetragon::MrTetragon(void) : GameObject()
 {
 	setCollider(-25, -55, -25, 55, 25, 55, 25, -55);
+	setOriginalPosition(-25, -55, -25, 55, 25, 55, 25, -55);
 }
 
 MrTetragon::~MrTetragon(void)

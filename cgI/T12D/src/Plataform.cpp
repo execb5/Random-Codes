@@ -4,6 +4,7 @@
 Plataform::Plataform(void) : GameObject()
 {
 	setCollider(-25, -15, -25, 15, 25, 15, 25, -15);
+	setOriginalPosition(-25, -15, -25, 15, 25, 15, 25, -15);
 }
 
 Plataform::~Plataform(void)

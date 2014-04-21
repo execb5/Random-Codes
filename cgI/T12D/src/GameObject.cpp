@@ -24,6 +24,18 @@ void GameObject::setCollider(float x1, float y1, float x2, float y2, float x3, f
 	collider.v4.y = y4;
 }
 
+void GameObject::setOriginalPosition(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4)
+{
+	originalPosition.v1.x = x1;
+	originalPosition.v1.y = y1;
+	originalPosition.v2.x = x2;
+	originalPosition.v2.y = y2;
+	originalPosition.v3.x = x3;
+	originalPosition.v3.y = y3;
+	originalPosition.v4.x = x4;
+	originalPosition.v4.y = y4;
+}
+
 float GameObject::getMaxX()
 {
 	return collider.v3.x;
@@ -47,19 +59,19 @@ float GameObject::getMinY()
 void GameObject::setTx(float x)
 {
 	transform.position.x = x;
-	collider.v1.x += x;
-	collider.v2.x += x;
-	collider.v3.x += x;
-	collider.v4.x += x;
+	collider.v1.x = originalPosition.v1.x + x;
+	collider.v2.x = originalPosition.v2.x + x;
+	collider.v3.x = originalPosition.v3.x + x;
+	collider.v4.x = originalPosition.v4.x + x;
 }
 
 void GameObject::setTy(float y)
 {
 	transform.position.y = y;
-	collider.v1.y += y;
-	collider.v2.y += y;
-	collider.v3.y += y;
-	collider.v4.y += y;
+	collider.v1.y = originalPosition.v1.y + y;
+	collider.v2.y = originalPosition.v2.y + y;
+	collider.v3.y = originalPosition.v3.y + y;
+	collider.v4.y = originalPosition.v4.y + y;
 }
 
 float GameObject::getTx(void)

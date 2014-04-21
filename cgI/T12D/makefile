@@ -8,13 +8,13 @@ CFLAGS = -lglut -lGL -lGLU -I$(IDIR)
 _DEPS = GameObject.h Enemy.h MrTetragon.h Plataform.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-_OBJ = main_feito.o GameObject.o Enemy.o MrTetragon.o Plataform.o
+_OBJ = main.o GameObject.o Enemy.o MrTetragon.o Plataform.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 $(ODIR)/%.o: $(SDIR)/%.cpp $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-main_feito: $(OBJ)
+main: $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS)
 
 .PHONY: clean

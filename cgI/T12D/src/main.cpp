@@ -13,12 +13,19 @@ float lleft;
 float rright;
 float bbottom;
 float ttop;
+
 float panX;
 float panY;
+
 float maxX;
 float maxY;
 float minX;
 float minY;
+
+int counter = 0;
+
+GameObject* plataform;
+GameObject* player;
 
 vector<GameObject*> gameObjects;
 
@@ -43,6 +50,22 @@ void drawAxis()
 	glEnd();
 }
 
+void moveObjects(GameObject* obj)
+{
+	if (counter < 10)
+	{
+		obj->incrementTy();
+		counter++;
+	}
+	else
+	{
+		obj->decrementTy();
+		counter++;
+		if (counter == 20)
+			counter = 0;
+	}
+}
+
 void drawStage()
 {
 	glColor3f(1, 0, 1);
@@ -57,7 +80,7 @@ void drawStage()
 		glVertex2f(-025, -250);
 		glVertex2f(-025, -105);
 		glVertex2f( 500, -105);
-		glVertex2f( 500, -105);
+		glVertex2f( 255,  105);
 		glVertex2f( 500,  105);
 	glEnd();
 
@@ -91,23 +114,34 @@ void draw(void)
 	maxY = gameObjects[selectedObject]->getMaxY();
 	minX = gameObjects[selectedObject]->getMinX();
 	minY = gameObjects[selectedObject]->getMinY();
+
+	moveObjects(plataform);
 	
-	//Activate gravity until the player hits the ground.
-	if ((maxX <= -105 || minX >= -25) && minY > -105)
-		gameObjects[selectedObject]->decrementTy();
-	
-	//Activate gravity if the player is in the hole.
-	if ((minX >= -105 && maxX <= -25) && minY > -250)
-		gameObjects[selectedObject]->decrementTy();
-	
-	//Activate gravity if the player is between the ground and the hole.
-	if (((minX < -105 && maxX > -105) && minY > -105) || ((minX < -25 && maxX > -25) && minY > -105))
-		gameObjects[selectedObject]->decrementTy();
+	if (player->getTy() >= plataform->getMaxY() && player->getTy() <= plataform->getMaxY() + 10)
+	{
+		player->setTy(plataform->getMaxY());
+	}
+	else
+	{
+		//Activate gravity until the player hits the ground.
+		if ((maxX <= -105 || minX >= -25) && minY > -105)
+			gameObjects[selectedObject]->decrementTy();
+		
+		//Activate gravity if the player is in the hole.
+		if ((minX >= -105 && maxX <= -25) && minY > -250)
+			gameObjects[selectedObject]->decrementTy();
+		
+		//Activate gravity if the player is between the ground and the hole.
+		if (((minX < -105 && maxX > -105) && minY > -105) || ((minX < -25 && maxX > -25) && minY > -105))
+			gameObjects[selectedObject]->decrementTy();
+	}
+
 
 	maxX = gameObjects[selectedObject]->getMaxX();
 	maxY = gameObjects[selectedObject]->getMaxY();
 	minX = gameObjects[selectedObject]->getMinX();
 	minY = gameObjects[selectedObject]->getMinY();
+
 
 	for (int i = 0; i < gameObjects.size(); i++)
 	{
@@ -127,6 +161,7 @@ void draw(void)
 
 		glPopMatrix();
 	}
+
 
 	glColor3f(1, 1, 1);
 
@@ -310,10 +345,19 @@ void specialKeys(int key, int x, int y)
 int main(void)
 {
 	GameObject* go = new MrTetragon();
+	player = go;
 
 	//Set MrTetragon's initial position
 	go->setTx(-220);
 	go->setTy(-50);
+
+	gameObjects.push_back(go);
+
+	go = new Plataform();
+	plataform = go;
+
+	go->setTx(220);
+	go->setTy(-40);
 
 	gameObjects.push_back(go);
 

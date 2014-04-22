@@ -3,6 +3,7 @@
 #include "Enemy.h"
 #include "MrTetragon.h"
 #include "Plataform.h"
+#include "Goal.h"
 #include<vector>
 #include<cmath>
 #include<iostream>
@@ -23,9 +24,12 @@ float minX;
 float minY;
 
 int counter = 0;
+int counter2 = 0;
 
 GameObject* plataform;
 GameObject* player;
+GameObject* enemy;
+GameObject* goal;
 
 vector<GameObject*> gameObjects;
 
@@ -66,6 +70,22 @@ void moveObjects(GameObject* obj)
 	}
 }
 
+void moveObjects2(GameObject* obj)
+{
+	if (counter2 < 20)
+	{
+		obj->incrementTx();
+		counter2++;
+	}
+	else
+	{
+		obj->decrementTx();
+		counter2++;
+		if (counter2 == 40)
+			counter2 = 0;
+	}
+}
+
 void drawStage()
 {
 	glColor3f(1, 0, 1);
@@ -82,9 +102,27 @@ void drawStage()
 		glVertex2f( 500, -105);
 		glVertex2f( 255,  105);
 		glVertex2f( 500,  105);
+		glVertex2f( 500, -105);
+		glVertex2f(1005, -105);
+		glVertex2f(1005, -105);
+		glVertex2f(1005, 1000);
 	glEnd();
 
 	glColor3f(1, 1, 1);
+}
+
+void detectCollision()
+{
+	if ((player->getMinX() < enemy->getMinX() && player->getMaxX() > enemy->getMinX() && player->getMinY() <= enemy->getMaxY()) || (player->getMinX() < enemy->getMaxX() && player->getMaxX() > enemy->getMaxX() && player->getMinY() <= enemy->getMaxY()))
+	{
+		cout << "YOU DIED!!!" << endl;
+		exit(0);
+	}
+	if ((player->getMinX() < goal->getMinX() && player->getMaxX() > goal->getMinX() && player->getMinY() <= goal->getMaxY()) || (player->getMinX() < goal->getMaxX() && player->getMaxX() > goal->getMaxX() && player->getMinY() <= goal->getMaxY()))
+	{
+		cout << "YOU WIN!!!" << endl;
+		exit(0);
+	}
 }
 
 void draw(void)
@@ -120,18 +158,21 @@ void draw(void)
 	{
 		moveObjects(plataform);
 		player->setTy(plataform->getMaxY() + 55);
+
+		moveObjects2(enemy);
 	}
 	else
 	{
 		//Activate gravity with higher grounds.
-		if (((minX < 255 && maxX > 255) && minY > 105) || ((minX < 500 && maxX > 500) && minY > 105) || ((minX >= 255 && maxX <= 500) && minY > 105))
+		if (((minX < 255 && maxX > 255) && minY >= 105) || ((minX < 500 && maxX > 500) && minY >= 105) || ((minX >= 255 && maxX <= 500) && minY >= 105))
 		{
-			gameObjects[selectedObject]->decrementTy();
+			if (minY > 105)
+				gameObjects[selectedObject]->decrementTy();
 		}
 		else
 		{
 			//Activate gravity until the player hits the ground.
-			if ((maxX <= -105 || minX >= -25) && minY > -105 && minY < 105)
+			if ((maxX <= -105 || minX >= -25) && minY > -105)
 				gameObjects[selectedObject]->decrementTy();
 			
 			//Activate gravity if the player is in the hole.
@@ -144,6 +185,7 @@ void draw(void)
 		}
 
 		moveObjects(plataform);
+		moveObjects2(enemy);
 	}
 
 	maxX = gameObjects[selectedObject]->getMaxX();
@@ -170,6 +212,7 @@ void draw(void)
 		glPopMatrix();
 	}
 
+	goal->incrementAngle();
 
 	glColor3f(1, 1, 1);
 
@@ -187,6 +230,8 @@ void draw(void)
 	glutSwapBuffers();
 
 	glFlush();
+
+	detectCollision();
 }
 
 void keyboard(unsigned char key, int x, int y)
@@ -241,12 +286,15 @@ void specialKeys(int key, int x, int y)
 			gameObjects[selectedObject]->decrementTx();
 
 		//Move on the ground
-		if (minY >= -105)
+		if (minY >= -105 && minX > -255)
+		{
 			gameObjects[selectedObject]->decrementTx();
+		
+			//Move the camera
+			if (gameObjects[selectedObject]->getTx() >= 0)
+				panX -= 10;
+		}
 
-		//Move the camera
-		if (gameObjects[selectedObject]->getTx() >= 0)
-			panX -= 10;
 	}
 
 	if (key == GLUT_KEY_RIGHT)
@@ -256,12 +304,14 @@ void specialKeys(int key, int x, int y)
 			gameObjects[selectedObject]->incrementTx();
 
 		//Move on the ground
-		if (minY >= -105)
+		if (minY >= -105 && maxX < 1005)
+		{
 			gameObjects[selectedObject]->incrementTx();
-
-		//Move the camera
-		if (gameObjects[selectedObject]->getTx() > 0)
-			panX += 10;
+		
+			//Move the camera
+			if (gameObjects[selectedObject]->getTx() > 0)
+				panX += 10;
+		}
 	}
 
 	if (key == GLUT_KEY_UP)
@@ -366,6 +416,21 @@ int main(void)
 
 	go->setTx(220);
 	go->setTy(-40);
+
+	gameObjects.push_back(go);
+
+	go = new Enemy();
+	enemy = go;
+
+	go->setTx(450);
+	go->setTy(-80);
+
+	gameObjects.push_back(go);
+
+	go = new Goal();
+	goal= go;
+
+	go->setTx(900);
 
 	gameObjects.push_back(go);
 

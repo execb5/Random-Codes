@@ -101,12 +101,12 @@ float GameObject::getAngle(void)
 
 void GameObject::incrementAngle()
 {
-	angle += 1;
+	angle += 10;
 }
 
 void GameObject::decrementAngle()
 {
-	angle -= 1;
+	angle -= 10;
 }
 
 void GameObject::incrementTx()

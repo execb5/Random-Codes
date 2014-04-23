@@ -1,1 +1,5 @@
 g++ main.cpp -o main -lglut -lGL -lGLU
+
+latexmk -pvc -f -silent t2.tex
+
+ps -ef | grep latex

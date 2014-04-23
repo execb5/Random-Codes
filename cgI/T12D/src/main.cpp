@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <GL/glut.h>
+#include <unistd.h>
 #include "Enemy.h"
 #include "MrTetragon.h"
 #include "Plataform.h"
@@ -246,7 +247,7 @@ void draw(void)
 
 	detectCollision();
 
-	for (int i = 0; i < 100000000/4; i++) {}
+	usleep(50000);
 }
 
 void keyboard(unsigned char key, int x, int y)

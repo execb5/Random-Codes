@@ -25,6 +25,7 @@ float minY;
 
 int counter = 0;
 int counter2 = 0;
+int jumpCounter = 2;
 
 GameObject* plataform;
 GameObject* player;
@@ -123,6 +124,11 @@ void detectCollision()
 		cout << "YOU WIN!!!" << endl;
 		exit(0);
 	}
+	if (player->getMinY() == -255)
+	{
+		cout << "YOU DIED!!!" << endl;
+		exit(0);
+	}
 }
 
 void draw(void)
@@ -160,6 +166,8 @@ void draw(void)
 		player->setTy(plataform->getMaxY() + 55);
 
 		moveObjects2(enemy);
+
+		jumpCounter = 2;
 	}
 	else
 	{
@@ -168,6 +176,8 @@ void draw(void)
 		{
 			if (minY > 105)
 				gameObjects[selectedObject]->decrementTy();
+			else
+				jumpCounter = 2;
 		}
 		else
 		{
@@ -182,6 +192,9 @@ void draw(void)
 			//Activate gravity if the player is between the ground and the hole.
 			if (((minX < -105 && maxX > -105) && minY > -105) || ((minX < -25 && maxX > -25) && minY > -105))
 				gameObjects[selectedObject]->decrementTy();
+
+			if (minY == -105)
+				jumpCounter = 2;
 		}
 
 		moveObjects(plataform);
@@ -232,6 +245,8 @@ void draw(void)
 	glFlush();
 
 	detectCollision();
+
+	for (int i = 0; i < 100000000/4; i++) {}
 }
 
 void keyboard(unsigned char key, int x, int y)
@@ -316,8 +331,12 @@ void specialKeys(int key, int x, int y)
 
 	if (key == GLUT_KEY_UP)
 	{
-		for (int i = 0; i < 15; i++) {
-			gameObjects[selectedObject]->incrementTy();
+		if (jumpCounter > 0)
+		{
+			for (int i = 0; i < 15; i++) {
+				gameObjects[selectedObject]->incrementTy();
+			}
+			jumpCounter--;
 		}
 	}
 
@@ -456,7 +475,7 @@ int main(void)
 	initialize();
 
 	//Always draw
-	//glutIdleFunc(draw);
+	glutIdleFunc(draw);
 
 	glutMainLoop();
 

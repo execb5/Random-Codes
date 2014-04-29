@@ -2,11 +2,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-/*
- * Grafo Dirigido utilizando Matriz de Adjacências.
- * O grafo é criado com n nodos identificados de 0 a n-1.
- */
-
 public class GrafoDir {
 
 	private int max;

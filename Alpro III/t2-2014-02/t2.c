@@ -4,14 +4,14 @@
 int main(int argc, const char *argv[])
 {
 	static const char filename[] = "casosTeste/ex001";
-	FILE *file = fopen ( filename, "r" );
+	FILE *file = fopen(filename, "r");
 	char* pch;
-	if ( file != NULL )
+	if (file != NULL)
 	{
 		char line[128]; 
-		while ( fgets ( line, sizeof line, file ) != NULL ) 
+		while (fgets(line, sizeof line, file) != NULL)
 		{
-			//fputs ( line, stdout ); 
+			line[strlen(line)-1] = '\0';
 			pch = strtok(line, " ");
 			while (pch != NULL)
 			{
@@ -19,11 +19,11 @@ int main(int argc, const char *argv[])
 				pch = strtok(NULL, " ");
 			}
 		}
-		fclose ( file );
+		fclose(file);
 	}
 	else
 	{
-		perror ( filename ); 
+		perror(filename);
 	}
 	return 0;
 }

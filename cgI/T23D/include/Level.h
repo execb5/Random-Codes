@@ -1,9 +1,13 @@
 #include<vector>
+#include<fstream>
+
+using namespace std;
 
 typedef struct
 {
 	float x;
 	float y;
+	float z;
 } Point;
 
 typedef struct
@@ -16,9 +20,10 @@ typedef struct
 class Level
 {
 	public:
-		void loadLevel(string name);
+		Level(char* name);
+		~Level();
 		bool checkCollision(Point p);
 
 	private:
 		vector<Triangle> triangles;
-}
+};

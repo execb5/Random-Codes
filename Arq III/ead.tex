@@ -1,0 +1,62 @@
+\documentclass[12pt]{article}
+\usepackage[brazilian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\sloppy
+
+\title{Organização e Arquitetura de Computadores III\\ Resumo do Artigo: Cache Profiling and the SPEC Benchmarks: A Case Study}
+
+\author{Matthias Oliveira de Nunes}
+
+\begin{document}
+
+\maketitle
+
+\section{Resumo}
+
+Cache só funciona bem para programas que demonstram uma localidade suficiente,
+outros programas, que possuem padrões de referênciação diferentes, não conseguem
+utilizar tão bem a cache. As memórias cache funcionam porque a maioria dos
+programas demonstram uma localidade significativa. Localidade temporal existe
+quando um programa referencia a mesma localização de memória muitas vezes em um
+período curto de tempo.
+
+Existem propriedades da memória Cache que programadores podem tirar proveito, já
+que um programa pode perder muito tempo de execução buscando por algo que não
+está na cache. Caches têm três parâmetros que as definem: Capacidade, tamanho de
+bloco e associatividade.
+
+Sabendo isso sobre a Cache, existem tecnicas que podem ser aplicadas para
+melhorar o desempenho de um programa.
+
+\subsection{Mesclar vetores}
+
+Quando um programa referencia dois ou mais vetores da mesma dimensão usando o
+mesmo índice. Mesclando esses vetores em um único vetor, isso aumenta a
+localidade espacial e reduz potencialmente o número de miss.
+
+\subsection{Preenchimento e alinhamento de estruturas}
+
+Preencher uma estrutura de dado até um múltiplo do tamanho do bloco e alinhando
+eles em um limite de bloco pode eliminar miss por desalinhamento, que geralmente
+geram miss de conflito.
+
+\subsection{Empacotamento}
+
+Empacotamento é o oposto do preenchimento. Reduzindo um vetor para o menor
+espaço possível, o programador vai aumentar a localidade espacial e conseguir
+reduzir o número de miss de capacidade e conflitos.
+
+\subsection{Fusão de laços}
+
+Como o nome mesmo diz, é ter varios laços que trabalhem sobre uma estrutura de
+dado, como um vetor, e combinar esses laços em um único laço. Isso aumenta a
+localidade e o número de miss de capacidade irá reduzir.
+
+\subsection{Bloqueamento}
+
+É uma técnica que estrutura um programa para re-usar pedaços de dados que cabem
+dentro da memória Cache para reduzir miss de capacidade.
+
+\end{document}

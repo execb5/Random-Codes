@@ -100,6 +100,32 @@ void print()
 	printAux(head);
 	printf("]\n");
 }
+
+int sizeAux(struct Node* node)
+{
+	if (node == NULL)
+		return 0;
+	return sizeAux(node->next) + 1;
+}
+
+int size()
+{
+	return sizeAux(head);
+}
+
+int getVal(int index)
+{
+	struct Node* ptr = head;
+	int cont = 0;
+	while (ptr != NULL)
+	{
+		if (cont == index)
+			return ptr->val;
+		cont++;
+		ptr = ptr->next;
+	}
+	return -1;
+}
 /*
 int main(int argc, const char *argv[])
 {
@@ -112,9 +138,12 @@ int main(int argc, const char *argv[])
 	}
 	printf("There is a 4 in the list? %d\n", search(4));
 	printf("There is a 5 in the list? %d\n", search(5));
+	printf("What is in position 3 in the list? %d\n", getVal(3));
+	printf("Size of the list? %d\n", size());
 	print();
 	printf("%d\n", del(3));
 	print();
+	printf("Size of the list? %d\n", size());
 	printf("Did I delete the 1 in the list? %d\n", del(1));
 	print();
 	del(0);

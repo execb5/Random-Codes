@@ -1,15 +1,4 @@
-#include<stdio.h>
-
-typedef enum {false, true} bool;
-
-struct Node
-{
-	int val;
-	struct Node* next;
-};
-
-struct Node* head = NULL;
-struct Node* current = NULL;
+#include<LinkedList.h>
 
 struct Node* createList(int val)
 {
@@ -58,29 +47,84 @@ struct Node* addToList(int val, bool addToEnd)
 	return ptr;
 }
 
-struct Node* searchAux(int val, struct Node* node)
+bool searchAux(int val, struct Node* node)
 {
 	if (node == NULL)
-		return NULL;
+		return false;
 	if (node->val == val)
-		return node;
+		return true;
 	return searchAux(val, node->next);
 }
 
-struct Node* search(int val)
+bool search(int val)
 {
 	return searchAux(val, head);
 }
 
-bool deleteAux(int val)
+bool deleteAux(int val, struct Node* node, struct Node* prev)
 {
-	struct Node* del = search(val);
-
-	if (del == NULL)
+	if (node == NULL) 
 		return false;
-	else
+	if (node->val == val)
 	{
+		if (prev == NULL)
+		{
+			struct Node* tmp = head;
+			head = head->next;
+			free(tmp);
+			return true;
+		}
+		prev->next = node->next;
+		free(node);
+		return true;
 	}
+	return deleteAux(val, node->next, prev = node);
+}
+
+bool del(int val)
+{
+	return deleteAux(val, head, NULL);
+}
+
+void printAux(struct Node* node)
+{
+	if (node == NULL)
+		return;
+	printf("%d ", node->val);
+	printAux(node->next);
+}
+
+void print()
+{
+	printf("[ ");
+	printAux(head);
+	printf("]\n");
+}
+
+int sizeAux(struct Node* node)
+{
+	if (node == NULL)
+		return 0;
+	return sizeAux(node->next) + 1;
+}
+
+int size()
+{
+	return sizeAux(head);
+}
+
+int getVal(int index)
+{
+	struct Node* ptr = head;
+	int cont = 0;
+	while (ptr != NULL)
+	{
+		if (cont == index)
+			return ptr->val;
+		cont++;
+		ptr = ptr->next;
+	}
+	return -1;
 }
 
 int main(int argc, const char *argv[])
@@ -92,7 +136,19 @@ int main(int argc, const char *argv[])
 		addToList(i, true);
 		i++;
 	}
-	printf("There is a 4 on the list? %d\n", search(4));
-	printf("There is a 5 on the list? %d\n", search(5));
+	printf("There is a 4 in the list? %d\n", search(4));
+	printf("There is a 5 in the list? %d\n", search(5));
+	printf("What is in position 3 in the list? %d\n", getVal(3));
+	printf("Size of the list? %d\n", size());
+	print();
+	printf("%d\n", del(3));
+	print();
+	printf("Size of the list? %d\n", size());
+	printf("Did I delete the 1 in the list? %d\n", del(1));
+	print();
+	del(0);
+	del(2);
+	del(4);
+	print();
 	return 0;
 }

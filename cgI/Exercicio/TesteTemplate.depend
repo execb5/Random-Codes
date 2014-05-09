@@ -1,0 +1,58 @@
+# depslib dependency file v1.0
+1299076577 source:c:\users\soraia\dados\source\cgi-2011_1\testetemplate\main.cpp
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<stdlib.h>
+
+1298986600 c:\users\soraia\dados\source\cgi-2011_1\testetemplate\include\gl\glut.h
+	"freeglut.h"
+
+1298986600 c:\users\soraia\dados\source\cgi-2011_1\testetemplate\include\gl\freeglut.h
+	"freeglut_std.h"
+	"freeglut_ext.h"
+
+1298986600 c:\users\soraia\dados\source\cgi-2011_1\testetemplate\include\gl\freeglut_std.h
+	<windows.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1298986600 c:\users\soraia\dados\source\cgi-2011_1\testetemplate\include\gl\freeglut_ext.h
+
+1304944990 source:c:\users\soraia\dados\source\cgi-2011_1\camera,projecao\main.cpp
+	<stdlib.h>
+	<GL/glut.h>
+	<iostream>
+
+1298986600 c:\users\soraia\dados\source\cgi-2011_1\camera,projecao\include\gl\glut.h
+	"freeglut.h"
+
+1298986600 c:\users\soraia\dados\source\cgi-2011_1\camera,projecao\include\gl\freeglut.h
+	"freeglut_std.h"
+	"freeglut_ext.h"
+
+1298986600 c:\users\soraia\dados\source\cgi-2011_1\camera,projecao\include\gl\freeglut_std.h
+	<windows.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1298986600 c:\users\soraia\dados\source\cgi-2011_1\camera,projecao\include\gl\freeglut_ext.h
+
+1399481616 source:d:\leandro\documents\leandro\pos_doc\soraia-aulas (1)\exerc3\main.cpp
+	<stdlib.h>
+	<GL/glut.h>
+	<stdio.h>
+
+1298986600 d:\leandro\documents\leandro\pos_doc\soraia-aulas (1)\exerc3\include\gl\glut.h
+	"freeglut.h"
+
+1298986600 d:\leandro\documents\leandro\pos_doc\soraia-aulas (1)\exerc3\include\gl\freeglut.h
+	"freeglut_std.h"
+	"freeglut_ext.h"
+
+1298986600 d:\leandro\documents\leandro\pos_doc\soraia-aulas (1)\exerc3\include\gl\freeglut_std.h
+	<windows.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1298986600 d:\leandro\documents\leandro\pos_doc\soraia-aulas (1)\exerc3\include\gl\freeglut_ext.h
+

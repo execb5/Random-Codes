@@ -3,23 +3,25 @@
 
 typedef enum {false, true} bool;
 
+typedef struct
+{
+	struct Node* head;
+	struct Node* current;
+	int size;
+} List;
+
 struct Node
 {
-	int val;
+	void* data;
 	struct Node* next;
 };
 
-struct Node* head = NULL;
-struct Node* current = NULL;
-
-struct Node* createList(int val);
-struct Node* addToList(int val, bool addToEnd);
-bool searchAux(int val, struct Node* node);
-bool search(int val);
-bool deleteAux(int val, struct Node* node, struct Node* prev);
-bool del(int val);
-void printAux(struct Node* node);
-void print();
-int sizeAux(struct Node* node);
-int size();
-int getVal(int index);
+struct Node* createList(List* list, void* data);
+struct Node* addToList(List* list, void* data, bool addToEnd);
+void* getData(List* list, int index);
+void destroyAux(struct Node* node);
+void destroy(List* list);
+//bool deleteAux(List* list, int val, struct Node* node, struct Node* prev);
+//bool del(List* list, int val);
+//void printAux(struct Node* node);
+//void print(List* list);

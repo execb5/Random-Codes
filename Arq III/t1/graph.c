@@ -4,15 +4,25 @@
 
 #define MAX 100
 
-struct NodeGraph
+bool matrixAdj[MAX][MAX];
+List list;
+
+typedef struct
+{
+	bool matrixAdj[MAX][MAX];
+	List* list;
+} Graph;
+
+typedef struct
 {
 	int val;
-	struct Node* neighbors;
-	struct Node* maxPath;
-};
+	List* neighbors;
+} GraphNode;
 
-bool matrixAdj[MAX][MAX];
-struct Node* nodeList;
+void insertNode(int val)
+{
+	
+}
 
 int main(int argc, const char *argv[])
 {

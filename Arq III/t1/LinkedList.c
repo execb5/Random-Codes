@@ -1,26 +1,25 @@
 #include<LinkedList.h>
 
-struct Node* createList(int val)
+struct Node* createList(List* list, void* data)
 {
-	printf("\n Creating a list with headnode as [%d]\n", val);
-
 	struct Node* ptr = (struct Node*) malloc(sizeof(struct Node));
 	if (ptr == NULL)
 	{
 		printf("\n Node creation failed. \n");
 		return NULL;
 	}
-	ptr->val = val;
+	ptr->data = data;
 	ptr->next = NULL;
 
-	head = current = ptr;
-	return ptr;
+	list->head = list->current = ptr;
+	list->size++;
+	return list->head;
 }
 
-struct Node* addToList(int val, bool addToEnd)
+struct Node* addToList(List* list, void* data, bool addToEnd)
 {
-	if (head == NULL)
-		return createList(val);
+	if (list->head == NULL)
+		return createList(list, data);
 	
 	struct Node* ptr = (struct Node*) malloc(sizeof(struct Node));
 	if (ptr == NULL)
@@ -28,40 +27,55 @@ struct Node* addToList(int val, bool addToEnd)
 		printf("\n Node creation failed. \n");
 		return NULL;
 	}
-	ptr->val = val;
+	ptr->data = data;
 	ptr->next = NULL;
 
 	if (addToEnd)
 	{
-		printf("\n Adding node to the end of the list with value of [%d] \n", val);
-		current->next = ptr;
-		current = ptr;
+		list->current->next = ptr;
+		list->current = ptr;
 	}
 	else
 	{
-		printf("\n Adding node to the beginning of the list with value of [%d] \n", val);
-		ptr->next = head;
-		head = ptr;
+		ptr->next = list->head;
+		list->head = ptr;
 	}
 
-	return ptr;
+	list->size++;
+
+	return list->head;
 }
 
-bool searchAux(int val, struct Node* node)
+
+void* getData(List* list, int index)
+{
+	struct Node* ptr = list->head;
+	int cont = 0;
+	while (ptr != NULL)
+	{
+		if (cont == index)
+			return ptr->data;
+		cont++;
+		ptr = ptr->next;
+	}
+	return NULL;
+}
+
+void destroyAux(struct Node* node)
 {
 	if (node == NULL)
-		return false;
-	if (node->val == val)
-		return true;
-	return searchAux(val, node->next);
+		return;
+	destroyAux(node->next);
+	free(node);
 }
 
-bool search(int val)
+void destroy(List* list)
 {
-	return searchAux(val, head);
+	destroyAux(list->head);
 }
 
-bool deleteAux(int val, struct Node* node, struct Node* prev)
+/*
+bool deleteAux(List* list, int val, struct Node* node, struct Node* prev)
 {
 	if (node == NULL) 
 		return false;
@@ -69,8 +83,8 @@ bool deleteAux(int val, struct Node* node, struct Node* prev)
 	{
 		if (prev == NULL)
 		{
-			struct Node* tmp = head;
-			head = head->next;
+			struct Node* tmp = list->head;
+			list->head = list->head->next;
 			free(tmp);
 			return true;
 		}
@@ -78,78 +92,49 @@ bool deleteAux(int val, struct Node* node, struct Node* prev)
 		free(node);
 		return true;
 	}
-	return deleteAux(val, node->next, prev = node);
+	return deleteAux(list, val, node->next, prev = node);
 }
 
-bool del(int val)
+bool del(List* list, int val)
 {
-	return deleteAux(val, head, NULL);
+	return deleteAux(list, val, list->head, NULL);
 }
+*/
 
+/*
 void printAux(struct Node* node)
 {
 	if (node == NULL)
 		return;
-	printf("%d ", node->val);
+	printf("%d ", node->data);
 	printAux(node->next);
 }
 
-void print()
+void print(List* list)
 {
 	printf("[ ");
-	printAux(head);
+	printAux(list->head);
 	printf("]\n");
 }
+*/
 
-int sizeAux(struct Node* node)
-{
-	if (node == NULL)
-		return 0;
-	return sizeAux(node->next) + 1;
-}
-
-int size()
-{
-	return sizeAux(head);
-}
-
-int getVal(int index)
-{
-	struct Node* ptr = head;
-	int cont = 0;
-	while (ptr != NULL)
-	{
-		if (cont == index)
-			return ptr->val;
-		cont++;
-		ptr = ptr->next;
-	}
-	return -1;
-}
 /*
 int main(int argc, const char *argv[])
 {
-	struct Node* list = NULL;
+	List list;
+	list.head = NULL;
+	list.current = NULL;
 	int i = 0;
 	while (i < 5)
 	{
-		addToList(i, true);
+		list.head = addToList(&list, &i, false);
 		i++;
 	}
-	printf("There is a 4 in the list? %d\n", search(4));
-	printf("There is a 5 in the list? %d\n", search(5));
-	printf("What is in position 3 in the list? %d\n", getVal(3));
-	printf("Size of the list? %d\n", size());
-	print();
-	printf("%d\n", del(3));
-	print();
-	printf("Size of the list? %d\n", size());
-	printf("Did I delete the 1 in the list? %d\n", del(1));
-	print();
-	del(0);
-	del(2);
-	del(4);
-	print();
+	print(&list);
+	printf("%d\n", getVal(&list, 1));
+	printf("%d\n", list);
+	destroy(&list);
+	printf("%d\n", list);
 	return 0;
 }
 */

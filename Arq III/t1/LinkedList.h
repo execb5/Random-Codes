@@ -1,3 +1,6 @@
+#ifndef LINKEDLIST_H
+#define LINKEDLIST_H
+
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -23,5 +26,7 @@ void destroyAux(struct Node* node);
 void destroy(List* list);
 //bool deleteAux(List* list, int val, struct Node* node, struct Node* prev);
 //bool del(List* list, int val);
-//void printAux(struct Node* node);
-//void print(List* list);
+void printAux(struct Node* node);
+void print(List* list);
+
+#endif

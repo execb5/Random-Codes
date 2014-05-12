@@ -101,7 +101,6 @@ bool del(List* list, int val)
 }
 */
 
-/*
 void printAux(struct Node* node)
 {
 	if (node == NULL)
@@ -116,7 +115,6 @@ void print(List* list)
 	printAux(list->head);
 	printf("]\n");
 }
-*/
 
 /*
 int main(int argc, const char *argv[])

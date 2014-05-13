@@ -1,32 +1,29 @@
-#ifndef LINKEDLIST_H
-#define LINKEDLIST_H
-
 #include<stdio.h>
 #include<stdlib.h>
 
 typedef enum {false, true} bool;
 
+struct Node
+{
+	int val;
+	struct Node* next;
+};
+
 typedef struct
 {
 	struct Node* head;
 	struct Node* current;
-	int size;
+	unsigned long size;
 } List;
 
-struct Node
-{
-	void* data;
-	struct Node* next;
-};
+struct Node* head = NULL;
+struct Node* current = NULL;
 
-struct Node* createList(List* list, void* data);
-struct Node* addToList(List* list, void* data, bool addToEnd);
-void* getData(List* list, int index);
-void destroyAux(struct Node* node);
-void destroy(List* list);
-//bool deleteAux(List* list, int val, struct Node* node, struct Node* prev);
-//bool del(List* list, int val);
+struct Node* createList(List* list, int val);
+struct Node* addToList(List* list, int val, bool addToEnd);
+bool deleteAux(List* list, int val, struct Node* node, struct Node* prev);
+bool del(List* list, int val);
 void printAux(struct Node* node);
 void print(List* list);
-
-#endif
+int getVal(List* list, int index);
+List copy(List* list);

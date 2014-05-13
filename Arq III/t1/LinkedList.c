@@ -2,7 +2,7 @@
 
 struct Node* createList(List* list, int val)
 {
-	printf("\n Creating a list with headnode as [%d]\n", val);
+	//printf("\n Creating a list with headnode as [%d]\n", val);
 
 	struct Node* ptr = (struct Node*) malloc(sizeof(struct Node));
 	if (ptr == NULL)
@@ -26,7 +26,7 @@ struct Node* addToList(List* list, int val, bool addToEnd)
 	struct Node* ptr = (struct Node*) malloc(sizeof(struct Node));
 	if (ptr == NULL)
 	{
-		printf("\n Node creation failed. \n");
+		//printf("\n Node creation failed. \n");
 		return NULL;
 	}
 	ptr->val = val;
@@ -34,13 +34,13 @@ struct Node* addToList(List* list, int val, bool addToEnd)
 
 	if (addToEnd)
 	{
-		printf("\n Adding node to the end of the list with value of [%d] \n", val);
+		//printf("\n Adding node to the end of the list with value of [%d] \n", val);
 		list->current->next = ptr;
 		list->current = ptr;
 	}
 	else
 	{
-		printf("\n Adding node to the beginning of the list with value of [%d] \n", val);
+		//printf("\n Adding node to the beginning of the list with value of [%d] \n", val);
 		ptr->next = list->head;
 		list->head = ptr;
 	}
@@ -57,14 +57,14 @@ bool deleteAux(List* list, int val, struct Node* node, struct Node* prev)
 	{
 		if (prev == NULL)
 		{
-			printf("\n Deleting node with value of [%d] \n", val);
+			//printf("\n Deleting node with value of [%d] \n", val);
 			struct Node* tmp = list->head;
 			list->head = list->head->next;
 			free(tmp);
 			list->size--;
 			return true;
 		}
-		printf("\n Deleting node with value of [%d] \n", val);
+		//printf("\n Deleting node with value of [%d] \n", val);
 		prev->next = node->next;
 		free(node);
 		list->size--;
@@ -122,6 +122,21 @@ List copy(List* list)
 	return lst;
 }
 
+void destroyAux(struct Node* node)
+{
+	if (node == NULL)
+		return;
+	destroyAux(node->next);
+	//printf("Freeing node with the value of %d\n", node->val);
+	free(node);
+}
+
+void destroy(List* list)
+{
+	destroyAux(list->head);
+}
+
+/*
 int main(int argc, const char *argv[])
 {
 	List list;
@@ -150,5 +165,8 @@ int main(int argc, const char *argv[])
 	print(&list);
 	printf("Copy\n");
 	print(&cp);
+	destroy(&list);
+	destroy(&cp);
 	return 0;
 }
+*/

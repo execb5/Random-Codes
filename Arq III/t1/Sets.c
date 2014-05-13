@@ -18,25 +18,19 @@ void subSets(List* S, List* Z)
 		print(Z);
 		destroy(S);
 		destroy(Z);
+		return;
 	}
-	//int rnd = rand() % S->size;
-	int rnd = 0;
+	int value = getVal(S, 0);
 
-	int value = getVal(S, rnd);
+	List minusValue = copy(S);
+	List withoutValue = copy(Z);
+	List withValue = copy(Z);
 
-	List SS = copy(S);
-	List ZZ = copy(Z);
-	List ZZZ = copy(Z);
+	del(&minusValue, value);
+	withValue.head = addToList(&withValue, value, true);
 
-	destroy(S);
-	destroy(Z);
-
-	del(&SS, value);
-	ZZZ.head = addToList(&ZZ, value, true);
-
-	subSets(&SS, &ZZ);
-
-	subSets(&SS, &ZZZ);
+	subSets(&minusValue, &withoutValue);
+	subSets(&minusValue, &withValue);
 }
 
 int main(int argc, const char *argv[])
@@ -49,7 +43,7 @@ int main(int argc, const char *argv[])
 	list.size = 0;
 
 	int i = 0;
-	while (i < 5)
+	while (i < 15)
 	{
 		list.head = addToList(&list, i, true);
 		i++;

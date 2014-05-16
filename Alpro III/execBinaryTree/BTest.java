@@ -55,6 +55,7 @@ public class BTest {
 			BinaryTree.espelha(T0);
 			System.out.println("ESPELHADO");
 			T0.printDraw();
+			System.out.println(T0.hasRep());
 
 		} catch (Exception e) {
 			e.printStackTrace();

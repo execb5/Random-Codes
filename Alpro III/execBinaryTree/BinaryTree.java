@@ -214,4 +214,19 @@ public class BinaryTree {
 		System.out.println(s + node.data);
 		printDrawAux(node.right, s + "      ");
 	}
+
+	public boolean hasRep()
+	{
+		return hasRepAux(root, root.data);
+	}
+
+	private boolean hasRepAux(Node node, int valor)
+	{
+		if (node == null)
+			return false;
+		if (node.data == valor)
+			return true;
+		boolean resposta = hasRepAux(node.left, node.data) || hasRepAux(node.right, node.data) || hasRepAux(node.left, node.left.data) || hasRepAux(node.right, node.right.data);
+		return resposta;
+	}
 }

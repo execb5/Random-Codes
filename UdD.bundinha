@@ -1,0 +1,37 @@
+Nomes: Francine Boerner, Gioavanni Cupertino e Matthias Nunes
+
+Tema: PetShop
+
+UdD: A empresa em questão vende produtos e presta serviços a animais de
+estimação.
+
+	A PetShop deve possuir nome, CNPJ, endereço, telefone.
+
+	O objetivo do sistema é gerenciar a PetShop na questão financeira,
+	produtos e agendamento de serviços.
+
+	O agendamento de qualquer serviço pode ser feito presencialmente ou via
+	telefone, o cadastro de um animal precisa conter os seguintes dados:
+	nome, CPF, RG, sexo, endereço(rua, bairro cidade número, complemento,
+	CEP), telefone, email, do cliente; nome, raça, tipo, do animal. Com
+	todos esses dados o sistema vai gerar um número de registro para o
+	cliente e outro para o animal,  guardando a data de cadastro. Um
+	agendamento também tem um código de serviço que serve para consulta de
+	preço e de responsável na agenda.
+
+	Quando é agendado um banho ou estadia, um funcionário vai ser
+	responsável pelo animal, no caso de um exame, cirugia ou consulta, um
+	veterinário será responsável. Um funcionário ou veterinário precisa
+	conter os seguintes dados no cadastro: nome completo, sexo, RG, CPF,
+	endereço, contendo rua, bairro, cidade, número(com o complemento
+	opcional) e CEP. Também deve guardar o salário, que altera de acordo com
+	a função na PetShop e horas trabalhadas. No caso de ser veterinário, o
+	CRV também é necessário.
+
+	Quando um funcionário chega na PetShop, ele imprime sua agenda do dia,
+	com todos os compromissos agendados.
+	
+	Será possível emitir dois tipos de notas fiscais, uma para produtos
+	vendidos e outra para serviços prestados. Ambas as notas devem possuir
+	os valores a serem pagos, mas a de serviços deve conter o nome do
+	funcionário responsável.

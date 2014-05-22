@@ -1,0 +1,676 @@
+matthias@sadako-550P5C-550P7C:~/Documents/Random-Codes/Arq III/t1$ ./run.sh 
+Compiling... 
+DONE!
+Simulating different cache sizes...
+16kB CACHE - tam_bloco 32
+==2866== Cachegrind, a cache and branch-prediction profiler
+==2866== Copyright (C) 2002-2013, and GNU GPL'd, by Nicholas Nethercote et al.
+==2866== Using Valgrind-3.10.0.SVN and LibVEX; rerun with -h for copyright info
+==2866== Command: ./main
+==2866== 
+--2866-- warning: L3 cache found, using its data for the LL simulation.
+
+Generating connections...DONE!!
+
+Starting crazyPath...DONE!!
+Sum = 50002040
+==2866== 
+==2866== I   refs:      9,001,429,706
+==2866== I1  misses:              943
+==2866== LLi misses:              937
+==2866== I1  miss rate:          0.00%
+==2866== LLi miss rate:          0.00%
+==2866== 
+==2866== D   refs:      4,051,877,886  (3,051,148,743 rd   + 1,000,729,143 wr)
+==2866== D1  misses:      156,190,030  (  153,018,616 rd   +     3,171,414 wr)
+==2866== LLd misses:        3,180,554  (    1,600,072 rd   +     1,580,482 wr)
+==2866== D1  miss rate:           3.8% (          5.0%     +           0.3%  )
+==2866== LLd miss rate:           0.0% (          0.0%     +           0.1%  )
+==2866== 
+==2866== LL refs:         156,190,973  (  153,019,559 rd   +     3,171,414 wr)
+==2866== LL misses:         3,181,491  (    1,601,009 rd   +     1,580,482 wr)
+==2866== LL miss rate:            0.0% (          0.0%     +           0.1%  )
+16kB CACHE - tam_bloco 64
+==2905== Cachegrind, a cache and branch-prediction profiler
+==2905== Copyright (C) 2002-2013, and GNU GPL'd, by Nicholas Nethercote et al.
+==2905== Using Valgrind-3.10.0.SVN and LibVEX; rerun with -h for copyright info
+==2905== Command: ./main
+==2905== 
+--2905-- warning: L3 cache found, using its data for the LL simulation.
+
+Generating connections...DONE!!
+
+Starting crazyPath...DONE!!
+Sum = 50002040
+==2905== 
+==2905== I   refs:      9,001,429,706
+==2905== I1  misses:              943
+==2905== LLi misses:              937
+==2905== I1  miss rate:          0.00%
+==2905== LLi miss rate:          0.00%
+==2905== 
+==2905== D   refs:      4,051,877,886  (3,051,148,743 rd   + 1,000,729,143 wr)
+==2905== D1  misses:      128,163,683  (  126,577,303 rd   +     1,586,380 wr)
+==2905== LLd misses:        3,180,560  (    1,600,076 rd   +     1,580,484 wr)
+==2905== D1  miss rate:           3.1% (          4.1%     +           0.1%  )
+==2905== LLd miss rate:           0.0% (          0.0%     +           0.1%  )
+==2905== 
+==2905== LL refs:         128,164,626  (  126,578,246 rd   +     1,586,380 wr)
+==2905== LL misses:         3,181,497  (    1,601,013 rd   +     1,580,484 wr)
+==2905== LL miss rate:            0.0% (          0.0%     +           0.1%  )
+16kB CACHE - tam_bloco 128
+==2913== Cachegrind, a cache and branch-prediction profiler
+==2913== Copyright (C) 2002-2013, and GNU GPL'd, by Nicholas Nethercote et al.
+==2913== Using Valgrind-3.10.0.SVN and LibVEX; rerun with -h for copyright info
+==2913== Command: ./main
+==2913== 
+--2913-- warning: L3 cache found, using its data for the LL simulation.
+
+Generating connections...DONE!!
+
+Starting crazyPath...DONE!!
+Sum = 50002040
+==2913== 
+==2913== I   refs:      9,001,429,706
+==2913== I1  misses:              943
+==2913== LLi misses:              940
+==2913== I1  miss rate:          0.00%
+==2913== LLi miss rate:          0.00%
+==2913== 
+==2913== D   refs:      4,051,877,886  (3,051,148,743 rd   + 1,000,729,143 wr)
+==2913== D1  misses:      114,120,904  (  113,326,508 rd   +       794,396 wr)
+==2913== LLd misses:        2,389,630  (    1,596,867 rd   +       792,763 wr)
+==2913== D1  miss rate:           2.8% (          3.7%     +           0.0%  )
+==2913== LLd miss rate:           0.0% (          0.0%     +           0.0%  )
+==2913== 
+==2913== LL refs:         114,121,847  (  113,327,451 rd   +       794,396 wr)
+==2913== LL misses:         2,390,570  (    1,597,807 rd   +       792,763 wr)
+==2913== LL miss rate:            0.0% (          0.0%     +           0.0%  )
+16kB CACHE - tam_bloco 256
+==3056== Cachegrind, a cache and branch-prediction profiler
+==3056== Copyright (C) 2002-2013, and GNU GPL'd, by Nicholas Nethercote et al.
+==3056== Using Valgrind-3.10.0.SVN and LibVEX; rerun with -h for copyright info
+==3056== Command: ./main
+==3056== 
+--3056-- warning: L3 cache found, using its data for the LL simulation.
+
+Generating connections...DONE!!
+
+Starting crazyPath...DONE!!
+Sum = 50002040
+==3056== 
+==3056== I   refs:      9,001,429,706
+==3056== I1  misses:              943
+==3056== LLi misses:              940
+==3056== I1  miss rate:          0.00%
+==3056== LLi miss rate:          0.00%
+==3056== 
+==3056== D   refs:      4,051,877,886  (3,051,148,743 rd   + 1,000,729,143 wr)
+==3056== D1  misses:      107,124,313  (  106,713,882 rd   +       410,431 wr)
+==3056== LLd misses:        1,986,658  (    1,590,205 rd   +       396,453 wr)
+==3056== D1  miss rate:           2.6% (          3.4%     +           0.0%  )
+==3056== LLd miss rate:           0.0% (          0.0%     +           0.0%  )
+==3056== 
+==3056== LL refs:         107,125,256  (  106,714,825 rd   +       410,431 wr)
+==3056== LL misses:         1,987,598  (    1,591,145 rd   +       396,453 wr)
+==3056== LL miss rate:            0.0% (          0.0%     +           0.0%  )
+32kB CACHE - tam_bloco 32
+==3207== Cachegrind, a cache and branch-prediction profiler
+==3207== Copyright (C) 2002-2013, and GNU GPL'd, by Nicholas Nethercote et al.
+==3207== Using Valgrind-3.10.0.SVN and LibVEX; rerun with -h for copyright info
+==3207== Command: ./main
+==3207== 
+--3207-- warning: L3 cache found, using its data for the LL simulation.
+
+Generating connections...DONE!!
+
+Starting crazyPath...DONE!!
+Sum = 50002040
+==3207== 
+==3207== I   refs:      9,001,429,706
+==3207== I1  misses:              943
+==3207== LLi misses:              937
+==3207== I1  miss rate:          0.00%
+==3207== LLi miss rate:          0.00%
+==3207== 
+==3207== D   refs:      4,051,877,886  (3,051,148,743 rd   + 1,000,729,143 wr)
+==3207== D1  misses:      155,562,663  (  152,392,305 rd   +     3,170,358 wr)
+==3207== LLd misses:        3,180,553  (    1,600,075 rd   +     1,580,478 wr)
+==3207== D1  miss rate:           3.8% (          4.9%     +           0.3%  )
+==3207== LLd miss rate:           0.0% (          0.0%     +           0.1%  )
+==3207== 
+==3207== LL refs:         155,563,606  (  152,393,248 rd   +     3,170,358 wr)
+==3207== LL misses:         3,181,490  (    1,601,012 rd   +     1,580,478 wr)
+==3207== LL miss rate:            0.0% (          0.0%     +           0.1%  )
+32kB CACHE - tam_bloco 64
+==3263== Cachegrind, a cache and branch-prediction profiler
+==3263== Copyright (C) 2002-2013, and GNU GPL'd, by Nicholas Nethercote et al.
+==3263== Using Valgrind-3.10.0.SVN and LibVEX; rerun with -h for copyright info
+==3263== Command: ./main
+==3263== 
+--3263-- warning: L3 cache found, using its data for the LL simulation.
+
+Generating connections...DONE!!
+
+Starting crazyPath...DONE!!
+Sum = 50002040
+==3263== 
+==3263== I   refs:      9,001,429,706
+==3263== I1  misses:              943
+==3263== LLi misses:              937
+==3263== I1  miss rate:          0.00%
+==3263== LLi miss rate:          0.00%
+==3263== 
+==3263== D   refs:      4,051,877,886  (3,051,148,743 rd   + 1,000,729,143 wr)
+==3263== D1  misses:      127,984,099  (  126,398,858 rd   +     1,585,241 wr)
+==3263== LLd misses:        3,180,548  (    1,600,072 rd   +     1,580,476 wr)
+==3263== D1  miss rate:           3.1% (          4.1%     +           0.1%  )
+==3263== LLd miss rate:           0.0% (          0.0%     +           0.1%  )
+==3263== 
+==3263== LL refs:         127,985,042  (  126,399,801 rd   +     1,585,241 wr)
+==3263== LL misses:         3,181,485  (    1,601,009 rd   +     1,580,476 wr)
+==3263== LL miss rate:            0.0% (          0.0%     +           0.1%  )
+32kB CACHE - tam_bloco 128
+==3280== Cachegrind, a cache and branch-prediction profiler
+==3280== Copyright (C) 2002-2013, and GNU GPL'd, by Nicholas Nethercote et al.
+==3280== Using Valgrind-3.10.0.SVN and LibVEX; rerun with -h for copyright info
+==3280== Command: ./main
+==3280== 
+--3280-- warning: L3 cache found, using its data for the LL simulation.
+
+Generating connections...DONE!!
+
+Starting crazyPath...DONE!!
+Sum = 50002040
+==3280== 
+==3280== I   refs:      9,001,429,706
+==3280== I1  misses:              943
+==3280== LLi misses:              940
+==3280== I1  miss rate:          0.00%
+==3280== LLi miss rate:          0.00%
+==3280== 
+==3280== D   refs:      4,051,877,886  (3,051,148,743 rd   + 1,000,729,143 wr)
+==3280== D1  misses:      114,065,921  (  113,273,261 rd   +       792,660 wr)
+==3280== LLd misses:        2,388,743  (    1,596,125 rd   +       792,618 wr)
+==3280== D1  miss rate:           2.8% (          3.7%     +           0.0%  )
+==3280== LLd miss rate:           0.0% (          0.0%     +           0.0%  )
+==3280== 
+==3280== LL refs:         114,066,864  (  113,274,204 rd   +       792,660 wr)
+==3280== LL misses:         2,389,683  (    1,597,065 rd   +       792,618 wr)
+==3280== LL miss rate:            0.0% (          0.0%     +           0.0%  )
+32kB CACHE - tam_bloco 256
+==3287== Cachegrind, a cache and branch-prediction profiler
+==3287== Copyright (C) 2002-2013, and GNU GPL'd, by Nicholas Nethercote et al.
+==3287== Using Valgrind-3.10.0.SVN and LibVEX; rerun with -h for copyright info
+==3287== Command: ./main
+==3287== 
+--3287-- warning: L3 cache found, using its data for the LL simulation.
+
+Generating connections...DONE!!
+
+Starting crazyPath...DONE!!
+Sum = 50002040
+==3287== 
+==3287== I   refs:      9,001,429,706
+==3287== I1  misses:              943
+==3287== LLi misses:              940
+==3287== I1  miss rate:          0.00%
+==3287== LLi miss rate:          0.00%
+==3287== 
+==3287== D   refs:      4,051,877,886  (3,051,148,743 rd   + 1,000,729,143 wr)
+==3287== D1  misses:      107,070,562  (  106,674,211 rd   +       396,351 wr)
+==3287== LLd misses:        1,984,876  (    1,588,544 rd   +       396,332 wr)
+==3287== D1  miss rate:           2.6% (          3.4%     +           0.0%  )
+==3287== LLd miss rate:           0.0% (          0.0%     +           0.0%  )
+==3287== 
+==3287== LL refs:         107,071,505  (  106,675,154 rd   +       396,351 wr)
+==3287== LL misses:         1,985,816  (    1,589,484 rd   +       396,332 wr)
+==3287== LL miss rate:            0.0% (          0.0%     +           0.0%  )
+64kB CACHE tam_bloco 32
+==3289== Cachegrind, a cache and branch-prediction profiler
+==3289== Copyright (C) 2002-2013, and GNU GPL'd, by Nicholas Nethercote et al.
+==3289== Using Valgrind-3.10.0.SVN and LibVEX; rerun with -h for copyright info
+==3289== Command: ./main
+==3289== 
+--3289-- warning: L3 cache found, using its data for the LL simulation.
+
+Generating connections...DONE!!
+
+Starting crazyPath...DONE!!
+Sum = 50002040
+==3289== 
+==3289== I   refs:      9,001,429,706
+==3289== I1  misses:              943
+==3289== LLi misses:              937
+==3289== I1  miss rate:          0.00%
+==3289== LLi miss rate:          0.00%
+==3289== 
+==3289== D   refs:      4,051,877,886  (3,051,148,743 rd   + 1,000,729,143 wr)
+==3289== D1  misses:      153,066,158  (  149,896,782 rd   +     3,169,376 wr)
+==3289== LLd misses:        3,180,553  (    1,600,075 rd   +     1,580,478 wr)
+==3289== D1  miss rate:           3.7% (          4.9%     +           0.3%  )
+==3289== LLd miss rate:           0.0% (          0.0%     +           0.1%  )
+==3289== 
+==3289== LL refs:         153,067,101  (  149,897,725 rd   +     3,169,376 wr)
+==3289== LL misses:         3,181,490  (    1,601,012 rd   +     1,580,478 wr)
+==3289== LL miss rate:            0.0% (          0.0%     +           0.1%  )
+64kB CACHE - tam_bloco 64
+==3293== Cachegrind, a cache and branch-prediction profiler
+==3293== Copyright (C) 2002-2013, and GNU GPL'd, by Nicholas Nethercote et al.
+==3293== Using Valgrind-3.10.0.SVN and LibVEX; rerun with -h for copyright info
+==3293== Command: ./main
+==3293== 
+--3293-- warning: L3 cache found, using its data for the LL simulation.
+
+Generating connections...DONE!!
+
+Starting crazyPath...DONE!!
+Sum = 50002040
+==3293== 
+==3293== I   refs:      9,001,429,706
+==3293== I1  misses:              943
+==3293== LLi misses:              937
+==3293== I1  miss rate:          0.00%
+==3293== LLi miss rate:          0.00%
+==3293== 
+==3293== D   refs:      4,051,877,886  (3,051,148,743 rd   + 1,000,729,143 wr)
+==3293== D1  misses:      127,282,172  (  125,697,428 rd   +     1,584,744 wr)
+==3293== LLd misses:        3,180,548  (    1,600,072 rd   +     1,580,476 wr)
+==3293== D1  miss rate:           3.1% (          4.1%     +           0.1%  )
+==3293== LLd miss rate:           0.0% (          0.0%     +           0.1%  )
+==3293== 
+==3293== LL refs:         127,283,115  (  125,698,371 rd   +     1,584,744 wr)
+==3293== LL misses:         3,181,485  (    1,601,009 rd   +     1,580,476 wr)
+==3293== LL miss rate:            0.0% (          0.0%     +           0.1%  )
+64kB CACHE - tam_bloco 128
+==3318== Cachegrind, a cache and branch-prediction profiler
+==3318== Copyright (C) 2002-2013, and GNU GPL'd, by Nicholas Nethercote et al.
+==3318== Using Valgrind-3.10.0.SVN and LibVEX; rerun with -h for copyright info
+==3318== Command: ./main
+==3318== 
+--3318-- warning: L3 cache found, using its data for the LL simulation.
+
+Generating connections...DONE!!
+
+Starting crazyPath...DONE!!
+Sum = 50002040
+==3318== 
+==3318== I   refs:      9,001,429,706
+==3318== I1  misses:              943
+==3318== LLi misses:              940
+==3318== I1  miss rate:          0.00%
+==3318== LLi miss rate:          0.00%
+==3318== 
+==3318== D   refs:      4,051,877,886  (3,051,148,743 rd   + 1,000,729,143 wr)
+==3318== D1  misses:      113,870,706  (  113,078,304 rd   +       792,402 wr)
+==3318== LLd misses:        2,387,152  (    1,594,778 rd   +       792,374 wr)
+==3318== D1  miss rate:           2.8% (          3.7%     +           0.0%  )
+==3318== LLd miss rate:           0.0% (          0.0%     +           0.0%  )
+==3318== 
+==3318== LL refs:         113,871,649  (  113,079,247 rd   +       792,402 wr)
+==3318== LL misses:         2,388,092  (    1,595,718 rd   +       792,374 wr)
+==3318== LL miss rate:            0.0% (          0.0%     +           0.0%  )
+64kB CACHE - tam_bloco 256
+==3350== Cachegrind, a cache and branch-prediction profiler
+==3350== Copyright (C) 2002-2013, and GNU GPL'd, by Nicholas Nethercote et al.
+==3350== Using Valgrind-3.10.0.SVN and LibVEX; rerun with -h for copyright info
+==3350== Command: ./main
+==3350== 
+--3350-- warning: L3 cache found, using its data for the LL simulation.
+
+Generating connections...DONE!!
+
+Starting crazyPath...DONE!!
+Sum = 50002040
+==3350== 
+==3350== I   refs:      9,001,429,706
+==3350== I1  misses:              943
+==3350== LLi misses:              940
+==3350== I1  miss rate:          0.00%
+==3350== LLi miss rate:          0.00%
+==3350== 
+==3350== D   refs:      4,051,877,886  (3,051,148,743 rd   + 1,000,729,143 wr)
+==3350== D1  misses:      107,017,873  (  106,621,656 rd   +       396,217 wr)
+==3350== LLd misses:        1,984,207  (    1,588,001 rd   +       396,206 wr)
+==3350== D1  miss rate:           2.6% (          3.4%     +           0.0%  )
+==3350== LLd miss rate:           0.0% (          0.0%     +           0.0%  )
+==3350== 
+==3350== LL refs:         107,018,816  (  106,622,599 rd   +       396,217 wr)
+==3350== LL misses:         1,985,147  (    1,588,941 rd   +       396,206 wr)
+==3350== LL miss rate:            0.0% (          0.0%     +           0.0%  )
+128kB CACHE - tam_bloco 32
+==3372== Cachegrind, a cache and branch-prediction profiler
+==3372== Copyright (C) 2002-2013, and GNU GPL'd, by Nicholas Nethercote et al.
+==3372== Using Valgrind-3.10.0.SVN and LibVEX; rerun with -h for copyright info
+==3372== Command: ./main
+==3372== 
+--3372-- warning: L3 cache found, using its data for the LL simulation.
+
+Generating connections...DONE!!
+
+Starting crazyPath...DONE!!
+Sum = 50002040
+==3372== 
+==3372== I   refs:      9,001,429,706
+==3372== I1  misses:              943
+==3372== LLi misses:              937
+==3372== I1  miss rate:          0.00%
+==3372== LLi miss rate:          0.00%
+==3372== 
+==3372== D   refs:      4,051,877,886  (3,051,148,743 rd   + 1,000,729,143 wr)
+==3372== D1  misses:      143,209,966  (  140,042,542 rd   +     3,167,424 wr)
+==3372== LLd misses:        3,180,593  (    1,600,115 rd   +     1,580,478 wr)
+==3372== D1  miss rate:           3.5% (          4.5%     +           0.3%  )
+==3372== LLd miss rate:           0.0% (          0.0%     +           0.1%  )
+==3372== 
+==3372== LL refs:         143,210,909  (  140,043,485 rd   +     3,167,424 wr)
+==3372== LL misses:         3,181,530  (    1,601,052 rd   +     1,580,478 wr)
+==3372== LL miss rate:            0.0% (          0.0%     +           0.1%  )
+128kB CACHE - tam_bloco 64
+==3382== Cachegrind, a cache and branch-prediction profiler
+==3382== Copyright (C) 2002-2013, and GNU GPL'd, by Nicholas Nethercote et al.
+==3382== Using Valgrind-3.10.0.SVN and LibVEX; rerun with -h for copyright info
+==3382== Command: ./main
+==3382== 
+--3382-- warning: L3 cache found, using its data for the LL simulation.
+
+Generating connections...DONE!!
+
+Starting crazyPath...DONE!!
+Sum = 50002040
+==3382== 
+==3382== I   refs:      9,001,429,706
+==3382== I1  misses:              943
+==3382== LLi misses:              937
+==3382== I1  miss rate:          0.00%
+==3382== LLi miss rate:          0.00%
+==3382== 
+==3382== D   refs:      4,051,877,886  (3,051,148,743 rd   + 1,000,729,143 wr)
+==3382== D1  misses:      124,402,385  (  122,818,627 rd   +     1,583,758 wr)
+==3382== LLd misses:        3,180,548  (    1,600,072 rd   +     1,580,476 wr)
+==3382== D1  miss rate:           3.0% (          4.0%     +           0.1%  )
+==3382== LLd miss rate:           0.0% (          0.0%     +           0.1%  )
+==3382== 
+==3382== LL refs:         124,403,328  (  122,819,570 rd   +     1,583,758 wr)
+==3382== LL misses:         3,181,485  (    1,601,009 rd   +     1,580,476 wr)
+==3382== LL miss rate:            0.0% (          0.0%     +           0.1%  )
+128kB CACHE - tam_bloco 128
+==3405== Cachegrind, a cache and branch-prediction profiler
+==3405== Copyright (C) 2002-2013, and GNU GPL'd, by Nicholas Nethercote et al.
+==3405== Using Valgrind-3.10.0.SVN and LibVEX; rerun with -h for copyright info
+==3405== Command: ./main
+==3405== 
+--3405-- warning: L3 cache found, using its data for the LL simulation.
+
+Generating connections...DONE!!
+
+Starting crazyPath...DONE!!
+Sum = 50002040
+==3405== 
+==3405== I   refs:      9,001,429,706
+==3405== I1  misses:              943
+==3405== LLi misses:              940
+==3405== I1  miss rate:          0.00%
+==3405== LLi miss rate:          0.00%
+==3405== 
+==3405== D   refs:      4,051,877,886  (3,051,148,743 rd   + 1,000,729,143 wr)
+==3405== D1  misses:      113,078,090  (  112,286,186 rd   +       791,904 wr)
+==3405== LLd misses:        2,381,671  (    1,589,783 rd   +       791,888 wr)
+==3405== D1  miss rate:           2.7% (          3.6%     +           0.0%  )
+==3405== LLd miss rate:           0.0% (          0.0%     +           0.0%  )
+==3405== 
+==3405== LL refs:         113,079,033  (  112,287,129 rd   +       791,904 wr)
+==3405== LL misses:         2,382,611  (    1,590,723 rd   +       791,888 wr)
+==3405== LL miss rate:            0.0% (          0.0%     +           0.0%  )
+128kB CACHE - tam_bloco 256
+==3410== Cachegrind, a cache and branch-prediction profiler
+==3410== Copyright (C) 2002-2013, and GNU GPL'd, by Nicholas Nethercote et al.
+==3410== Using Valgrind-3.10.0.SVN and LibVEX; rerun with -h for copyright info
+==3410== Command: ./main
+==3410== 
+--3410-- warning: L3 cache found, using its data for the LL simulation.
+
+Generating connections...DONE!!
+
+Starting crazyPath...DONE!!
+Sum = 50002040
+==3410== 
+==3410== I   refs:      9,001,429,706
+==3410== I1  misses:              943
+==3410== LLi misses:              940
+==3410== I1  miss rate:          0.00%
+==3410== LLi miss rate:          0.00%
+==3410== 
+==3410== D   refs:      4,051,877,886  (3,051,148,743 rd   + 1,000,729,143 wr)
+==3410== D1  misses:      106,810,084  (  106,414,118 rd   +       395,966 wr)
+==3410== LLd misses:        1,981,778  (    1,585,818 rd   +       395,960 wr)
+==3410== D1  miss rate:           2.6% (          3.4%     +           0.0%  )
+==3410== LLd miss rate:           0.0% (          0.0%     +           0.0%  )
+==3410== 
+==3410== LL refs:         106,811,027  (  106,415,061 rd   +       395,966 wr)
+==3410== LL misses:         1,982,718  (    1,586,758 rd   +       395,960 wr)
+==3410== LL miss rate:            0.0% (          0.0%     +           0.0%  )
+1mB CACHE - tam_bloco 32
+==3426== Cachegrind, a cache and branch-prediction profiler
+==3426== Copyright (C) 2002-2013, and GNU GPL'd, by Nicholas Nethercote et al.
+==3426== Using Valgrind-3.10.0.SVN and LibVEX; rerun with -h for copyright info
+==3426== Command: ./main
+==3426== 
+--3426-- warning: L3 cache found, using its data for the LL simulation.
+
+Generating connections...DONE!!
+
+Starting crazyPath...DONE!!
+Sum = 50002040
+==3426== 
+==3426== I   refs:      9,001,429,706
+==3426== I1  misses:              943
+==3426== LLi misses:              937
+==3426== I1  miss rate:          0.00%
+==3426== LLi miss rate:          0.00%
+==3426== 
+==3426== D   refs:      4,051,877,886  (3,051,148,743 rd   + 1,000,729,143 wr)
+==3426== D1  misses:        6,374,149  (    3,213,017 rd   +     3,161,132 wr)
+==3426== LLd misses:        3,180,470  (    1,600,017 rd   +     1,580,453 wr)
+==3426== D1  miss rate:           0.1% (          0.1%     +           0.3%  )
+==3426== LLd miss rate:           0.0% (          0.0%     +           0.1%  )
+==3426== 
+==3426== LL refs:           6,375,092  (    3,213,960 rd   +     3,161,132 wr)
+==3426== LL misses:         3,181,407  (    1,600,954 rd   +     1,580,453 wr)
+==3426== LL miss rate:            0.0% (          0.0%     +           0.1%  )
+1mB CACHE - tam_bloco 64
+==3445== Cachegrind, a cache and branch-prediction profiler
+==3445== Copyright (C) 2002-2013, and GNU GPL'd, by Nicholas Nethercote et al.
+==3445== Using Valgrind-3.10.0.SVN and LibVEX; rerun with -h for copyright info
+==3445== Command: ./main
+==3445== 
+--3445-- warning: L3 cache found, using its data for the LL simulation.
+
+Generating connections...DONE!!
+
+Starting crazyPath...DONE!!
+Sum = 50002040
+==3445== 
+==3445== I   refs:      9,001,429,706
+==3445== I1  misses:              943
+==3445== LLi misses:              937
+==3445== I1  miss rate:          0.00%
+==3445== LLi miss rate:          0.00%
+==3445== 
+==3445== D   refs:      4,051,877,886  (3,051,148,743 rd   + 1,000,729,143 wr)
+==3445== D1  misses:        6,286,843  (    4,706,209 rd   +     1,580,634 wr)
+==3445== LLd misses:        3,189,980  (    1,609,548 rd   +     1,580,432 wr)
+==3445== D1  miss rate:           0.1% (          0.1%     +           0.1%  )
+==3445== LLd miss rate:           0.0% (          0.0%     +           0.1%  )
+==3445== 
+==3445== LL refs:           6,287,786  (    4,707,152 rd   +     1,580,634 wr)
+==3445== LL misses:         3,190,917  (    1,610,485 rd   +     1,580,432 wr)
+==3445== LL miss rate:            0.0% (          0.0%     +           0.1%  )
+1mB CACHE - tam_bloco 128
+==3450== Cachegrind, a cache and branch-prediction profiler
+==3450== Copyright (C) 2002-2013, and GNU GPL'd, by Nicholas Nethercote et al.
+==3450== Using Valgrind-3.10.0.SVN and LibVEX; rerun with -h for copyright info
+==3450== Command: ./main
+==3450== 
+--3450-- warning: L3 cache found, using its data for the LL simulation.
+
+Generating connections...DONE!!
+
+Starting crazyPath...DONE!!
+Sum = 50002040
+==3450== 
+==3450== I   refs:      9,001,429,706
+==3450== I1  misses:              943
+==3450== LLi misses:              940
+==3450== I1  miss rate:          0.00%
+==3450== LLi miss rate:          0.00%
+==3450== 
+==3450== D   refs:      4,051,877,886  (3,051,148,743 rd   + 1,000,729,143 wr)
+==3450== D1  misses:       55,002,680  (   54,212,325 rd   +       790,355 wr)
+==3450== LLd misses:        2,205,316  (    1,414,974 rd   +       790,342 wr)
+==3450== D1  miss rate:           1.3% (          1.7%     +           0.0%  )
+==3450== LLd miss rate:           0.0% (          0.0%     +           0.0%  )
+==3450== 
+==3450== LL refs:          55,003,623  (   54,213,268 rd   +       790,355 wr)
+==3450== LL misses:         2,206,256  (    1,415,914 rd   +       790,342 wr)
+==3450== LL miss rate:            0.0% (          0.0%     +           0.0%  )
+1mB CACHE - tam_bloco 256
+==3480== Cachegrind, a cache and branch-prediction profiler
+==3480== Copyright (C) 2002-2013, and GNU GPL'd, by Nicholas Nethercote et al.
+==3480== Using Valgrind-3.10.0.SVN and LibVEX; rerun with -h for copyright info
+==3480== Command: ./main
+==3480== 
+--3480-- warning: L3 cache found, using its data for the LL simulation.
+
+Generating connections...DONE!!
+
+Starting crazyPath...DONE!!
+Sum = 50002040
+==3480== 
+==3480== I   refs:      9,001,429,706
+==3480== I1  misses:              943
+==3480== LLi misses:              940
+==3480== I1  miss rate:          0.00%
+==3480== LLi miss rate:          0.00%
+==3480== 
+==3480== D   refs:      4,051,877,886  (3,051,148,743 rd   + 1,000,729,143 wr)
+==3480== D1  misses:       90,722,322  (   90,327,135 rd   +       395,187 wr)
+==3480== LLd misses:        1,854,983  (    1,459,799 rd   +       395,184 wr)
+==3480== D1  miss rate:           2.2% (          2.9%     +           0.0%  )
+==3480== LLd miss rate:           0.0% (          0.0%     +           0.0%  )
+==3480== 
+==3480== LL refs:          90,723,265  (   90,328,078 rd   +       395,187 wr)
+==3480== LL misses:         1,855,923  (    1,460,739 rd   +       395,184 wr)
+==3480== LL miss rate:            0.0% (          0.0%     +           0.0%  )
+2mB CACHE - tam_bloco 32
+==3490== Cachegrind, a cache and branch-prediction profiler
+==3490== Copyright (C) 2002-2013, and GNU GPL'd, by Nicholas Nethercote et al.
+==3490== Using Valgrind-3.10.0.SVN and LibVEX; rerun with -h for copyright info
+==3490== Command: ./main
+==3490== 
+--3490-- warning: L3 cache found, using its data for the LL simulation.
+
+Generating connections...DONE!!
+
+Starting crazyPath...DONE!!
+Sum = 50002040
+==3490== 
+==3490== I   refs:      9,001,429,706
+==3490== I1  misses:              943
+==3490== LLi misses:              937
+==3490== I1  miss rate:          0.00%
+==3490== LLi miss rate:          0.00%
+==3490== 
+==3490== D   refs:      4,051,877,886  (3,051,148,743 rd   + 1,000,729,143 wr)
+==3490== D1  misses:        6,341,289  (    3,180,346 rd   +     3,160,943 wr)
+==3490== LLd misses:        3,180,460  (    1,600,007 rd   +     1,580,453 wr)
+==3490== D1  miss rate:           0.1% (          0.1%     +           0.3%  )
+==3490== LLd miss rate:           0.0% (          0.0%     +           0.1%  )
+==3490== 
+==3490== LL refs:           6,342,232  (    3,181,289 rd   +     3,160,943 wr)
+==3490== LL misses:         3,181,397  (    1,600,944 rd   +     1,580,453 wr)
+==3490== LL miss rate:            0.0% (          0.0%     +           0.1%  )
+2mB CACHE - tam_bloco 64
+==3947== Cachegrind, a cache and branch-prediction profiler
+==3947== Copyright (C) 2002-2013, and GNU GPL'd, by Nicholas Nethercote et al.
+==3947== Using Valgrind-3.10.0.SVN and LibVEX; rerun with -h for copyright info
+==3947== Command: ./main
+==3947== 
+--3947-- warning: L3 cache found, using its data for the LL simulation.
+
+Generating connections...DONE!!
+
+Starting crazyPath...DONE!!
+Sum = 50002040
+==3947== 
+==3947== I   refs:      9,001,429,706
+==3947== I1  misses:              943
+==3947== LLi misses:              937
+==3947== I1  miss rate:          0.00%
+==3947== LLi miss rate:          0.00%
+==3947== 
+==3947== D   refs:      4,051,877,886  (3,051,148,743 rd   + 1,000,729,143 wr)
+==3947== D1  misses:        3,180,745  (    1,600,204 rd   +     1,580,541 wr)
+==3947== LLd misses:        3,180,403  (    1,599,978 rd   +     1,580,425 wr)
+==3947== D1  miss rate:           0.0% (          0.0%     +           0.1%  )
+==3947== LLd miss rate:           0.0% (          0.0%     +           0.1%  )
+==3947== 
+==3947== LL refs:           3,181,688  (    1,601,147 rd   +     1,580,541 wr)
+==3947== LL misses:         3,181,340  (    1,600,915 rd   +     1,580,425 wr)
+==3947== LL miss rate:            0.0% (          0.0%     +           0.1%  )
+2mB CACHE - tam_bloco 128
+==3984== Cachegrind, a cache and branch-prediction profiler
+==3984== Copyright (C) 2002-2013, and GNU GPL'd, by Nicholas Nethercote et al.
+==3984== Using Valgrind-3.10.0.SVN and LibVEX; rerun with -h for copyright info
+==3984== Command: ./main
+==3984== 
+--3984-- warning: L3 cache found, using its data for the LL simulation.
+
+Generating connections...DONE!!
+
+Starting crazyPath...DONE!!
+Sum = 50002040
+==3984== 
+==3984== I   refs:      9,001,429,706
+==3984== I1  misses:              943
+==3984== LLi misses:              940
+==3984== I1  miss rate:          0.00%
+==3984== LLi miss rate:          0.00%
+==3984== 
+==3984== D   refs:      4,051,877,886  (3,051,148,743 rd   + 1,000,729,143 wr)
+==3984== D1  misses:       31,026,947  (   30,236,630 rd   +       790,317 wr)
+==3984== LLd misses:        2,138,539  (    1,348,235 rd   +       790,304 wr)
+==3984== D1  miss rate:           0.7% (          0.9%     +           0.0%  )
+==3984== LLd miss rate:           0.0% (          0.0%     +           0.0%  )
+==3984== 
+==3984== LL refs:          31,027,890  (   30,237,573 rd   +       790,317 wr)
+==3984== LL misses:         2,139,479  (    1,349,175 rd   +       790,304 wr)
+==3984== LL miss rate:            0.0% (          0.0%     +           0.0%  )
+2mB CACHE - tam_bloco 256
+==4004== Cachegrind, a cache and branch-prediction profiler
+==4004== Copyright (C) 2002-2013, and GNU GPL'd, by Nicholas Nethercote et al.
+==4004== Using Valgrind-3.10.0.SVN and LibVEX; rerun with -h for copyright info
+==4004== Command: ./main
+==4004== 
+--4004-- warning: L3 cache found, using its data for the LL simulation.
+
+Generating connections...DONE!!
+
+Starting crazyPath...DONE!!
+Sum = 50002040
+==4004== 
+==4004== I   refs:      9,001,429,706
+==4004== I1  misses:              943
+==4004== LLi misses:              940
+==4004== I1  miss rate:          0.00%
+==4004== LLi miss rate:          0.00%
+==4004== 
+==4004== D   refs:      4,051,877,886  (3,051,148,743 rd   + 1,000,729,143 wr)
+==4004== D1  misses:       73,377,837  (   72,982,657 rd   +       395,180 wr)
+==4004== LLd misses:        1,781,938  (    1,386,761 rd   +       395,177 wr)
+==4004== D1  miss rate:           1.8% (          2.3%     +           0.0%  )
+==4004== LLd miss rate:           0.0% (          0.0%     +           0.0%  )
+==4004== 
+==4004== LL refs:          73,378,780  (   72,983,600 rd   +       395,180 wr)
+==4004== LL misses:         1,782,878  (    1,387,701 rd   +       395,177 wr)
+==4004== LL miss rate:            0.0% (          0.0%     +           0.0%  )

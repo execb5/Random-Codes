@@ -22,7 +22,7 @@ void crazyPath(int node)
 	int i = 0;
 	for (i = 0; i < MAX; i++)
 	{
-		if (graph[node][i])
+		if (graph[i][node])
 		{
 			crazyPath(i);
 		}
@@ -47,7 +47,7 @@ int main(int argc, const char *argv[])
 	{
 		for (j = 0; j < MAX; j++)
 		{
-			graph[j][i] = rand() % 2;
+			graph[i][j] = rand() % 2;
 		}
 		marks[i] = 0;
 		nodes.head = addToList(&nodes, rand() % MAX, true);

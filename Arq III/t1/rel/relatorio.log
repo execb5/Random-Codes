@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2014.5.22)  25 MAY 2014 00:57
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2014.5.22)  22 MAY 2014 21:17
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**\input ./t2.tex
-(./t2.tex (/usr/local/texlive/2013/texmf-dist/tex/latex/base/article.cls
+**\input ./relatorio.tex
+(./relatorio.tex (/usr/local/texlive/2013/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
 (/usr/local/texlive/2013/texmf-dist/tex/latex/base/size12.clo
 File: size12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
@@ -259,168 +259,21 @@ Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
 File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
 ))
-(/usr/local/texlive/2013/texmf-dist/tex/latex/listings/listings.sty
-(/usr/local/texlive/2013/texmf-dist/tex/latex/graphics/keyval.sty
-Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
-\KV@toks@=\toks16
-)
-\lst@mode=\count88
-\lst@gtempboxa=\box26
-\lst@token=\toks17
-\lst@length=\count89
-\lst@currlwidth=\dimen104
-\lst@column=\count90
-\lst@pos=\count91
-\lst@lostspace=\dimen105
-\lst@width=\dimen106
-\lst@newlines=\count92
-\lst@lineno=\count93
-\lst@maxwidth=\dimen107
-
-(/usr/local/texlive/2013/texmf-dist/tex/latex/listings/lstmisc.sty
-File: lstmisc.sty 2014/03/04 1.5c (Carsten Heinz)
-\c@lstnumber=\count94
-\lst@skipnumbers=\count95
-\lst@framebox=\box27
-)
-(/usr/local/texlive/2013/texmf-dist/tex/latex/listings/listings.cfg
-File: listings.cfg 2014/03/04 1.5c listings configuration
-))
-Package: listings 2014/03/04 1.5c (Carsten Heinz)
-
-(/usr/local/texlive/2013/texmf-dist/tex/latex/graphics/color.sty
-Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
-
-(/usr/local/texlive/2013/texmf-dist/tex/latex/latexconfig/color.cfg
-File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
-)
-Package color Info: Driver file: pdftex.def on input line 130.
-
-(/usr/local/texlive/2013/texmf-dist/tex/latex/pdftex-def/pdftex.def
-File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
-
-(/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/infwarerr.sty
-Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
-)
-(/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
-Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
-)
-\Gread@gobject=\count96
-))
-(/usr/local/texlive/2013/texmf-dist/tex/latex/morefloats/morefloats.sty
-Package: morefloats 2012/01/28 v1.0f Raise limit of unprocessed floats (HMM; DH
-)
-
-(/usr/local/texlive/2013/texmf-dist/tex/latex/oberdiek/kvoptions.sty
-Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
-
-(/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
-Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
-
-(/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/etexcmds.sty
-Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
-
-(/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/ifluatex.sty
-Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
-Package ifluatex Info: LuaTeX not detected.
-)
-Package etexcmds Info: Could not find \expanded.
-(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
-(etexcmds)             that some package has redefined \expanded.
-(etexcmds)             In the latter case, load this package earlier.
-)))
-Package morefloats Info: Maximum number of possible floats asked for: 36.
-(morefloats)             LaTeX might run out of memory before this
-(morefloats)             (in which case it will notify you).
-(morefloats)              on input line 171.
-\bx@S=\insert233
-\bx@T=\insert232
-\bx@U=\insert231
-\bx@V=\insert230
-\bx@W=\insert229
-\bx@X=\insert228
-\bx@Y=\insert227
-\bx@Z=\insert226
-\bx@AA=\insert225
-\bx@AB=\insert224
-\bx@AC=\insert223
-\bx@AD=\insert222
-\bx@AE=\insert221
-\bx@AF=\insert220
-\bx@AG=\insert219
-\bx@AH=\insert218
-\bx@AI=\insert217
-\bx@AJ=\insert216
-)
-(/usr/local/texlive/2013/texmf-dist/tex/latex/amsmath/amsmath.sty
-Package: amsmath 2013/01/14 v2.14 AMS math features
-\@mathmargin=\skip43
-
-For additional information on amsmath, use the `?' option.
-(/usr/local/texlive/2013/texmf-dist/tex/latex/amsmath/amstext.sty
-Package: amstext 2000/06/29 v2.01
-
-(/usr/local/texlive/2013/texmf-dist/tex/latex/amsmath/amsgen.sty
-File: amsgen.sty 1999/11/30 v2.0
-\@emptytoks=\toks18
-\ex@=\dimen108
-))
-(/usr/local/texlive/2013/texmf-dist/tex/latex/amsmath/amsbsy.sty
-Package: amsbsy 1999/11/29 v1.2d
-\pmbraise@=\dimen109
-)
-(/usr/local/texlive/2013/texmf-dist/tex/latex/amsmath/amsopn.sty
-Package: amsopn 1999/12/14 v2.01 operator names
-)
-\inf@bad=\count97
-LaTeX Info: Redefining \frac on input line 210.
-\uproot@=\count98
-\leftroot@=\count99
-LaTeX Info: Redefining \overline on input line 306.
-\classnum@=\count100
-\DOTSCASE@=\count101
-LaTeX Info: Redefining \ldots on input line 378.
-LaTeX Info: Redefining \dots on input line 381.
-LaTeX Info: Redefining \cdots on input line 466.
-\Mathstrutbox@=\box28
-\strutbox@=\box29
-\big@size=\dimen110
-LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
-LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
-\macc@depth=\count102
-\c@MaxMatrixCols=\count103
-\dotsspace@=\muskip10
-\c@parentequation=\count104
-\dspbrk@lvl=\count105
-\tag@help=\toks19
-\row@=\count106
-\column@=\count107
-\maxfields@=\count108
-\andhelp@=\toks20
-\eqnshift@=\dimen111
-\alignsep@=\dimen112
-\tagshift@=\dimen113
-\tagwidth@=\dimen114
-\totwidth@=\dimen115
-\lineht@=\dimen116
-\@envbody=\toks21
-\multlinegap=\skip44
-\multlinetaggap=\skip45
-\mathdisplay@stack=\toks22
-LaTeX Info: Redefining \[ on input line 2665.
-LaTeX Info: Redefining \] on input line 2666.
-)
 (/usr/local/texlive/2013/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count109
-\float@exts=\toks23
-\float@box=\box30
-\@float@everytoks=\toks24
-\@floatcapt=\box31
+\c@float@type=\count88
+\float@exts=\toks16
+\float@box=\box26
+\@float@everytoks=\toks17
+\@floatcapt=\box27
 )
 (/usr/local/texlive/2013/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
+(/usr/local/texlive/2013/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks18
+)
 (/usr/local/texlive/2013/texmf-dist/tex/latex/graphics/graphics.sty
 Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
@@ -431,45 +284,58 @@ Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
 )
 Package graphics Info: Driver file: pdftex.def on input line 91.
-)
-\Gin@req@height=\dimen117
-\Gin@req@width=\dimen118
-)
-\@float@every@table=\toks25
 
-(./t2.aux)
-\openout1 = `t2.aux'.
+(/usr/local/texlive/2013/texmf-dist/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-\c@lstlisting=\count110
- (/usr/local/texlive/2013/texmf-dist/tex/context/base/supp-pdf.mkii
+(/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+(/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count89
+))
+\Gin@req@height=\dimen104
+\Gin@req@width=\dimen105
+)
+(./relatorio.aux)
+\openout1 = `relatorio.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+
+(/usr/local/texlive/2013/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count111
-\scratchdimen=\dimen119
-\scratchbox=\box32
-\nofMPsegments=\count112
-\nofMParguments=\count113
-\everyMPshowfont=\toks26
-\MPscratchCnt=\count114
-\MPscratchDim=\dimen120
-\MPnumerator=\count115
-\makeMPintoPDFobject=\count116
-\everyMPtoPDFconversion=\toks27
+\scratchcounter=\count90
+\scratchdimen=\dimen106
+\scratchbox=\box28
+\nofMPsegments=\count91
+\nofMParguments=\count92
+\everyMPshowfont=\toks19
+\MPscratchCnt=\count93
+\MPscratchDim=\dimen107
+\MPnumerator=\count94
+\makeMPintoPDFobject=\count95
+\everyMPtoPDFconversion=\toks20
 ) (/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
 )
 
+(/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
 (/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/ifpdf.sty
 Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
 Package ifpdf Info: pdfTeX in PDF mode is detected.
@@ -488,6 +354,19 @@ Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
 (/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
 Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
 ))
+(/usr/local/texlive/2013/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
+
+(/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
+
+(/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
 Package grfext Info: Graphics extension search list:
 (grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
 G,.JBIG2,.JB2,.eps]
@@ -497,116 +376,56 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 71.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <14.4> on input line 16.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 16.
 
-(/usr/local/texlive/2013/texmf-dist/tex/latex/base/t1cmtt.fd
-File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-) [1
+./relatorio.tex:16: Extra alignment tab has been changed to \cr.
+<recently read> \endtemplate 
+                             
+l.16 \maketitle
+               
+? 
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 35.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 35.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 35.
+[1
 
-{/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
-<graphA.png, id=17, 466.74374pt x 345.54094pt>
-File: graphA.png Graphic file (type png)
- <use graphA.png>
-Package pdftex.def Info: graphA.png used on input line 159.
-(pdftex.def)             Requested size: 284.52756pt x 210.64784pt.
- [3]
-<graphB.png, id=23, 466.74374pt x 345.54094pt>
-File: graphB.png Graphic file (type png)
- <use graphB.png>
-Package pdftex.def Info: graphB.png used on input line 166.
-(pdftex.def)             Requested size: 284.52756pt x 210.64784pt.
-
-<graphE.png, id=24, 466.74374pt x 345.54094pt>
-File: graphE.png Graphic file (type png)
- <use graphE.png>
-Package pdftex.def Info: graphE.png used on input line 176.
-(pdftex.def)             Requested size: 284.52756pt x 210.64784pt.
- [4 <./graphA.png> <./graphB.png>] <graphF.png, id=28, 557.08125pt x 345.54094p
-t>
-File: graphF.png Graphic file (type png)
-
-<use graphF.png>
-Package pdftex.def Info: graphF.png used on input line 183.
-(pdftex.def)             Requested size: 284.52756pt x 176.48717pt.
- <graphGr.png, id=29, 599.99156pt x 345.54094pt>
-File: graphGr.png Graphic file (type png)
-
-<use graphGr.png>
-Package pdftex.def Info: graphGr.png used on input line 190.
-(pdftex.def)             Requested size: 284.52756pt x 163.86475pt.
- [5 <./graphE.png> <./graphF.png>]
-<graphFr.png, id=33, 570.63188pt x 345.54094pt>
-File: graphFr.png Graphic file (type png)
- <use graphFr.png>
-Package pdftex.def Info: graphFr.png used on input line 197.
-(pdftex.def)             Requested size: 284.52756pt x 172.29024pt.
-
-<graphCrDrEr.png, id=34, 464.4853pt x 345.54094pt>
-File: graphCrDrEr.png Graphic file (type png)
- <use graphCrDrEr.png>
-Package pdftex.def Info: graphCrDrEr.png used on input line 204.
-(pdftex.def)             Requested size: 284.52756pt x 211.67072pt.
-
-[6 <./graphGr.png> <./graphFr.png>]
-<graphBr.png, id=38, 463.7325pt x 345.54094pt>
-File: graphBr.png Graphic file (type png)
- <use graphBr.png>
-Package pdftex.def Info: graphBr.png used on input line 211.
-(pdftex.def)             Requested size: 284.52756pt x 212.01343pt.
-
-<graphAr.png, id=39, 462.22687pt x 345.54094pt>
-File: graphAr.png Graphic file (type png)
- <use graphAr.png>
-Package pdftex.def Info: graphAr.png used on input line 218.
-(pdftex.def)             Requested size: 284.52756pt x 212.69885pt.
- [7 <./graphCrDrEr.png> <./graphBr.png>] <graph.png, id=44, 466.74374pt x 294.3
-4969pt>
-File: graph.png Graphic file (type png)
-
-<use graph.png>
-Package pdftex.def Info: graph.png used on input line 240.
-(pdftex.def)             Requested size: 284.52756pt x 179.44075pt.
- [8 <./graphAr.png>] [9 <./graph.png>]
-<grafo.png, id=53, 464.4853pt x 297.36093pt>
-File: grafo.png Graphic file (type png)
- <use grafo.png>
-Package pdftex.def Info: grafo.png used on input line 277.
-(pdftex.def)             Requested size: 284.52756pt x 182.15671pt.
- [10 <./grafo.png>] [11]
-Overfull \hbox (18.38159pt too wide) in paragraph at lines 370--431
- [][] 
- []
-
-[12]
-Overfull \hbox (20.53104pt too wide) in paragraph at lines 441--512
- [][] 
- []
-
-[13] [14] [15] (./t2.aux) ) 
+{/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+<fig.png, id=14, 501.875pt x 401.5pt>
+File: fig.png Graphic file (type png)
+ <use fig.png>
+Package pdftex.def Info: fig.png used on input line 57.
+(pdftex.def)             Requested size: 284.52756pt x 227.6321pt.
+ [2 <./fig.png (PNG copy)>]
+[3] (./relatorio.aux) ) 
 Here is how much of TeX's memory you used:
- 4772 strings out of 493308
- 61926 string characters out of 6137822
- 157879 words of memory out of 5000000
- 8146 multiletter control sequences out of 15000+600000
- 14904 words of font info for 40 fonts, out of 8000000 for 9000
+ 2404 strings out of 493308
+ 31355 string characters out of 6137822
+ 95057 words of memory out of 5000000
+ 5829 multiletter control sequences out of 15000+600000
+ 14149 words of font info for 35 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 36i,8n,32p,289b,1606s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/
-cm-super/cm-super-t1.enc}</usr/local/texlive/2013/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmsy10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/c
-m-super/sfbx1095.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/cm-
-super/sfbx1440.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/cm-su
-per/sfbx1728.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/cm-supe
-r/sfrm1095.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/cm-super/
-sfrm1200.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/cm-super/sf
-rm1440.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/cm-super/sfrm
-2074.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/cm-super/sftt10
-95.pfb>
-Output written on t2.pdf (15 pages, 249087 bytes).
+ 37i,6n,23p,244b,220s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/cm-s
+uper/cm-super-t1.enc}</usr/local/texlive/2013/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmmi12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/cm-s
+uper/sfbx1095.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/cm-sup
+er/sfbx1440.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/cm-super
+/sfbx1728.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/cm-super/s
+frm1095.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/cm-super/sfr
+m1200.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/cm-super/sfrm1
+440.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/cm-super/sfrm207
+4.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/cm-super/sfti1200.
+pfb>
+Output written on relatorio.pdf (3 pages, 168158 bytes).
 PDF statistics:
- 107 PDF objects out of 1000 (max. 8388607)
- 67 compressed objects within 1 object stream
+ 52 PDF objects out of 1000 (max. 8388607)
+ 36 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 56 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

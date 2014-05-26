@@ -1,0 +1,1 @@
+g++ main.cpp bibutil.cpp -o main -lglut -lGL -lGLU -L/home/Documents/Random-Codes/cgI/T/libim_capture -L/home/Documents/Random-Codes/cgI/T/libjpeg-8b -I.

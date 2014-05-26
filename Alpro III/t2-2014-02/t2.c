@@ -2,7 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 
-void readFile(const char filename[])
+typedef struct
+{
+	unsigned char** connections;
+	int* values;
+	int size;
+} Graph;
+
+Graph* readFile(const char filename[])
 {
 	FILE *file = fopen(filename, "r");
 	unsigned char state = 0;
@@ -61,6 +68,7 @@ void readFile(const char filename[])
 				size = nodes2[i];
 		}
 		printf("%d\n", size);
+
 	}
 	else
 	{

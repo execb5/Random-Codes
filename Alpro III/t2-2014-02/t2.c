@@ -26,24 +26,12 @@ void readFile(const char filename[])
 			pch = strtok(line, " ");
 			while (pch != NULL)
 			{
-				switch (state)
-				{
-					case 0:
-						nodes1[cont] = atoi(pch);
-						pch = strtok(NULL, " ");
-						state = 1;
-						break;
-					case 1:
-						relation[cont] = *pch;
-						pch = strtok(NULL, " ");
-						state = 2;
-						break;
-					case 2:
-						nodes2[cont] = atoi(pch);
-						pch = strtok(NULL, " ");
-						state = 0;
-						break;
-				}
+				nodes1[cont] = atoi(pch);
+				pch = strtok(NULL, " ");
+				relation[cont] = *pch;
+				pch = strtok(NULL, " ");
+				nodes2[cont] = atoi(pch);
+				pch = strtok(NULL, " ");
 			}
 			cont++;
 		}
@@ -64,7 +52,7 @@ void readFile(const char filename[])
 			printf("%d ", nodes2[i]);
 		printf("]\n");
 
-		int size;
+		int size = 0;
 		for (i = 0; i < num; i++)
 		{
 			if (nodes1[i] > size)

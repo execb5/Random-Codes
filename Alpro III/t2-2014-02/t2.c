@@ -12,7 +12,6 @@ typedef struct
 Graph* readFile(const char filename[])
 {
 	FILE *file = fopen(filename, "r");
-	unsigned char state = 0;
 	char* pch;
 	if (file != NULL)
 	{

@@ -12,7 +12,7 @@ DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 _OBJ = main.o bibutil.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
-_LIB = libim_capture libjpeg-8b
+_LIB = libim_capture.a libjpeg-8b.a
 LIB = $(patsubst %,$(LDIR)/%,$(_LIB))
 
 $(ODIR)/%.o: $(SDIR)/%.cpp -l$(LDIR) $(DEPS)

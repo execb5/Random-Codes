@@ -26,8 +26,6 @@ void subSets(List* S, List* Z)
 
 int main(int argc, const char *argv[])
 {
-	srand(time(NULL));
-
 	List list;
 	list.head = NULL;
 	list.current = NULL;

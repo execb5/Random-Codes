@@ -7,7 +7,7 @@ public class GDirTest {
 
 	public static void main(String[] args) {
 		testFile("/home/matthias/Documents/Random-Codes/Alpro III/t2-2014-02/casosTeste/ex001");
-		//testFile("/home/matthias/Documents/Random-Codes/Alpro III/t2-2014-02/casosTeste/ex002");
+		testFile("/home/matthias/Documents/Random-Codes/Alpro III/t2-2014-02/casosTeste/ex002");
 	}
 
 	private static void testFile(String name) {

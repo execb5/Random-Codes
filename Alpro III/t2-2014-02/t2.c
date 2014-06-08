@@ -2,13 +2,53 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct
+int SIZE = 0;
+int SOURCE_NODES = 0;
+
+
+
+int* getSourceNodes(unsigned char (*matrix)[SIZE])
 {
-	unsigned char** connections;
-	unsigned char* grey;
-	unsigned char* black;
-	int size;
-} Graph;
+	int i;
+	int j;
+	unsigned char isSource;
+	unsigned char sources[SIZE];
+
+	//Initialize sources
+	for (i = 0; i < SIZE; i++) {
+		sources[i] = 0;
+	}
+
+	for (i = 0; i < SIZE; i++)
+	{
+		isSource = 1;
+		for (j = 0; j < SIZE && isSource == 1; j++)
+		{
+			if (matrix[j][i])
+			{
+				isSource = 0;
+			}
+		}
+		if (isSource == 1)
+		{
+			sources[SOURCE_NODES] = i;
+			SOURCE_NODES++;
+		}
+	}
+	return sources;
+}
+
+int maxInt(unsigned char (*matrix)[SIZE], unsigned char* black, unsigned char* grey, unsigned char* values)
+{
+	int* sources = getSourceNodes(matrix);
+	int i;
+	printf("[ ");
+	for (i = 0; i < SOURCE_NODES; i++) {
+		printf("%d ", sources[i]);
+	}
+	printf("]\n");
+	return 0;
+}
 
 int getEquivalent(int* vet, int num)
 {
@@ -17,7 +57,7 @@ int getEquivalent(int* vet, int num)
 	return getEquivalent(vet, vet[num]);
 }
 
-Graph* readFile(const char filename[])
+void testFile(const char filename[])
 {
 	FILE *file = fopen(filename, "r");
 	char* pch;
@@ -33,10 +73,10 @@ Graph* readFile(const char filename[])
 		int node;
 		int equalsSize = 2*num;
 		int equals[equalsSize];
-		int graphSize = 0;
-
-		//Initialize arrays with -1.
 		int i;
+		int j;
+
+		//Initialize nodes and equals with -1.
 		for (i = 0; i < num; i++)
 			nodes[0][i] = nodes[1][i] = -1;
 		for (i = 0; i < equalsSize; i++)
@@ -57,20 +97,20 @@ Graph* readFile(const char filename[])
 						pch = strtok(NULL, " ");
 						nodes[0][cont] = node;
 						nodes[1][cont] = atoi(pch);
-						if (nodes[0][cont] > graphSize)
-							graphSize = nodes[0][cont];
-						if (nodes[1][cont] > graphSize)
-							graphSize = nodes[1][cont];
+						if (nodes[0][cont] > SIZE)
+							SIZE = nodes[0][cont];
+						if (nodes[1][cont] > SIZE)
+							SIZE = nodes[1][cont];
 						pch = strtok(NULL, " ");
 						break;
 					case '>':
 						pch = strtok(NULL, " ");
 						nodes[1][cont] = node;
 						nodes[0][cont] = atoi(pch);
-						if (nodes[0][cont] > graphSize)
-							graphSize = nodes[0][cont];
-						if (nodes[1][cont] > graphSize)
-							graphSize = nodes[1][cont];
+						if (nodes[0][cont] > SIZE)
+							SIZE = nodes[0][cont];
+						if (nodes[1][cont] > SIZE)
+							SIZE = nodes[1][cont];
 						pch = strtok(NULL, " ");
 						break;
 					case '=':
@@ -88,59 +128,64 @@ Graph* readFile(const char filename[])
 		//Print the arrays on the screen.
 		printf("[ ");
 		for (i = 0; i < cont; i++)
-			printf("%d ", nodes[0][i]);
+			printf("%*d ", 2, nodes[0][i]);
 		printf("]\n");
 		printf("[ ");
 		for (i = 0; i < cont; i++)
-			printf("%d ", nodes[1][i]);
+			printf("%*d ", 2, nodes[1][i]);
 		printf("]\n");
 		printf("[ ");
 		for (i = 0; i < equalsSize; i++)
-			printf("%d ", equals[i]); 
+			printf("%*d ", 2, equals[i]); 
 		printf("]\n");
 
-		printf("Graph's size: %d\n", graphSize);
+		printf("Graph's size: %d\n", SIZE);
 		printf("19 is equal to: %d\n", getEquivalent(equals, 19));
 
-		int j;
-		unsigned char matrix[graphSize][graphSize];
+		unsigned char matrix[SIZE][SIZE];
+		unsigned char grey[SIZE];
+		unsigned char black[SIZE];
+		unsigned char values[SIZE];
 
-		//Initialize matrix
-		for (i = 0; i < graphSize; i++)
-			for (j = 0; j < graphSize; j++)
+		//Initialize matrix and other arrays
+		for (i = 0; i < SIZE; i++)
+		{
+			for (j = 0; j < SIZE; j++)
 				matrix[i][j] = 0;
+			values[i] = black[i] = grey[i] = 0;
+		}
 
 		//Fill the graph with connections
 		int a;
 		int b;
 		for (i = 0; i < cont; i++)
 		{
-			if (nodes[0][cont] != -1)
+			if (nodes[0][i] != -1)
 			{
 				a = getEquivalent(equals, nodes[0][i]);
 				b = getEquivalent(equals, nodes[1][i]);
+				printf("Adding connection from %d to %d.\n", a, b);
 				matrix[a][b] = 1;
 			}
 		}
 
 		//Print graph
 		printf("    ");
-		for (i = 0; i < graphSize; i++)
+		for (i = 0; i < SIZE; i++)
 			printf("%*d ", 2, i);
 		printf("\n    ");
-		for (i = 0; i < graphSize; i++)
+		for (i = 0; i < SIZE; i++)
 			printf("%*c ", 2, '_');
 		printf("\n");
-		for (i = 0; i < graphSize; i++)
+		for (i = 0; i < SIZE; i++)
 		{
 			printf("%*d[ ", 2, i);
-			for (j = 0; j < graphSize; j++)
+			for (j = 0; j < SIZE; j++)
 				printf("%*d ", 2, matrix[i][j]);
 			printf("]\n");
 		}
 
-		Graph graph;
-		graph.connections = matrix;
+		int result = maxInt(matrix, black, grey, values);
 
 	}
 	else
@@ -152,6 +197,6 @@ Graph* readFile(const char filename[])
 int main(int argc, const char *argv[])
 {
 	static const char filename[] = "casosTeste/ex001";
-	readFile(filename);
+	testFile(filename);
 	return 0;
 }

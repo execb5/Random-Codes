@@ -14,9 +14,10 @@ void algoritmo(int soma, int metade, int tamanho, List* partition1, List* partit
 		return;
 	if (soma == metade)
 	{
-		printf("Cheguei em uma resposta válida\n");
+		printf("---------------------------------------------\n");
 		print(partition1);
 		print(partition2);
+		printf("---------------------------------------------\n");
 		return;
 	}
 
@@ -32,6 +33,8 @@ void algoritmo(int soma, int metade, int tamanho, List* partition1, List* partit
 		copySet1.head = addToList(&copySet1, val, true);
 		del(&copySet2, val);
 		algoritmo(soma + val, metade, tamanho, &copySet1, &copySet2, listaDeNumeros, ++index);
+		destroy(&copySet1);
+		destroy(&copySet2);
 	}
 	
 }
@@ -64,16 +67,21 @@ int main(int argc, const char *argv[])
 			List partition2;
 			partition2 = copy(&list);
 			algoritmo(0, metade, tamanho, &partition1, &partition2, &list, 0);
+			destroy(&list);
+			destroy(&partition1);
+			destroy(&partition2);
 		}
 		else
 		{
 			printf("Não foi encontrado\n");
+			destroy(&list);
 		}
 
 	}
 	else
 	{
 		printf("Não foi encontrado\n");
+		destroy(&list);
 	}
 	return 0;
 }

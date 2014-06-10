@@ -1,32 +1,36 @@
 #!/usr/bin/env ruby
 
-class BackTracker
+class Solver
 
 	def initialize(initial_set, half)
-		@setTwo = initial_set
+		@set= initial_set
 		@half = half
-		@setOne = []
-		puts "\nCreating BackTracker Object with #{@setTwo} as it\'s initial set, and #{@half} as the half\n"
+		@solutions = {}
+		puts "\nCreating Solver Object with #{@set} as it\'s initial set, and #{@half} as the half\n"
 	end
 
 	def solve
-		solveAux(0, @half, @setOne.clone, @setTwo.clone)
+		solveAux(0, @set.length, [], @set.clone, 0)
 	end
 
-	def solveAux(sum, half, set1, set2)
-		return if sum > half
-		if sum == half
-			sum2 = 0
-			set2.each {|i| sum += i}
-			puts "\nSet1: #{set1.to_s}\nSet2: #{set2.to_s}\n"
-			return
+	def solveAux(sum, size, partition1, partition2, index)
+		return if sum > @half
+		if sum == @half
+			unless @solutions.has_value? partition1
+				puts '---------------'
+				puts partition1.to_s
+				puts partition2.to_s
+				puts '---------------'
+				@solutions.merge!(partition1 => partition2)
+			end
 		end
-		set2.each do |i|
-			a = set1.clone
-			b = set2.clone
-			a.push i
-			b.delete i
-			solveAux(sum + i, half, a, b)
+		for i in index..(size - 1)
+			copy1 = partition1.clone
+			copy2 = partition2.clone
+			val = @set[i]
+			copy1.push val
+			copy2.delete val
+			solveAux(sum + val, size, copy1, copy2, index += 1)
 		end
 	end
 
@@ -41,7 +45,7 @@ if __FILE__ == $0
 	if sum % 2 == 0
 		half = sum / 2
 		if set.max <= half
-			bt = BackTracker.new(set, half)
+			bt = Solver.new(set, half)
 			bt.solve
 		else
 			puts 'Not found! D:'

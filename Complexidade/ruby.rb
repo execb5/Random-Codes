@@ -2,35 +2,38 @@
 
 class Solver
 
+	attr_accessor :qtySolutions
+
 	def initialize(initial_set, half)
 		@set= initial_set
 		@half = half
 		@solutions = {}
+		@qtySolutions = 0
 		puts "\nCreating Solver Object with #{@set} as it\'s initial set, and #{@half} as the half\n"
 	end
 
 	def solve
-		solveAux(0, @set.length, [], @set.clone, 0)
+		a = [].push @set[0]
+		b = @set.clone
+		b.slice!(b.index(@set[0]))
+		solveAux(0 + @set[0], @set.length, a, b, 1)
 	end
 
 	def solveAux(sum, size, partition1, partition2, index)
 		return if sum > @half
 		if sum == @half
-			unless @solutions.has_value? partition1
-				puts '---------------'
-				puts partition1.to_s
-				puts partition2.to_s
-				puts '---------------'
-				@solutions.merge!(partition1 => partition2)
-			end
+			@qtySolutions += 1
+			puts '---------------'
+			puts partition1.to_s
+			puts partition2.to_s
+			puts '---------------'
 		end
 		for i in index..(size - 1)
 			copy1 = partition1.clone
 			copy2 = partition2.clone
-			val = @set[i]
-			copy1.push val
-			copy2.delete val
-			solveAux(sum + val, size, copy1, copy2, index += 1)
+			copy1.push @set[i]
+			copy2.slice!(@set[i])
+			solveAux(sum + @set[i], size, copy1, copy2, index += 1)
 		end
 	end
 
@@ -47,6 +50,7 @@ if __FILE__ == $0
 		if set.max <= half
 			bt = Solver.new(set, half)
 			bt.solve
+			puts "How many ways to divide the set?  #{bt.qtySolutions.to_s}."
 		else
 			puts 'Not found! D:'
 		end

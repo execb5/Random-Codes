@@ -8,12 +8,15 @@
 #include<stdlib.h>
 #include<LinkedList.h>
 
+int qtdResult = 0;
+
 void algoritmo(int soma, int metade, int tamanho, List* partition1, List* partition2, List* listaDeNumeros, int index)
 {
 	if (soma > metade)
 		return;
 	if (soma == metade)
 	{
+		qtdResult++;
 		printf("---------------------------------------------\n");
 		print(partition1);
 		print(partition2);
@@ -36,7 +39,6 @@ void algoritmo(int soma, int metade, int tamanho, List* partition1, List* partit
 		destroy(&copySet1);
 		destroy(&copySet2);
 	}
-	
 }
 
 int main(int argc, const char *argv[])
@@ -64,12 +66,16 @@ int main(int argc, const char *argv[])
 		{
 			List partition1;
 			initializeList(&partition1);
+			int val = getVal(&list, 0);
+			partition1.head = addToList(&partition1,  val, true);
 			List partition2;
 			partition2 = copy(&list);
-			algoritmo(0, metade, tamanho, &partition1, &partition2, &list, 0);
+			del(&partition2, val);
+			algoritmo(0 + val, metade, tamanho, &partition1, &partition2, &list, 1);
 			destroy(&list);
 			destroy(&partition1);
 			destroy(&partition2);
+			printf("Quantidade de resultados: %d\n", qtdResult);
 		}
 		else
 		{

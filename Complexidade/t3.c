@@ -2,13 +2,191 @@
  * Nomes: Matthias Nunes e Gabriel Carlos
  * Complexidade e Otimização de Algoritmos
  * T3
+ *
+ * PARA VER O ALGORITMO DIRETO, SÓ PULAR PARA A LINHA 191
 */
 
 #include<stdio.h>
 #include<stdlib.h>
-#include<LinkedList.h>
+
+/*********************DECLARAÇÔES******************************************************************/
+
+typedef enum {false, true} bool;
+
+struct Node
+{
+	int val;
+	struct Node* next;
+};
+
+typedef struct
+{
+	struct Node* head;
+	struct Node* current;
+	int size;
+} List;
 
 int qtdResult = 0;
+
+/*********************INÍCIO LINKED LIST************************************************************/
+
+void initializeList(List* list)
+{
+	list->head = NULL;
+	list->current = NULL;
+	list->size = 0;
+}
+
+struct Node* createList(List* list, int val)
+{
+	//printf("\n Creating a list with headnode as [%d]\n", val);
+
+	struct Node* ptr = (struct Node*) malloc(sizeof(struct Node));
+	if (ptr == NULL)
+	{
+		printf("\n Node creation failed. \n");
+		return NULL;
+	}
+	ptr->val = val;
+	ptr->next = NULL;
+
+	list->head = list->current = ptr;
+	list->size++;
+	return list->head;
+}
+
+struct Node* addToList(List* list, int val, bool addToEnd)
+{
+	if (list->head == NULL)
+		return createList(list, val);
+	
+	struct Node* ptr = (struct Node*) malloc(sizeof(struct Node));
+	if (ptr == NULL)
+	{
+		//printf("\n Node creation failed. \n");
+		return NULL;
+	}
+	ptr->val = val;
+	ptr->next = NULL;
+
+	if (addToEnd)
+	{
+		//printf("\n Adding node to the end of the list with value of [%d] \n", val);
+		list->current->next = ptr;
+		list->current = ptr;
+	}
+	else
+	{
+		//printf("\n Adding node to the beginning of the list with value of [%d] \n", val);
+		ptr->next = list->head;
+		list->head = ptr;
+	}
+
+	list->size++;
+	return list->head;
+}
+
+bool deleteAux(List* list, int val, struct Node* node, struct Node* prev)
+{
+	if (node == NULL) 
+		return false;
+	if (node->val == val)
+	{
+		if (prev == NULL)
+		{
+			//printf("\n Deleting node with value of [%d] \n", val);
+			struct Node* tmp = list->head;
+			list->head = list->head->next;
+			free(tmp);
+			list->size--;
+			return true;
+		}
+		//printf("\n Deleting node with value of [%d] \n", val);
+		prev->next = node->next;
+		free(node);
+		list->size--;
+		return true;
+	}
+	return deleteAux(list, val, node->next, prev = node);
+}
+
+bool del(List* list, int val)
+{
+	return deleteAux(list, val, list->head, NULL);
+}
+
+void printAux(struct Node* node)
+{
+	if (node == NULL)
+		return;
+	printf("%d ", node->val);
+	printAux(node->next);
+}
+
+void print(List* list)
+{
+	printf("[ ");
+	printAux(list->head);
+	printf("]\n");
+}
+
+int getVal(List* list, int index)
+{
+	struct Node* ptr = list->head;
+	int cont = 0;
+	while (ptr != NULL)
+	{
+		if (cont == index)
+			return ptr->val;
+		cont++;
+		ptr = ptr->next;
+	}
+	return -1;
+}
+
+List copy(List* list)
+{
+	List lst;
+	initializeList(&lst);
+	int i = 0;
+	while (i < list->size)
+	{
+		lst.head = addToList(&lst, getVal(list, i), true);
+		i++;
+	}
+	return lst;
+}
+
+void destroyAux(struct Node* node)
+{
+	if (node == NULL)
+		return;
+	destroyAux(node->next);
+	//printf("Freeing node with the value of %d\n", node->val);
+	free(node);
+}
+
+void destroy(List* list)
+{
+	destroyAux(list->head);
+}
+
+int maxAux(struct Node* node)
+{
+	if (node == NULL)
+		return -1;
+	int maybeMax = maxAux(node->next);
+	return node->val > maybeMax ? node->val : maybeMax;
+}
+
+int max(List* list)
+{
+	return maxAux(list->head);
+}
+
+/***************FIM LINKED LIST********************************************************************/
+
+/***************TRABALHO DE COMPLEXIDADE***********************************************************/
 
 void algoritmo(int soma, int metade, int tamanho, List* partition1, List* partition2, List* listaDeNumeros, int index)
 {
@@ -35,7 +213,7 @@ void algoritmo(int soma, int metade, int tamanho, List* partition1, List* partit
 		val = getVal(listaDeNumeros, i);
 		copySet1.head = addToList(&copySet1, val, true);
 		del(&copySet2, val);
-		algoritmo(soma + val, metade, tamanho, &copySet1, &copySet2, listaDeNumeros, ++index);
+		algoritmo(soma + val, metade, tamanho, &copySet1, &copySet2, listaDeNumeros, i + 1);
 		destroy(&copySet1);
 		destroy(&copySet2);
 	}

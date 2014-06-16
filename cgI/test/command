@@ -1,1 +1,0 @@
-g++ main.cpp reader.cpp -o main -lglut -lGL -lGLU -I.

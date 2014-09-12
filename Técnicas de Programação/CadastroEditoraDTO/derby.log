@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Sun Sep 07 20:57:30 BRT 2014:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.3.2 - (1557835): instance a816c00e-0148-528d-12e0-000007097b60 
+on database directory C:\Users\Júlio\Documents\NetBeansProjects\CadastroEditoraDTO\cadastro  with class loader sun.misc.Launcher$AppClassLoader@498b5a73 
+Loaded from file:/C:/Users/J%c3%balio/Documents/NetBeansProjects/CadastroEditoraDTO/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.7.0_67-b01
+user.dir=C:\Users\Júlio\Documents\NetBeansProjects\CadastroEditoraDTO
+os.name=Windows 8.1
+os.arch=amd64
+os.version=6.3
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''

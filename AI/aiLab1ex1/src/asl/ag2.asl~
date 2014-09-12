@@ -1,0 +1,10 @@
+// Agent ag2 in project Assignment1.mas2j
+
+/* Initial beliefs and rules */
+
+position(init).
+
+/* Initial goals */
+
+/* Plans */
+

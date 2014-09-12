@@ -1,0 +1,64 @@
+theory labPrimRec
+imports Main
+begin
+
+text{* Exercício 01 *}
+
+datatype Nat = Z | suc Nat
+
+term "Z"
+term "z"
+term "suc (suc Z)"
+term "Suc (Suc 0)"
+
+primrec add::"Nat => Nat => Nat" where
+  "add x Z = x" |
+  "add x (suc y) = suc (add x y)"
+
+value "add (suc (suc Z)) (suc (suc Z))"
+value "add (suc (suc Z)) (suc Z)"
+
+text{* Exercício 02 *}
+
+primrec Nat2int::"Nat => int" where
+  "Nat2int Z = 0" |
+  "Nat2int (suc y) = Nat2int(y) + 1"
+
+value "Nat2int (suc (suc (suc (suc Z))))"
+value "Nat2int (suc (suc Z)) * Nat2int (suc (suc (suc Z)))"
+
+text{* Exercício 03 *}
+
+datatype 'a List = nil | cons 'a "'a List"
+
+term "nil"
+term "cons (10::int) (cons 3 (cons -2 nil))"
+term "cons ''a'' (cons ''1'' (cons ''f'' nil))"
+term "cons (suc Z) (cons Z nil)"
+
+primrec len::"'a List => Nat" where
+  "len nil = Z" |
+  "len (cons y list) = suc (len list)"
+
+value "len (cons (10::int) (cons 3 (cons -2 nil)))"
+value "len (cons (10::int) (cons 3 (cons -2 nil)))"
+value "len (cons (suc Z) (cons Z nil))"
+
+primrec cat::"'a List => 'a List => 'a List" where
+  "cat nil list= list" |
+  "cat (cons e list1) list2 = (cons e (cat list1 list2))"
+
+value "cat (cons (10::int) (cons 3 (cons -2 nil))) nil"
+value "cat (cons (3::int) (cons -2 nil)) (cons 10 (cons 3( cons 4 nil)))"
+value "add (len (cons 3 (cons -2 nil))) (len (cons 10 (cons 3( cons 4 nil))))"
+
+text{* Exercício 04 *}
+
+datatype 'a btree = leaf | br 'a "'a btree" "'a btree"
+
+term "leaf"
+term "br (1::nat) leaf leaf"
+term "br (1::int) (br 2 leaf leaf) (br 3 leaf leaf)"
+
+text{* ... *}
+end

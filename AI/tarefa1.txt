@@ -1,0 +1,6 @@
+Nome: Matthias Oliveira de Nunes
+
+1)
+                        EnvironmentA EnvironmentB EnvironmentC EnvironmentD
+        Observable       y            y            n            n
+        Deterministic    n            y            n            y

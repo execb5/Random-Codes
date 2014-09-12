@@ -1,0 +1,5 @@
+
+
+median(List, M) :- medianAux(List, M, X), length(List, X).
+
+medianAux([H|T], M, Size) :- 

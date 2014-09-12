@@ -1,0 +1,15 @@
+/* Jason Project */
+
+MAS tarefa2 {
+
+    infrastructure: Centralised
+
+    environment: MyCuteEnvironment
+
+    agents:
+        boss;
+		
+		worker #10;
+
+}
+

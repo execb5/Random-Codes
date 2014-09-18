@@ -1,4 +1,4 @@
-%Prolog lab part 1
+%prolog lab part 1
 %Name: Matthias Oliveira de Nunes
 
 parent(antonio,joaozinho).

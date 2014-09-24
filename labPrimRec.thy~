@@ -60,5 +60,55 @@ term "leaf"
 term "br (1::nat) leaf leaf"
 term "br (1::int) (br 2 leaf leaf) (br 3 leaf leaf)"
 
+primrec numLeaf::"'a btree => Nat" where
+  "numLeaf leaf = suc Z" |
+  "numLeaf (br x left right) = add (numLeaf left) (numLeaf right)"
+
+value "numLeaf (br 3 leaf leaf)"
+
+primrec numNodos::"'a btree => Nat" where
+  "numNodos leaf = Z" |
+  "numNodos (br x left right) = suc (add (numNodos left) (numNodos right))"
+
+value "numNodos (br 3 leaf leaf)"
+
+primrec depth::"'a btree => int" where
+  "depth leaf = 0" |
+  "depth (br x left right) = (max (depth left) (depth right)) + 1"
+
+value "depth (br 3 leaf leaf)"
+
+text{* Exercício 05 *}
+
+datatype boolex = Const bool | Var nat | Neg boolex | And boolex boolex
+
+term "And (Var 0) (Neg (Var 1))"
+
+text{* Exercício 06 *}
+
+primrec "eval" :: "boolex => (nat => bool) => bool" where
+  "eval (Const b) env = b" |
+  "eval (Var x)   env = env x" |
+  "eval (Neg b)   env = (\<not> eval b env)" |
+  "eval (And b c) env = (eval b env \<and> eval c env)"
+
+value "eval (And (Neg (Var 1)) (Var 2)) ((%x::nat. False)(2:=True))"
+
+text{* Exercício 07 *}
+
+datatype boolexa = Const bool | Var nat | Neg boolexa | And boolexa boolexa | Or boolexa boolexa | Implicate boolexa boolexa
+
+primrec "evalu" :: "boolexa => (nat => bool) => bool" where
+  "evalu (Const b)       env = b" |
+  "evalu (Var x)         env = env x" |
+  "evalu (Neg b)         env = (\<not> evalu b env)" |
+  "evalu (And b c)       env = (evalu b env \<and> evalu c env)" |
+  "evalu (Or b c)        env = (evalu b env \<or> evalu c env)" |
+  "evalu (Implicate b c) env = (evalu b env \<longrightarrow> evalu c env)"
+
+value "evalu (Implicate (Neg (Var 1)) (Var 2)) ((%x::nat. False)(2:=True))"
+
+text{* Exercício 08 *}
+
 text{* ... *}
 end

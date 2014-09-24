@@ -48,6 +48,12 @@ primrec cat::"'a List => 'a List => 'a List" where
   "cat nil list= list" |
   "cat (cons e list1) list2 = (cons e (cat list1 list2))"
 
+primrec delete::"'a => 'a List => 'a List" where
+  "delete x nil = nil" |
+  "delete x (cons e L) = (if x = e then delete x L else cons e (delete x L))"
+
+value "delete (3::int) (cons (3::int) (cons 3 (cons 2 (cons 3 nil))))"
+
 value "cat (cons (10::int) (cons 3 (cons -2 nil))) nil"
 value "cat (cons (3::int) (cons -2 nil)) (cons 10 (cons 3( cons 4 nil)))"
 value "add (len (cons 3 (cons -2 nil))) (len (cons 10 (cons 3( cons 4 nil))))"
@@ -111,4 +117,13 @@ value "evalu (Implicate (Neg (Var 1)) (Var 2)) ((%x::nat. False)(2:=True))"
 text{* Exercício 08 *}
 
 text{* ... *}
+
+lemma "P \<and> Q \<longrightarrow> R \<Longrightarrow> P \<longrightarrow> Q \<longrightarrow> R"
+  apply (rule impI)
+  apply (rule impI)
+  apply (erule mp)
+  apply (erule conjI)
+  apply (assumption)
+done
+
 end

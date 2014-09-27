@@ -137,39 +137,39 @@ capital all@(x:xs) = "The first letter of " ++ all ++ " is " ++ [x]
 {-than 25.0, the second string is returned.-}
 bmiTell :: (RealFloat a) => a -> a -> String
 bmiTell weight height
-        | bmi <= skinny = "You're underweight, you emo, you!"
-        | bmi <= normal = "You're supposedly normal. Pffft, I bet you're ugly!"
-        | bmi <= fat = "You're fat! Lose some weight, fatty!"
-        | otherwise   = "You're a whale, congratulations!"
-        where bmi = weight / height ^ 2
-              skinny = 18.5
-              normal = 25.0
-              fat = 30.0
-              {-(skinny, normal, fat) = (18.5, 25.0, 30.0)-}
-              {-another way to write this where-}
+    | bmi <= skinny = "You're underweight, you emo, you!"
+    | bmi <= normal = "You're supposedly normal. Pffft, I bet you're ugly!"
+    | bmi <= fat = "You're fat! Lose some weight, fatty!"
+    | otherwise   = "You're a whale, congratulations!"
+    where bmi = weight / height ^ 2
+          skinny = 18.5
+          normal = 25.0
+          fat = 30.0
+          {-(skinny, normal, fat) = (18.5, 25.0, 30.0)-}
+          {-another way to write this where-}
 {-"where" can be used to define several names and functions-}
 
 max' :: (Ord a) => a -> a -> a
 max' a b
-        | a > b     = a
-        | otherwise = b
+    | a > b     = a
+    | otherwise = b
 {-In line using guards. Advised against because it's less readable.-}
 {-max' a b | a > b = a | otherwise = b-}
 
 myCompare :: (Ord a) => a -> a -> Ordering
 a `myCompare` b
-        | a > b     = GT
-        | a == b    = EQ
-        | otherwise = LT
+    | a > b     = GT
+    | a == b    = EQ
+    | otherwise = LT
 
 initials :: String -> String -> String
 initials firstname lastname = [f] ++ ". " ++ [l] ++ "."
-        where (f:_) = firstname
-              (l:_) = lastname
+    where (f:_) = firstname
+          (l:_) = lastname
 
 calcBmis :: (RealFloat a) => [(a, a)] -> [a]
 calcBmis xs = [bmi w h | (w, h) <- xs]
-        where bmi weight height = weight / height ^ 2
+    where bmi weight height = weight / height ^ 2
 {-Writing the same function using let binding-}
 {-calcBmis :: (RealFloat a) => [(a, a)] -> [a]-}
 {-calcBmis xs = [bmi | (w, h) <- xs, let bmi = w / h ^ 2]-}
@@ -184,9 +184,9 @@ calcBmis xs = [bmi w h | (w, h) <- xs]
 {-cylinder's surface area based on its height and radius: -}
 cylinder :: (RealFloat a) => a -> a -> a
 cylinder r h =
-        let sideArea = 2 * pi * r * h
-            topArea = pi * r ^ 2
-        in sideArea + 2 * topArea
+    let sideArea = 2 * pi * r * h
+        topArea = pi * r ^ 2
+    in sideArea + 2 * topArea
 
 {-Case expressions-}
 describeList :: [a] -> String
@@ -204,5 +204,61 @@ describeList xs = "The list is " ++ case xs of [] -> "empty."
  - Chapter 5
  -
  - RECURSION
+ -
+-}
+
+maximum' :: (Ord a) => [a] -> a
+maximum' [] = error "maximum of empty list"
+maximum' [x] = x
+maximum' (x:xs)
+    | x > maxTail = x
+    | otherwise = maxTail
+    where maxTail = maximum' xs
+{-rewriting maximum using max function-}
+{-maximum' :: (Ord a) => [a] -> a-}
+{-maximum' [] = error "maximum of empty list"-}
+{-maximum' [x] = x-}
+{-maximum' (x:xs) = max x (maximum' xs)-}
+
+replicate' :: (Num i, Ord i) => i -> a -> [a]  
+replicate' n x  
+    | n <= 0    = []  
+    | otherwise = x:replicate' (n-1) x
+
+take' :: (Num i, Ord i) => i -> [a] -> [a]
+take' n _
+    | n <= 0   = []
+take' _ []     = []
+take' n (x:xs) = x : take' (n-1) xs
+
+reverse' :: [a] -> [a]
+reverse' [] = []
+reverse' (x:xs) = reverse' xs ++ [x]
+
+repeat' :: a -> [a]
+repeat' x = x:repeat' x
+
+zip' :: [a] -> [b] -> [(a,b)]
+zip' _ [] = []
+zip' [] _ = []
+zip' (x:xs) (y:ys) = (x,y):zip' xs ys
+
+elem' :: (Eq a) => a -> [a] -> Bool
+elem' a [] = False
+elem' a (x:xs)
+    | a == x    = True
+    | otherwise = a `elem'` xs
+
+quicksort' :: (Ord a) => [a] -> [a]
+quicksort' [] = []
+quicksort' (x:xs) =
+    let smallerSorted = quicksort' [a | a <- xs, a <= x]
+        biggerSorted = quicksort' [a | a <- xs, a > x]
+    in smallerSorted ++ [x] ++ biggerSorted
+
+{-
+ - Chapter 6
+ -
+ - HIGHER ORDER FUNCTIONS
  -
 -}

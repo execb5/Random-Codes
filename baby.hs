@@ -262,3 +262,170 @@ quicksort' (x:xs) =
  - HIGHER ORDER FUNCTIONS
  -
 -}
+
+{-Every function in Haskell officially only takes one parameter. So how is it-}
+{-possible that we defined and used several functions that take more than one-}
+{-parameter so far? Well, it's a clever trick! All the functions that accepted-}
+{-several parameters so far have been curried functions. What does that mean?-}
+{-You'll understand it best on an example. Let's take our good friend, the max-}
+{-function. It looks like it takes two parameters and returns the one that's-}
+{-bigger. Doing max 4 5 first creates a function that takes a parameter and-}
+{-returns either 4 or that parameter, depending on which is bigger. Then, 5 is-}
+{-applied to that function and that function produces our desired result. That-}
+{-sounds like a mouthful but it's actually a really cool concept. The following-}
+{-two calls are equivalent:Every function in Haskell officially only takes one-}
+{-parameter. So how is it possible that we defined and used several functions that-}
+{-take more than one parameter so far? Well, it's a clever trick! All the-}
+{-functions that accepted several parameters so far have been curried functions.-}
+{-What does that mean? You'll understand it best on an example. Let's take our-}
+{-good friend, the max function. It looks like it takes two parameters and returns-}
+{-the one that's bigger. Doing max 4 5 first creates a function that takes a-}
+{-parameter and returns either 4 or that parameter, depending on which is bigger.-}
+{-Then, 5 is applied to that function and that function produces our desired-}
+{-result. That sounds like a mouthful but it's actually a really cool concept. The-}
+{-following two calls are equivalent:-}
+{-max 4 5-}
+{-5-}
+{-(max 4) 5-}
+{-5-}
+
+multThree :: (Num a) => a -> a -> a -> a
+multThree x y z = x * y * z
+
+compareWithHundred :: (Num a, Ord a) => a -> Ordering  
+compareWithHundred x = compare 100 x
+{-If we call it with 99, it returns a GT. Simple stuff. Notice that the x is on-}
+{-the right hand side on both sides of the equation. Now let's think about what-}
+{-compare 100 returns. It returns a function that takes a number and compares it-}
+{-with 100. Wow! Isn't that the function we wanted? We can rewrite this as:-}
+compareWithHundred' :: (Num a, Ord a) => a -> Ordering
+compareWithHundred' = compare 100
+{-The type declaration stays the same, because compare 100 returns a function.-}
+{-Compare has a type of (Ord a) => a -> (a -> Ordering) and calling it with 100-}
+{-returns a (Num a, Ord a) => a -> Ordering. The additional class constraint-}
+{-sneaks up there because 100 is also part of the Num typeclass.-}
+
+{-Infix functions can also be partially applied by using sections. To section an-}
+{-infix function, simply surround it with parentheses and only supply a parameter-}
+{-on one side. That creates a function that takes one parameter and then applies-}
+{-it to the side that's missing an operand. An insultingly trivial function:-}
+divideByTen :: (Floating a) => a -> a
+divideByTen = (/10)
+
+isUpperAlphanum :: Char -> Bool
+isUpperAlphanum = (`elem` ['A'..'Z'])
+
+{-Functions can take functions as parameters and also return functions. To-}
+{-illustrate this, we're going to make a function that takes a function and then-}
+{-applies it twice to something!-}
+applyTwice :: (a -> a) -> a -> a
+applyTwice f x = f (f x)
+
+zipWith' :: (a -> b -> c) -> [a] -> [b] -> [c]
+zipWith' _ [] _ = []
+zipWith' _ _ [] = []
+zipWith' f (x:xs) (y:ys) = f x y : zipWith' f xs ys
+
+flip' :: (a -> b -> c) -> (b -> a -> c)
+flip' f = g
+    where g x y = f y x
+
+flip'' :: (a -> b -> c) -> b -> a -> c
+flip'' f y x = f x y
+
+map' :: (a -> b) -> [a] -> [b]
+map' _ [] = []
+map' f (x:xs) = f x : map f xs
+
+filter' :: (a -> Bool) -> [a] -> [a]
+filter' _ [] = []
+filter' p (x:xs)
+    | p x       = x : filter p xs
+    | otherwise = filter' p xs
+
+largestDivisible :: (Integral a) => a
+largestDivisible = head (filter' p [100000,99999..])
+    where p x = mod x 3829 == 0
+
+chain :: (Integral a) => a -> [a]
+chain 1 = [1]
+chain n
+    | even n = n:chain (div n 2)
+    | odd n  = n:chain (n*3 + 1)
+
+numLongChains :: Int
+{-numLongChains = length (filter isLong (map chain [1..100]))-}
+    {-where isLong xs = length xs > 15-}
+numLongChains = length (filter (\xs -> length xs > 15) (map chain [1..100]))
+
+addThree' :: (Num a) => a -> a -> a -> a
+addThree' = \x -> \y -> \z -> x + y + z
+
+flip''' :: (a -> b -> c) -> b -> a -> c
+flip''' f = \x y -> f y x
+
+sum'' :: (Num a) => [a] -> a
+sum'' xs = foldl (\acc x -> acc + x) 0 xs
+
+sum''' :: (Num a) => [a] -> a
+sum''' = foldl (+) 0
+
+elem'' :: (Eq a) => a -> [a] -> Bool
+elem'' y ys = foldl (\acc x -> if x == y then True else acc) False ys
+
+map'' :: (a -> b) -> [a] -> [b]
+map'' f xs = foldr (\x acc -> f x : acc) [] xs
+
+maximum'' :: (Ord a) => [a] -> a
+maximum'' = foldr1 (\x acc -> if x > acc then x else acc)
+
+reverse'' :: [a] -> [a]
+reverse'' = foldl (\acc x -> x : acc) []
+
+product' :: (Num a) => [a] -> a
+product' = foldr1 (*)
+
+filter'' :: ( a -> Bool) -> [a] -> [a]
+filter'' p = foldr (\x acc -> if p x then x : acc else acc) []
+
+head'' :: [a] -> a
+head'' = foldr1 (\x _ -> x)
+
+last' :: [a] -> a
+last' = foldl1 (\_ x -> x)
+
+{-How many elements does it take for the sum of the roots of all natural numbers-}
+{-to exceed 1000?-}
+sqrtSums :: Int
+sqrtSums = length (takeWhile (<1000) (scanl1 (+) (map sqrt [1..]))) + 1
+
+{-Function application with $-}
+{-$ has low precedence-}
+{-f (g (z x)) == f $ g $ z x-}
+{-map ($ 3) [(4+), (10*), (^2), sqrt]-}
+
+{-Function composition-}
+{-fn x = ceiling (negate (tan (cos (max 50 x))))-}
+fn = ceiling . negate . tan . cos . max 50 --point free style
+
+{-Function that finds the sum of all odd squares that are smaller than 10000-}
+{-oddSquareSum :: Integer-}
+{-oddSquareSum = sum (takeWhile (<10000) (filter odd (map (^2) [1..])))-}
+
+{-Same function but in point free style-}
+{-oddSquareSum :: Integer-}
+{-oddSquareSum = sum . takeWhile (<10000) . filter odd . map (^2) $ [1..]-}
+
+{-Same function but written so that it is easier to understand-}
+oddSquareSum :: Integer
+oddSquareSum =
+    let oddSquares = filter odd $ map (^2) [1..]
+        belowLimit = takeWhile (<10000) oddSquares
+    in  sum belowLimit
+
+{-
+ - Chapter 7
+ -
+ - MODULES
+ -
+-}

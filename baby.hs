@@ -5,6 +5,13 @@
 --
 -- God bless the internet
 
+--imports... only needed after chapter 7
+import Data.List
+--import Data.List (nub,sort) use like this to import only those functions
+--import Data.List hiding (nub) import all functions except nub
+import qualified Data.Map as M
+--qualified makes us reference Data.Map when we call its functions
+--as M is just a rename so that we don't have to type Data.Map everytime
 
 {-
  - Chapter 2
@@ -429,3 +436,11 @@ oddSquareSum =
  - MODULES
  -
 -}
+
+numUniques :: (Eq a) => [a] -> Int
+numUniques = length . nub
+
+search :: (Eq a) => [a] -> [a] -> Bool
+search needle haystack =
+    let nlen = length needle
+    in foldl (\acc x -> if take nlen x == needle then True else acc) False (tails haystack)

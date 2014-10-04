@@ -10,8 +10,6 @@
  - Find the sum of all the multiples of 3 or 5 below 1000.
 -}
 
-{-problem 1 = sum [x | x <- [1..999], mod x 3 == 0 || mod x 5 == 0]-}
-
 {-
  - Problem 2
  -
@@ -26,8 +24,6 @@
 
 fibs = 1 : 1 : zipWith (+) fibs (tail fibs)
 
-{-problem 2 = sum [x | x <- takeWhile (< 4000000) fibs, even x]-}
-
 {-
  - Problem 3
  -
@@ -38,18 +34,16 @@ fibs = 1 : 1 : zipWith (+) fibs (tail fibs)
  - What is the largest prime factor of the number 600851475143 ?
 -}
 
+largestPrimeFactor n =
+    let
+        p = smallestPrimeFactor n
+    in
+        if p == n then p
+        else largestPrimeFactor (div n p)
 
-primes = 2 : filter (null . tail . primeFactors) [3,5..]
+smallestPrimeFactor n = head [k | k <- [2..n], mod n k == 0]
 
-primeFactors n = factor n primes
-    where
-        factor n (x:xs)
-            | x*x > n      = [x]
-            | mod n x == 0 = x : factor (div n x) (x:xs)
-            | otherwise    = factor n xs
-
-{-problem 3 = last (primeFactors 600851475143)-}
 
 problem 1 = sum [x | x <- [1..999], mod x 3 == 0 || mod x 5 == 0]
 problem 2 = sum [x | x <- takeWhile (< 4000000) fibs, even x]
-problem 3 = last (primeFactors 600851475143)
+problem 3 = largestPrimeFactor (600851475143 :: Integer)

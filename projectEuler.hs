@@ -10,6 +10,8 @@
  - Find the sum of all the multiples of 3 or 5 below 1000.
 -}
 
+problem_1 = sum [x | x <- [1..999], mod x 3 == 0 || mod x 5 == 0]
+
 {-
  - Problem 2
  -
@@ -22,7 +24,9 @@
  - four million, find the sum of the even-valued terms.
 -}
 
-fibs = 1 : 1 : zipWith (+) fibs (tail fibs)
+fib = 1 : 1 : zipWith (+) fib (tail fib)
+
+problem_2 = sum [x | x <- takeWhile (< 4000000) fib, even x]
 
 {-
  - Problem 3
@@ -34,7 +38,26 @@ fibs = 1 : 1 : zipWith (+) fibs (tail fibs)
  - What is the largest prime factor of the number 600851475143 ?
 -}
 
+lPF :: Integer -> Integer
+lPF x =
+    let
+        z = sPF x
+    in
+        if x == z then z else lPF (div x z)
+
+sPF x = head [k | k <- [2..x], mod x k == 0]
+
+problem_3 = lPF (600851475143 :: Integer)
 
 
-problem 1 = sum [x | x <- [1..999], mod x 3 == 0 || mod x 5 == 0]
-problem 2 = sum [x | x <- takeWhile (< 4000000) fibs, even x]
+
+{-
+ - Problem 4
+ -
+ - Largest palindrome product
+ - 
+ - A palindromic number reads the same both ways. The largest palindrome made from
+ - the product of two 2-digit numbers is 9009 = 91 × 99.
+ - 
+ - Find the largest palindrome made from the product of two 3-digit numbers.
+-}

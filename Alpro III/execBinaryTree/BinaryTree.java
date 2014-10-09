@@ -217,16 +217,25 @@ public class BinaryTree {
 
 	public boolean hasRep()
 	{
-		return hasRepAux(root, root.data);
+		return hasRepAux(root);
 	}
 
-	private boolean hasRepAux(Node node, int valor)
+	private boolean hasRepAux(Node node)
 	{
-		if (node == null)
-			return false;
-		if (node.data == valor)
-			return true;
-		boolean resposta = hasRepAux(node.left, node.data) || hasRepAux(node.right, node.data) || hasRepAux(node.left, node.left.data) || hasRepAux(node.right, node.right.data);
-		return resposta;
+                if (node == null)
+                        return false;
+                boolean a = anotherHasRepAux(node.left, node.data) || anotherHasRepAux(node.right, node.data);
+                if (a)
+                        return a;
+                return hasRepAux(node.left) || hasRepAux(node.right);
 	}
+
+        private boolean anotherHasRepAux(Node node, int value)
+        {
+                if (node == null)
+                        return false;
+                if (node.data == value)
+                        return true;
+                return anotherHasRepAux(node.left, value) || anotherHasRepAux(node.right, value);
+        }
 }

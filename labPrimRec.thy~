@@ -84,30 +84,6 @@ primrec depth::"'a btree => int" where
 
 value "depth (br 3 leaf leaf)"
 
-primrec inorder::"'a btree => 'a List" where
-  "inorder leaf = nil" |
-  "inorder (br x left right) = cat (inorder left) (cons x (inorder right))"
-
-value "inorder (br (3::int) (br 4 (br 6 leaf leaf) leaf) (br 5 leaf leaf))"
-
-primrec postorder::"'a btree => 'a List" where
-  "postorder leaf = nil" |
-  "postorder (br x left right) = cat (postorder left) (cat (postorder right) (cons x nil))"
-
-value "postorder (br (3::int) (br 4 (br 6 leaf leaf) leaf) (br 5 leaf leaf))"
-
-primrec preorder::"'a btree => 'a List" where
-  "preorder leaf = nil" |
-  "preorder (br x left right) = cons x (cat (preorder left) (preorder right))"
-
-value "preorder (br (3::int) (br 4 (br 6 leaf leaf) leaf) (br 5 leaf leaf))"
-
-primrec reflect::"'a btree => 'a btree" where
-  "reflect leaf = leaf" |
-  "reflect (br x left right) = (br x (reflect right) (reflect left))"
-
-value "reflect (br (3::int) (br 4 leaf leaf) (br 5 leaf leaf))"
-
 text{* Exercício 05 *}
 
 datatype boolex = Const bool | Var nat | Neg boolex | And boolex boolex

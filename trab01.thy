@@ -25,8 +25,8 @@ value "len (cons (10::int) (cons 3 (cons -2 nil)))"
 value "len (cons (suc Z) (cons Z nil))"
 
 primrec cat::"'a List => 'a List => 'a List" where
-  "cat nil list= list" |
-  "cat (cons e list1) list2 = (cons e (cat list1 list2))"
+  cat01: "cat nil list= list" |
+  cat02: "cat (cons e list1) list2 = (cons e (cat list1 list2))"
 
 value "cat (cons (10::int) (cons 3 (cons -2 nil))) nil"
 value "cat (cons (3::int) (cons -2 nil)) (cons 10 (cons 3( cons 4 nil)))"
@@ -85,14 +85,70 @@ primrec reflect::"'a btree => 'a btree" where
 
 value "reflect (br (3::int) (br 4 leaf leaf) (br 5 leaf leaf))"
 
+theorem catAssociativity: "\<forall> l2 l3. cat l (cat l2 l3) = cat (cat l l2) l3"
+  proof (induction l)
+    show "\<forall> (l2::'a List) l3. cat nil (cat l2 l3) = cat (cat nil l2) l3"
+      proof (rule allI, rule allI)
+        fix k::"'a List" and  m::"'a List"
+        have         "cat nil (cat k m) = cat k m"           by (simp only:cat01)
+        also have              "cat k m = cat (cat nil k) m" by (simp only:cat01)
+        finally show "cat nil (cat k m) = cat (cat nil k) m" by this
+      qed  
+      next
+        fix e0::'a and l0::"'a List"
+        assume IH: "\<forall> l2 l3. cat l0 (cat l2 l3) = cat (cat l0 l2) l3"
+        show "\<forall> l2 l3. cat (cons e0 l0) (cat l2 l3) = cat (cat (cons e0 l0) l2) l3"       
+          proof (rule allI, rule allI)
+            fix k and m
+            have         "cat (cons e0 l0) (cat k m) = cons e0 (cat l0  (cat k m))" by (simp only:cat02)
+            also have    "cons e0 (cat l0 (cat k m)) = cons e0 (cat (cat l0 k) m)"  by (simp only:IH)
+            also have    "cons e0 (cat (cat l0 k) m) = cat (cons e0 (cat l0 k)) m"  by (simp only:cat02)
+            also have    "cat (cons e0 (cat l0 k)) m = cat (cat (cons e0 l0) k) m"  by (simp only:cat02)
+            finally show "cat (cons e0 l0) (cat k m) = cat (cat (cons e0 l0) k) m"  by simp
+          qed  
+      qed
+
+theorem catLNil: "cat nil l = cat l nil"
+  proof (induction l)
+    show "cat nil nil = cat nil nil"
+      proof -
+        have         "cat nil nil = nil"         by (simp only: cat01)
+        also have            "... = cat nil nil" by (simp only: cat01)
+        finally show "cat nil nil = cat nil nil" by this
+      qed
+      next
+        fix e::'a and l::"'a List"
+        assume IH: "cat nil l = cat l nil"
+        show "cat nil (cons e l) = cat (cons e l) nil"
+          proof -
+            have         "cat nil (cons e l) = cons e l"           by (simp only: cat01)
+            also have                   "... = cons e (cat nil l)" by (simp only: cat01)
+            also have                   "... = cons e (cat l nil)" by (simp only: IH)
+            also have                   "... = cat (cons e l) nil" by (simp only: cat02)
+            finally show "cat nil (cons e l) = cat (cons e l) nil" by this
+          qed
+      qed
+
+theorem crazyRev: "\<forall> l2. revert (cat l l2) = cat (revert l2) (revert l)"
+  proof (induction l)
+    show "\<forall> l2. revert (cat nil l2) = cat (revert l2) (revert nil)"
+      proof (rule allI)
+        fix l::"'a List"
+        have         "revert (cat nil l) = revert l"                    by (simp only: cat01)
+        also have                   "... = cat nil (revert l)"          by (simp only: cat01)
+        also have                   "... = cat (revert l) nil"          by (simp only: catLNil)
+        also have                   "... = cat (revert l) (revert nil)" by (simp only: rev01)
+        finally show "revert (cat nil l) = cat (revert l) (revert nil)" by this
+      oops
+
 theorem th01: "postorder (reflect x) = revert (preorder x)"
   proof (induction x)
     show "postorder (reflect leaf) = revert (preorder leaf)"
       proof -
-        have "postorder (reflect leaf) = postorder leaf" by (simp only: re01)
-        also have "... = nil" by (simp only: pos01)
-        also have "... = revert nil" by (simp only: rev01)
-        also have "... = revert (preorder leaf)" by (simp only: pre01)
+        have         "postorder (reflect leaf) = postorder leaf"         by (simp only: re01)
+        also have                         "... = nil"                    by (simp only: pos01)
+        also have                         "... = revert nil"             by (simp only: rev01)
+        also have                         "... = revert (preorder leaf)" by (simp only: pre01)
         finally show "postorder (reflect leaf) = revert (preorder leaf)" by this
       qed
       next
@@ -101,8 +157,12 @@ theorem th01: "postorder (reflect x) = revert (preorder x)"
         assume IH2: "postorder (reflect right) = revert (preorder right)"
         show "postorder (reflect (br x left right)) = revert (preorder (br x left right))"
           proof -
-            
-          qed
-oops
+            have "postorder (reflect (br x left right)) = postorder (br x (reflect right) (reflect left))"                               by (simp only: re02)
+            also have                              "... = cat (postorder (reflect right)) (cat (postorder (reflect left)) (cons x nil))" by (simp only: pos02)
+            also have                              "... = cat (revert (preorder right)) (cat (postorder (reflect left)) (cons x nil))"   by (simp only: IH2)
+            also have                              "... = cat (revert (preorder right)) (cat (revert (preorder left)) (cons x nil))"     by (simp only: IH1)
+            also have                              "... = cat (cat (revert (preorder right)) (revert (preorder left))) (cons x nil)"     by (simp only: catAssociativity)
+          oops
+
 
 end

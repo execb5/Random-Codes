@@ -12,6 +12,9 @@ import Data.Char
 --import Data.List hiding (nub) import all functions except nub
 import qualified Data.Map as Map
 import qualified Data.Set as Set
+import qualified Geometry.Sphere as Sphere  
+import qualified Geometry.Cuboid as Cuboid  
+import qualified Geometry.Cube as Cube
 --qualified makes us reference Data.Map when we call its functions
 --as M is just a rename so that we don't have to type Data.Map everytime
 
@@ -485,3 +488,13 @@ phoneBookToMap xs = Map.fromListWith (\number1 number2 -> number1 ++ ", " ++ num
 
 phoneBookToMap' :: (Ord k) => [(k, a)] -> Map.Map k [a]  
 phoneBookToMap' xs = Map.fromListWith (++) $ map (\(k,v) -> (k,[v])) xs
+
+text1 = "I just had an anime dream. Anime... Reality... Are they so different?"  
+text2 = "The old man left his garbage can out and now his trash is all over my lawn!"
+
+{-
+ - Chapter 8
+ -
+ - MAKING OUR OWN TYPES AND TYPECLASSES
+ -
+-}

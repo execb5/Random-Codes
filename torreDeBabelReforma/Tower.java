@@ -13,6 +13,7 @@ public class Tower {
 
         public void insertPath(int floor1, int floor2) {
                 paths[floor1][floor2] = true;
+                paths[floor2][floor1] = true;
         }
 
 
@@ -38,12 +39,12 @@ public class Tower {
         }
 
         private ArrayList<Integer> getNeighbors(int currentNode) {
-                ArrayList<Integer> l = new ArrayList<Integer>(height);
+                ArrayList<Integer> neighbors = new ArrayList<Integer>(height);
                 for (int i = 0; i < height; i++) {
                         if (paths[currentNode][i])
-                                l.add(i);
+                                neighbors.add(i);
                 }
-                return l;
+                return neighbors;
         }
 
         public int getHeight(){

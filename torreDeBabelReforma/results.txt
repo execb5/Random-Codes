@@ -1,0 +1,140 @@
+Testing file: testFiles/testFile
+File read: testFiles/testFileIs it possible to go from 0 to 6? true
+0ms
+
+
+Testing file: testFiles/c100010
+File read: testFiles/c100010Is it possible to go from 970 to 119? false
+1ms
+
+
+Testing file: testFiles/c100012
+File read: testFiles/c100012Is it possible to go from 500 to 303? true
+14ms
+
+
+Testing file: testFiles/c100014
+File read: testFiles/c100014Is it possible to go from 746 to 23? false
+0ms
+
+
+Testing file: testFiles/c100016
+File read: testFiles/c100016Is it possible to go from 752 to 914? false
+337ms
+
+
+Testing file: testFiles/c100018
+File read: testFiles/c100018Is it possible to go from 655 to 87? true
+3ms
+
+
+Testing file: testFiles/c100020
+File read: testFiles/c100020Is it possible to go from 139 to 527? false
+0ms
+
+
+Testing file: testFiles/c100024
+File read: testFiles/c100024Is it possible to go from 871 to 728? true
+45ms
+
+
+Testing file: testFiles/c20010
+File read: testFiles/c20010Is it possible to go from 4 to 188? false
+5ms
+
+
+Testing file: testFiles/c20012
+File read: testFiles/c20012Is it possible to go from 61 to 24? true
+1ms
+
+
+Testing file: testFiles/c20014
+File read: testFiles/c20014Is it possible to go from 120 to 142? true
+1ms
+
+
+Testing file: testFiles/c2008
+File read: testFiles/c2008Is it possible to go from 152 to 14? false
+0ms
+
+
+Testing file: testFiles/c40010
+File read: testFiles/c40010Is it possible to go from 289 to 193? true
+1ms
+
+
+Testing file: testFiles/c40012
+File read: testFiles/c40012Is it possible to go from 353 to 391? false
+19ms
+
+
+Testing file: testFiles/c40014
+File read: testFiles/c40014Is it possible to go from 198 to 300? true
+2ms
+
+
+Testing file: testFiles/c40016
+File read: testFiles/c40016Is it possible to go from 360 to 146? false
+34ms
+
+
+Testing file: testFiles/c60010
+File read: testFiles/c60010Is it possible to go from 89 to 562? false
+16ms
+
+
+Testing file: testFiles/c60012
+File read: testFiles/c60012Is it possible to go from 367 to 329? false
+0ms
+
+
+Testing file: testFiles/c60014
+File read: testFiles/c60014Is it possible to go from 42 to 466? true
+14ms
+
+
+Testing file: testFiles/c60016
+File read: testFiles/c60016Is it possible to go from 470 to 353? true
+4ms
+
+
+Testing file: testFiles/c60018
+File read: testFiles/c60018Is it possible to go from 479 to 485? false
+0ms
+
+
+Testing file: testFiles/c80012
+File read: testFiles/c80012Is it possible to go from 347 to 717? false
+0ms
+
+
+Testing file: testFiles/c80014
+File read: testFiles/c80014Is it possible to go from 655 to 296? false
+0ms
+
+
+Testing file: testFiles/c80016
+File read: testFiles/c80016Is it possible to go from 614 to 227? true
+111ms
+
+
+Testing file: testFiles/c80018
+File read: testFiles/c80018Is it possible to go from 348 to 714? true
+7ms
+
+
+Testing file: testFiles/c80020
+File read: testFiles/c80020Is it possible to go from 237 to 747? false
+0ms
+
+
+Testing file: testFiles/c80022
+File read: testFiles/c80022Is it possible to go from 668 to 77? false
+0ms
+
+
+Testing file: testFiles/c80024
+File read: testFiles/c80024Is it possible to go from 678 to 449? true
+6ms
+
+

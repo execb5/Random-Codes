@@ -1,7 +1,8 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.HashSet;
 
-public class Main {
+public class MarinaMain {
         public static void main(String[] args) {
                 testFile("testFiles/testFile");
                 testFile("testFiles/c100010");
@@ -39,7 +40,9 @@ public class Main {
                         BufferedReader br = new BufferedReader(new
                                         FileReader(name));
                         String[] parts = br.readLine().split(" ");
-                        Tower t = new Tower(Integer.parseInt(parts[0]));
+                        MarinaTower t = new
+                                MarinaTower(Integer.parseInt(parts[0]),
+                                                Integer.parseInt(parts[1]));
                         parts = br.readLine().split(" ");
                         int whereIam = Integer.parseInt(parts[0]);
                         int whereIWannaGo = Integer.parseInt(parts[1]);
@@ -49,12 +52,15 @@ public class Main {
                                 int baseFloor = Integer.parseInt(parts[0]);
                                 int eStep = Integer.parseInt(parts[1]);
                                 int nextFloor = baseFloor + eStep;
+                                HashSet<Integer> elevator = new HashSet<Integer>();
+                                elevator.add(baseFloor);
                                 while (nextFloor < t.getHeight()) {
-                                        t.insertPath(baseFloor, nextFloor);
-                                        baseFloor = nextFloor;
-                                        nextFloor = nextFloor + eStep;
+                                        elevator.add(nextFloor);
+                                        nextFloor += eStep;
                                 }
+                                t.addElevator(elevator);
                         }
+                        //System.out.println(t.toString());
                         long begin = System.currentTimeMillis();
                         boolean answer = t.isItPossible(whereIam,
                                         whereIWannaGo);

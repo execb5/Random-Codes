@@ -5,13 +5,13 @@
 --
 -- God bless the internet
 
-module Shapes   
-( Point(..)  
-, Shape(..)  
-, surface  
-, nudge  
-, baseCircle  
-, baseRect  
+module Shapes
+( Point(..)
+, Shape(..)
+, surface
+, nudge
+, baseCircle
+, baseRect
 ) where
 
 --imports... only needed after chapter 7
@@ -21,8 +21,8 @@ import Data.Char
 --import Data.List hiding (nub) import all functions except nub
 import qualified Data.Map as Map
 import qualified Data.Set as Set
-import qualified Geometry.Sphere as Sphere  
-import qualified Geometry.Cuboid as Cuboid  
+import qualified Geometry.Sphere as Sphere
+import qualified Geometry.Cuboid as Cuboid
 import qualified Geometry.Cube as Cube
 --qualified makes us reference Data.Map when we call its functions
 --as M is just a rename so that we don't have to type Data.Map everytime
@@ -94,12 +94,12 @@ lucky :: (Integral a) => a -> String
 lucky 7 = "LUCKY NUMBER SEVEN!"
 lucky x = "Sorry, you're out of luck, pal!"
 
-sayMe :: (Integral a) => a -> String  
-sayMe 1 = "One!"  
-sayMe 2 = "Two!"  
-sayMe 3 = "Three!"  
-sayMe 4 = "Four!"  
-sayMe 5 = "Five!"  
+sayMe :: (Integral a) => a -> String
+sayMe 1 = "One!"
+sayMe 2 = "Two!"
+sayMe 3 = "Three!"
+sayMe 4 = "Four!"
+sayMe 5 = "Five!"
 sayMe x = "Not between 1 and 5"
 
 charName :: Char -> String
@@ -241,9 +241,9 @@ maximum' (x:xs)
 {-maximum' [x] = x-}
 {-maximum' (x:xs) = max x (maximum' xs)-}
 
-replicate' :: (Num i, Ord i) => i -> a -> [a]  
-replicate' n x  
-    | n <= 0    = []  
+replicate' :: (Num i, Ord i) => i -> a -> [a]
+replicate' n x
+    | n <= 0    = []
     | otherwise = x:replicate' (n-1) x
 
 take' :: (Num i, Ord i) => i -> [a] -> [a]
@@ -313,7 +313,7 @@ quicksort' (x:xs) =
 multThree :: (Num a) => a -> a -> a -> a
 multThree x y z = x * y * z
 
-compareWithHundred :: (Num a, Ord a) => a -> Ordering  
+compareWithHundred :: (Num a, Ord a) => a -> Ordering
 compareWithHundred x = compare 100 x
 {-If we call it with 99, it returns a GT. Simple stuff. Notice that the x is on-}
 {-the right hand side on both sides of the equation. Now let's think about what-}
@@ -468,7 +468,7 @@ encode shift msg =
 decode :: Int -> String -> String
 decode shift msg = encode (negate shift) msg
 
-phoneBook = 
+phoneBook =
     [
         ("betty", "555-2938"),
         ("betty","342-2492"),
@@ -495,10 +495,10 @@ fromList' = foldr (\(k,v) acc -> Map.insert k v acc) Map.empty
 phoneBookToMap :: (Ord k) => [(k, String)] -> Map.Map k String
 phoneBookToMap xs = Map.fromListWith (\number1 number2 -> number1 ++ ", " ++ number2) xs
 
-phoneBookToMap' :: (Ord k) => [(k, a)] -> Map.Map k [a]  
+phoneBookToMap' :: (Ord k) => [(k, a)] -> Map.Map k [a]
 phoneBookToMap' xs = Map.fromListWith (++) $ map (\(k,v) -> (k,[v])) xs
 
-text1 = "I just had an anime dream. Anime... Reality... Are they so different?"  
+text1 = "I just had an anime dream. Anime... Reality... Are they so different?"
 text2 = "The old man left his garbage can out and now his trash is all over my lawn!"
 
 {-
@@ -514,21 +514,21 @@ text2 = "The old man left his garbage can out and now his trash is all over my l
 {-surface (Circle _ _ r) = pi * r ^ 2-}
 {-surface (Rectangle x1 y1 x2 y2) = (abs $ x2 - x1) * (abs $ y2 - y1)-}
 
-data Point = Point Float Float deriving (Show)  
+data Point = Point Float Float deriving (Show)
 data Shape = Circle Point Float | Rectangle Point Point deriving (Show)
 
-surface :: Shape -> Float  
-surface (Circle _ r) = pi * r ^ 2  
+surface :: Shape -> Float
+surface (Circle _ r) = pi * r ^ 2
 surface (Rectangle (Point x1 y1) (Point x2 y2)) = (abs $ x2 - x1) * (abs $ y2 - y1)
 
-nudge :: Shape -> Float -> Float -> Shape  
-nudge (Circle (Point x y) r) a b = Circle (Point (x+a) (y+b)) r  
+nudge :: Shape -> Float -> Float -> Shape
+nudge (Circle (Point x y) r) a b = Circle (Point (x+a) (y+b)) r
 nudge (Rectangle (Point x1 y1) (Point x2 y2)) a b = Rectangle (Point (x1+a) (y1+b)) (Point (x2+a) (y2+b))
 
-baseCircle :: Float -> Shape  
+baseCircle :: Float -> Shape
 baseCircle r = Circle (Point 0 0) r
 
-baseRect :: Float -> Float -> Shape  
+baseRect :: Float -> Float -> Shape
 baseRect width height = Rectangle (Point 0 0) (Point width height)
 
 --Record Syntax
@@ -538,29 +538,29 @@ baseRect width height = Rectangle (Point 0 0) (Point width height)
 
 {-firstName :: Person -> String  -}
 {-firstName (Person firstname _ _ _ _ _) = firstname  -}
-  
+
 {-lastName :: Person -> String  -}
 {-lastName (Person _ lastname _ _ _ _) = lastname  -}
-  
+
 {-age :: Person -> Int  -}
 {-age (Person _ _ age _ _ _) = age  -}
-  
+
 {-height :: Person -> Float  -}
 {-height (Person _ _ _ height _ _) = height  -}
-  
+
 {-phoneNumber :: Person -> String  -}
 {-phoneNumber (Person _ _ _ _ number _) = number  -}
-  
+
 {-flavor :: Person -> String  -}
 {-flavor (Person _ _ _ _ _ flavor) = flavor-}
 
 --with record syntax
-data Person = Person { firstName :: String  
-                     , lastName :: String  
-                     , age :: Int  
-                     , height :: Float  
-                     , phoneNumber :: String  
-                     , flavor :: String  
+data Person = Person { firstName :: String
+                     , lastName :: String
+                     , age :: Int
+                     , height :: Float
+                     , phoneNumber :: String
+                     , flavor :: String
                      } deriving (Show)
 
 {-data Car = Car String String Int deriving (Show)-}
@@ -573,18 +573,18 @@ data Car = Car {company :: String, model :: String, year :: Int} deriving (Show)
 {-ghci> Car {company="Ford", model="Mustang", year=1967}  -}
 {-Car {company = "Ford", model = "Mustang", year = 1967}-}
 
-tellCar :: Car -> String  
+tellCar :: Car -> String
 tellCar (Car {company = c, model = m, year = y}) = "This " ++ c ++ " " ++ m ++ " was made in " ++ show y
 
-data Vector a = Vector a a a deriving (Show)  
-  
-vplus :: (Num t) => Vector t -> Vector t -> Vector t  
-(Vector i j k) `vplus` (Vector l m n) = Vector (i+l) (j+m) (k+n)  
-  
-vectMult :: (Num t) => Vector t -> t -> Vector t  
-(Vector i j k) `vectMult` m = Vector (i*m) (j*m) (k*m)  
-  
-scalarMult :: (Num t) => Vector t -> Vector t -> t  
+data Vector a = Vector a a a deriving (Show)
+
+vplus :: (Num t) => Vector t -> Vector t -> Vector t
+(Vector i j k) `vplus` (Vector l m n) = Vector (i+l) (j+m) (k+n)
+
+vectMult :: (Num t) => Vector t -> t -> Vector t
+(Vector i j k) `vectMult` m = Vector (i*m) (j*m) (k*m)
+
+scalarMult :: (Num t) => Vector t -> Vector t -> t
 (Vector i j k) `scalarMult` (Vector l m n) = i*l + j*m + k*n
 
 -- Derived Instances
